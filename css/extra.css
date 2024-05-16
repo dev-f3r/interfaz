@@ -1,0 +1,130 @@
+.btns-mas-menos {
+    grid-row: 8/span 3;
+    grid-column: 5/span 1;
+    flex-direction: column;
+    justify-content: space-between;
+    z-index: 250;
+    outline: 0;
+}
+
+/* * Estilos de consola  comienzo*/
+.item-grilla.consola-container {
+    display: grid;
+    grid-template-rows: 1fr 2.5fr 1fr;
+    grid-template-columns: 1fr 6fr 1fr;
+    align-items: center;
+    justify-items: center;
+    overflow: hidden;
+}
+
+.consola-item.texto {
+    margin: 0;
+    grid-row: 2;
+    grid-column: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+#derechaBtn,
+#izquierdaBtn {
+    display: none;
+}
+
+#arribaBtn,
+#abajoBtn {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#arribaBtn svg,
+#abajoBtn svg {
+    height: max-content;
+    width: 25px;
+}
+
+#arribaBtn svg {
+    transform: translateY(-5px);
+}
+#abajoBtn svg {
+    transform: translateY(5px);
+}
+
+#derechaBtn {
+    grid-column: 3;
+    grid-row: 1/ span 3;
+}
+
+#izquierdaBtn {
+    grid-column: 1;
+    grid-row: 1/ span 3;
+}
+
+/* * Estilos de consola  fin*/
+
+/* * Estilos experienciaBtn comienzo*/
+/* #experienciaBtn {
+    border: solid #fff;
+    border-width: calc(45.781px - 41.203px) calc(50.828px - 45.734px) calc(45.781px - 41.203px) calc(50.828px - 45.734px);
+    background: #000;
+    color: #fff;
+} */
+
+/* * Estilos experienciaBtn fin*/
+#experienciaBtn {
+    position: relative;
+}
+
+span.experiencia-item {
+    display: none;
+    position: absolute;
+    bottom: calc(-50%);
+    height: 50%;
+    width: 100%;
+    outline: solid 1.5px #000000;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    font-family: Titillium Web;
+}
+
+
+/* * Estilos de input */
+.contenedor-input {
+    font-family: Titillium Web;
+    display: flex;
+    position: absolute;
+    background-color: #fff;
+    top: 40%;
+    left: 15%;
+    height: 80px;
+    width: 300px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    outline: solid 1.5px #000000;
+    z-index: 1000;
+}
+
+.contenedor-input .exp-input,
+.contenedor-input .comandos-input {
+    outline: solid 1.5px #000000;
+    border: none;
+}
+
+.contenedor-input .input-button {
+    margin-top: 5px;
+    width: 80px;
+    color: #fff;
+    background-color: #000000;
+    border: none;
+}
+
+.item-modalMochila {
+    font-family: Titillium Web;
+}
