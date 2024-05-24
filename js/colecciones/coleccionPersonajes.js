@@ -668,7 +668,7 @@ const avatares = {
     // ! NUEVOS AVATARES HUMANOS DEBEN IR DESPUES DE "nuevopj"
 }
 
-const avataresOcultos = {
+const avatares_ocultos = {
 
     "nigromante": {
         nombre: "nigromante",
@@ -776,8 +776,8 @@ const avataresOcultos = {
     }
 
 }
-export default coleccion_personajes = {
+export const coleccion_personajes = {
     esbirros,
     avatares,
-    avataresOcultos
+    avatares_ocultos,
 }

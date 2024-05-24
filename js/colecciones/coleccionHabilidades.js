@@ -1,4 +1,4 @@
-export default coleccion_habilidades = {
+export const coleccion_habilidades = {
     "machacar": {
         nombre: "machacar",
         coste: 1,

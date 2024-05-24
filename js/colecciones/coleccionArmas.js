@@ -327,7 +327,7 @@ const armas_ocultas = {
     }
 }
 
-export default coleccion_armas = {
+export const coleccion_armas = {
     armas_marciales,
     armas_naturales,
 }

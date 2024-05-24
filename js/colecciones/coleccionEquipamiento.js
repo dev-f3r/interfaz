@@ -1,4 +1,4 @@
-export default coleccion_equipos = {
+export const coleccion_equipos = {
     'nada': {
         nombre: "Nada",
         icono: "img/nada.png",
