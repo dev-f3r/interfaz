@@ -52,11 +52,15 @@ export default class ElementoHTML {
             this._id = id;
             this._clases = clases;
             this._tipo_display = tipo_display;
-
-            // this.construir(this._elemento)
         }
+    }
 
-        // this.evento_click = () => console.log(this._id);
+    /**
+     * Desactiva los eventos del elemento.
+     */
+    desactivar_evento_click() {
+        this._elemento.removeEventListener("click", this._evento_click);
+        this.evento_click = () => {}
     }
 
     /**
@@ -177,20 +181,21 @@ export class BotonModal extends ElementoHTML {
     /**
      * Constructor de la clase Boton. Crea un botón HTML.
      * @param {object} opciones - Objeto que contiene las opciones para el botón.
-     * @param {HTMLElement} opciones.elemento - elemento HTML.
-     * @param {string} opciones.id="" - El identificador del botón.
-     * @param {string[]} opciones.clases=[] - Las clases CSS del botón.
-     * @param {boolean} opciones.mostrar=false - Indica si el botón debe mostrarse (true: visible, false: oculto).
-     * @param {string} opciones.tipo_display="block" - El tipo de display que tomará si decide mostrarse.
-     * @param {Function} opciones.evento_click=()=>{} - La función que se ejecutará cuando se haga clic en el botón.
+     * @param {HTMLElement} opciones.elemento - El boton HTML.
+     * @param {string} opciones.id - El identificador del botón.
+     * @param {string[]} opciones.clases - Las clases CSS del botón.
+     * @param {boolean} opciones.mostrar - Indica si el botón debe mostrarse (true: visible, false: oculto).
+     * @param {string} opciones.tipo_display - El tipo de display que tomará si decide mostrarse.
+     * @param {Function} opciones.evento_click - La función que se ejecutará cuando se haga clic en el botón.
+     * @param {string} opciones.ruta_icono - La ruta del icono.
      */
     constructor({
         elemento = document.createElement("button"),
-        id = "",
-        clases = [],
+        id = "boton_modal_default",
+        clases = ["item-modal"],
         mostrar = false,
         tipo_display = "block",
-        evento_click = () => console.log("click"),
+        evento_click = () => console.log("BotonModal"),
         ruta_icono = "img/nada.png",
     }) {
         super({
@@ -203,12 +208,295 @@ export class BotonModal extends ElementoHTML {
         });
 
         this._icono = document.createElement("img");
+        this._icono.id = `${id}_ico`;
         this._icono.src = ruta_icono;
 
         this.construir(this._elemento);
+    }
+
+    construir(el) {
+        super.construir(el);
         this._elemento.appendChild(this._icono);
     }
 }
 
-// TODO: Clase para modales
+/**
+ * Clase que representa un modal (ventana emergente con un menú de opciones).
+ */
+export class Modal extends ElementoHTML {
+    _titulo;
+
+    _maximo_botones;
+
+    _btn_grales;
+    _btn_cerrar;
+    _btn_especial;
+    _btn_atras;
+    _btn_adelante;
+
+    // TODO: Esto debe ejecutarse luego del metodo this.mostrar_ocultar()
+    static _evento_cerrar = () => console.log("cerrar")
+    
+    _vistas = [];
+    _index_vista = 0;
+
+    /**
+     * Constructor de la clase Modal. Crea un modal con la estructura básica.
+     * @param {object} opciones - Objeto que contiene las opciones para el modal.
+     * @param {HTMLElement} opciones.elemento - El elemento HTML donde se creará el modal.
+     * @param {string} opciones.titulo - El título del modal.
+     * @param {string} opciones.id - El identificador del modal.
+     * @param {string[]} opciones.clases - Clases CSS para aplicar estilos al modal.
+     * @param {boolean} opciones.mostrar - Indica si el modal debe mostrarse inicialmente (true: visible, false: oculto).
+     * @param {string} opciones.tipo_display - El tipo de display que tomará en caso de mostrarse.
+     * @param {number} opciones.maximo_botones - Número máximo de botones generales permitidos (sin contar navegación ni botón especial).
+     * @param {BotonModal[]} opciones.btn_grales - Arreglo con los botones generales del modal.
+     * @param {Boton} opciones.btn_especial - Botón con una acción especial dentro del modal.
+     */
+    constructor({
+        elemento = document.createElement("div"),
+        titulo = "modal",
+        id = "modal_default",
+        clases = ["modal"],
+        mostrar = false,
+        tipo_display = "grid",
+        maximo_botones = 12,
+
+        btn_grales = [],
+        btn_especial = new BotonModal({ mostrar: true }),
+    } = {}) {
+        super({
+            elemento,
+            id,
+            clases,
+            mostrar,
+            tipo_display,
+            evento_click: () => console.log("Click modal")
+        });
+
+        this._titulo = titulo;
+        this._maximo_botones = maximo_botones;
+        this._btn_grales = btn_grales;
+        this._btn_especial = btn_especial;
+
+        this.id = id;
+
+        // Construye el modal
+        this.construir(this._elemento);
+        // Desactiva el evento default del modal.
+        this.desactivar_evento_click();
+    }
+
+    /**
+     * Construye el elemento HTML del título del modal.
+     * @param {HTMLElement} el - El elemento HTML donde se generará el título.
+     */
+    construir(el) {
+        super.construir(el);
+
+        this._construir_titulo(el); // Agrega el titulo.
+
+        this._construir_btn_cerrar(el); // Agrega el boton para cerrar el modal.
+
+        this._construir_btn_grales(el); // Agrega los botones generales.
+
+        this._construir_btn_navegacion(el); // Agrega los botones de navegación.
+
+        this._construir_vistas(this._btn_grales, this._maximo_botones); // Crea las vistas ó secciones del modal.
+    }
+
+    /**
+     * Genera el elemento HTML para el título del modal.
+     * @param {HTMLDivElement} el - El elemento HTML donde se generará el título.
+     */
+    _construir_titulo(el) {
+        const div_titulo = document.createElement("div");
+        const span_titulo = document.createElement("span");
+
+        div_titulo.classList.add("item-modal");
+        span_titulo.classList.add("texto");
+
+        span_titulo.textContent = this._titulo.toUpperCase();
+
+        div_titulo.appendChild(span_titulo);
+
+        el.appendChild(div_titulo);
+    }
+
+    /**
+     * Crea el botón de cerrar del modal.
+     * @param {HTMLElement} el - El elemento HTML donde se creará el botón de cerrar.
+     */
+    _construir_btn_cerrar(el) {
+        this._btn_cerrar = new BotonModal({
+            mostrar: true,
+            ruta_icono: "img/cerrar.png",
+            evento_click: () => this.mostrar_ocultar(),
+        });
+
+        el.appendChild(this._btn_cerrar.elemento);
+    }
+
+    /**
+     * Crea botones generales adicionales en caso de ser necesario para mantener un diseño equilibrado.
+     * @param {HTMLElement} el - El elemento HTML donde se crearán los botones.
+     */
+    _construir_btn_grales(el) {
+        const maximo = this._maximo_botones;
+        const longitud = this._btn_grales.length;
+
+        let restantes = 0;
+        // Si la longitud de los botones es menor al maximo por vista
+        // Ej: 9 < 12: restantes = 3
+        if (longitud < maximo) {
+            restantes = maximo - longitud;
+        }
+        // Si la longitud de los botones es mayor y no es multiplo del maximo por vista
+        // Ej: 13 > 12 && 13 % 12 = 1: restantes = 11
+        else if (longitud > maximo && longitud % maximo !== 0) {
+            const resto = longitud % maximo;
+            restantes = maximo - resto;
+        }
+
+        if (longitud !== maximo) {
+            for (let i = 0; i < restantes; i++) {
+                this._btn_grales.push(
+                    new BotonModal({
+                        nombre: "nada", // Nombre
+                        clases: ["item-modal"], // Clases
+                        mostrar: longitud < maximo ? true : false, // Mostrar?
+                    })
+                );
+            }
+        }
+
+        // Recorre los botones generales y los agrega al elemento
+        this._btn_grales.forEach((boton) => {
+            el.appendChild(boton.elemento);
+        });
+    }
+
+    /**
+     * Crea las _vistas a partir de los botones generales.
+     * @param {BotonModal[]} botones - Arreglo con los botones generales del modal.
+     * @param {number} tamaño - Número de botones por vista.
+     */
+    _construir_vistas(botones, tamaño) {
+        // Divide el arreglo con los botones de partes de longitud `tamaño`
+        for (let i = 0; i < botones.length; i += tamaño) {
+            this._vistas.push(botones.slice(i, i + tamaño));
+        }
+    }
+
+    /**
+     * Construye los controles del modal.
+     * @param {HTMLElement} el - El elemento HTML donde se crearán los controles.
+     */
+    _construir_btn_navegacion(el) {
+        // Navegación
+        this._btn_atras = new BotonModal({
+            mostrar: true,
+            ruta_icono: "img/atras.png",
+            evento_click: () => this._cambiar_vista("atras"),
+        });
+        this._btn_adelante = new BotonModal({
+            mostrar: true,
+            ruta_icono: "img/adelante.png",
+            evento_click: () => this._cambiar_vista("adelante"),
+        });
+
+        // Agregar elementos al modal
+        el.appendChild(this._btn_atras.elemento);
+        el.appendChild(this._btn_especial.elemento);
+        el.appendChild(this._btn_adelante.elemento);
+    }
+
+    /**
+     * Incrementa la propiedad _index_vista
+     */
+    _vista_derecha = () => {
+        if (this._index_vista < this._vistas.length - 1) {
+            this._index_vista++;
+        } else {
+            this._index_vista = 0;
+        }
+    };
+    /**
+     * Decrementa la propiedad _index_vista
+     */
+    _vista_izquierda = () => {
+        if (this._index_vista > 0) {
+            this._index_vista--;
+        } else {
+            this._index_vista = this._vistas.length - 1;
+        }
+    };
+
+    /**
+     * Cambia a la vista siguiente o anterior.
+     * @param {String} accion - La direccion a donde cambiar.
+     */
+    _cambiar_vista = (accion) => {
+        // No hace nada si solo hay una vista.
+        if (this._vistas.length <= 1) return;
+
+        switch (accion) {
+            case "adelante":
+                this._vista_derecha();
+                break;
+            case "atras":
+                this._vista_izquierda();
+                break;
+            default:
+                console.error("_cambiar_vista: Accion no reconocida", accion);
+                break;
+        }
+
+        this._mostrar_vista(this._index_vista); // Muestra la vista requerida.
+        this._ocultar_vistas(this._index_vista); // Oculta las demas a excepción de la actual.
+    };
+
+    /**
+     * Muestra los botones de una vista.
+     * @param {BotonModal[]} vista - Vista a mostrar.
+     */
+    _mostrar_vista(index) {
+        // Recorre la vista y oculta cada botón.
+        this._vistas[index].forEach((boton) => boton.mostrar_ocultar());
+    }
+
+    /**
+     * Oculta las _vistas que no sean la actual.
+     * @param {number} ignorar - Índice de la vista que se debe ignorar.
+     */
+    _ocultar_vistas(ignorar) {
+        for (let i = 0; i < this._vistas.length; i++) {
+            const vista = this._vistas[i];
+            if (i != ignorar) {
+                this._ocultar_vista(vista);
+            }
+        }
+    }
+
+    /**
+     * Oculta los botones de una vista.
+     * @param {BotonModal[]} vista - Vista a ocultar.
+     */
+    _ocultar_vista(vista) {
+        vista.forEach((boton) => boton.mostrar_ocultar());
+    }
+
+    // Reescribo el metodo para reestaurar la vista a la default
+    mostrar_ocultar() {
+        super.mostrar_ocultar();
+
+        // Reestablece la vista mostrada a la primera.
+        if (!this._vistas[0][0].mostrar) {
+            this._index_vista = 0;
+            this._mostrar_vista(this._index_vista);
+            this._ocultar_vistas(this._index_vista);
+        }
+    }
+}
+
 // TODO: Clase para formulario
