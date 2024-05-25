@@ -1,12 +1,4 @@
 const armas_marciales = {
-    "nada": {
-        nombre: "nada",
-        icono: "img/nada.png",
-        danno: 0,
-        coste: 0,
-        tipo: "",
-        descripcion: "Arma sin descripción"
-    },
     "punno": {
         nombre: "puño",
         icono: "img/punno.png",
@@ -330,4 +322,5 @@ const armas_ocultas = {
 export const coleccion_armas = {
     armas_marciales,
     armas_naturales,
+    armas_ocultas,
 }

@@ -1,16 +1,4 @@
 export const coleccion_equipos = {
-    'nada': {
-        nombre: "Nada",
-        icono: "img/nada.png",
-        descripcion: "",
-        nivel: 0,
-        ataque: 0,
-        esquiva: 0,
-        bloqueo: 0,
-        velocidad: 0,
-        vidaMaxima: 0,
-        poderMaximo: 0,
-    },
     'armaduraLigera': {
         nombre: "Armadura Ligera",
         icono: "img/armaduraligera.png",

@@ -638,32 +638,32 @@ const avatares = {
         habilidad3: "envenenar",
     },
 
-    "nuevopj": {
-        nombre: "nuevo",
-        portada: "img/nuevopj.png",
-        icono: "",
-        descripcion: "Sin descripción.",
+    // "nuevopj": {
+    //     nombre: "nuevo",
+    //     portada: "img/nuevopj.png",
+    //     icono: "",
+    //     descripcion: "Sin descripción.",
 
-        ataque: 0,
-        esquiva: 0,
-        bloqueo: 0,
-        velocidad: 0,
-        vida: 0,
-        vidaMaxima: 0,
-        poder: 0,
-        poderMaximo: 0,
+    //     ataque: 0,
+    //     esquiva: 0,
+    //     bloqueo: 0,
+    //     velocidad: 0,
+    //     vida: 0,
+    //     vidaMaxima: 0,
+    //     poder: 0,
+    //     poderMaximo: 0,
 
-        arma1: "nada",
-        arma2: "nada",
+    //     arma1: "nada",
+    //     arma2: "nada",
 
-        equipo1: "nada",
-        equipo2: "nada",
-        equipo3: "nada",
+    //     equipo1: "nada",
+    //     equipo2: "nada",
+    //     equipo3: "nada",
 
-        habilidad1: "habilidad 1",
-        habilidad2: "habilidad 2",
-        habilidad3: "habilidad 3",
-    },
+    //     habilidad1: "habilidad 1",
+    //     habilidad2: "habilidad 2",
+    //     habilidad3: "habilidad 3",
+    // },
 
     // ! NUEVOS AVATARES HUMANOS DEBEN IR DESPUES DE "nuevopj"
 }
