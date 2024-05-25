@@ -60,7 +60,7 @@ export default class ElementoHTML {
      */
     desactivar_evento_click() {
         this._elemento.removeEventListener("click", this._evento_click);
-        this.evento_click = () => {}
+        this.evento_click = () => {};
     }
 
     /**
@@ -87,11 +87,20 @@ export default class ElementoHTML {
      * Muestra u oculta el elemento estableciendo su estilo de visualización a `this._tipo_display`.
      * @param {boolean} ocultar - Indica si se debe ocultar o mostrar el elemento.
      */
-    mostrar_ocultar(ocultar = false) {
-        // Lo oculta solo si se especifica
-        if (ocultar) {
-            this._mostrar = false;
-            this._elemento.style.display = "none";
+    mostrar_ocultar(opcion = "") {
+        // Si se especifica el parametro opcion
+        if (opcion) {
+            switch (opcion) {
+                case "mostrar":
+                    this._mostrar = true;
+                    this._elemento.style.display = this._tipo_display;
+                    break;
+                case "ocultar":
+                    this._mostrar = false;
+                    this._elemento.style.display = "none";
+                default:
+                    break;
+            }
         }
         // De lo contrario se muestra o se oculta dependiendo del estado actual
         else {
@@ -115,7 +124,7 @@ export default class ElementoHTML {
     get clases() {
         return this._clases;
     }
-    get mostar() {
+    get mostrar() {
         return this._mostrar;
     }
     get id() {
@@ -147,7 +156,7 @@ export default class ElementoHTML {
      * Asigna un nuevo elemento HTML al elemento.
      * @param {HTMLElement} nuevo - El nuevo elemento HTML.
      */
-    set mostar(mostrar) {
+    set mostrar(mostrar) {
         this._mostrar = mostrar;
     }
     /**
@@ -235,8 +244,8 @@ export class Modal extends ElementoHTML {
     _btn_adelante;
 
     // TODO: Esto debe ejecutarse luego del metodo this.mostrar_ocultar()
-    static _evento_cerrar = () => console.log("cerrar")
-    
+    static _evento_cerrar = () => console.log("cerrar");
+
     _vistas = [];
     _index_vista = 0;
 
@@ -271,7 +280,7 @@ export class Modal extends ElementoHTML {
             clases,
             mostrar,
             tipo_display,
-            evento_click: () => console.log("Click modal")
+            evento_click: () => console.log("Click modal"),
         });
 
         this._titulo = titulo;
@@ -330,7 +339,7 @@ export class Modal extends ElementoHTML {
             id: `${this.id}_cerrar_btn`,
             mostrar: true,
             ruta_icono: "img/cerrar.png",
-            evento_click: () => this.mostrar_ocultar()
+            evento_click: () => this.mostrar_ocultar(),
         });
 
         el.appendChild(this._btn_cerrar.elemento);

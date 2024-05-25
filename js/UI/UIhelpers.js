@@ -133,7 +133,6 @@ export const lista_modales = {
         btn_grales: botones_modal.avatares.normales,
     }),
     "esbirros": new Modal({
-        mostrar: true,
         titulo: "esbirros",
         id: "modal_esbirros",
         maximo_botones: MAXIMO_BOTONES_MODAL,
@@ -162,3 +161,5 @@ export const lista_modales = {
         btn_grales: botones_modal.equipos.normales,
     }),
 };
+
+console.log(lista_modales)
