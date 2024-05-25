@@ -40,7 +40,7 @@ const nombreBtn = document.querySelector("#nombreBtn");
 // * Direccionales
 /**
  * Contiene los botones arriba y abajo usados principalmente para modificar atributos.
- * @const {HTMLButtonElement}
+ * @const {HTMLElement}
  */
 const contenedorArribaAbajo = document.querySelector("#btnMasMenos");
 /**
@@ -71,7 +71,7 @@ const derechaBtn = document.querySelector("#derechaBtn");
  * @const {HTMLButtonElement}
  */
 const atributos_btn = {};
-for (const atributo of atributos_personajes) {
+for (const atributo in atributos_personajes) {
     const btn = document.querySelector(`#${atributo}Btn`);
     atributos_btn[atributo] = btn;
 }
