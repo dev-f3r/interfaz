@@ -1,3 +1,5 @@
+// ! Este archivo es usado para acceder a todos los elementos del DOM creados con HTML.
+
 import { atributos_personajes } from "./../helpers.js";
 
 // * Top
@@ -63,7 +65,6 @@ const izquierdaBtn = document.querySelector("#izquierdaBtn");
  * @const {HTMLButtonElement}
  */
 const derechaBtn = document.querySelector("#derechaBtn");
-// TODO: Agregar botones para utilizar atributos
 
 // * Bot
 /**

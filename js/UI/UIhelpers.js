@@ -8,17 +8,6 @@ import { colecciones } from "../colecciones/main.js";
 const MAXIMO_BOTONES_MODAL = 12;
 
 /**
- * Muestra u oculta el contenedor de direccionales arriba y abajo.
- */
-export function mostrar_direccionales_arriba_abajo() {
-    if (ELEMENTOS.contenedorArribaAbajo.style.display === "flex") {
-        ELEMENTOS.contenedorArribaAbajo.style.display = "none";
-    } else {
-        ELEMENTOS.contenedorArribaAbajo.style.display = "flex";
-    }
-};
-
-/**
  * Crea una lista con los botones a partir de una lista con nombres de objetos.
  * Estos botones pueden estar mostrados u ocultos.
  * @param {Object.<string, Object>} coleccion - La colección en la que se basa la lista de nombres.
