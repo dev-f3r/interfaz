@@ -212,6 +212,7 @@ export class BotonModal extends ElementoHTML {
         this._icono.src = ruta_icono;
 
         this.construir(this._elemento);
+        this.evento_click = () => console.log(this.id); // TODO: Descartar clg
     }
 
     construir(el) {
@@ -279,8 +280,6 @@ export class Modal extends ElementoHTML {
         this._btn_grales = btn_grales;
         this._btn_especial = btn_especial;
 
-        this.id = id;
-
         // Construye el modal
         this.construir(this._elemento);
         // Desactiva el evento default del modal.
@@ -331,7 +330,10 @@ export class Modal extends ElementoHTML {
         this._btn_cerrar = new BotonModal({
             mostrar: true,
             ruta_icono: "img/cerrar.png",
-            evento_click: () => this.mostrar_ocultar(),
+            evento_click: () => {
+                console.log(this.id)
+                this.mostrar_ocultar()
+            },
         });
 
         el.appendChild(this._btn_cerrar.elemento);
@@ -395,11 +397,13 @@ export class Modal extends ElementoHTML {
     _construir_btn_navegacion(el) {
         // Navegación
         this._btn_atras = new BotonModal({
+            id: `${this.id}_atras_btn`,
             mostrar: true,
             ruta_icono: "img/atras.png",
             evento_click: () => this._cambiar_vista("atras"),
         });
         this._btn_adelante = new BotonModal({
+            id: `${this.id}_adelante_btn`,
             mostrar: true,
             ruta_icono: "img/adelante.png",
             evento_click: () => this._cambiar_vista("adelante"),
