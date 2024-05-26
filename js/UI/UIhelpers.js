@@ -1,4 +1,3 @@
-import { ELEMENTOS } from "./inicializador.js";
 import { BotonModal, Modal } from "./UImodels.js";
 import { colecciones } from "../colecciones/main.js";
 
@@ -161,5 +160,3 @@ export const lista_modales = {
         btn_grales: botones_modal.equipos.normales,
     }),
 };
-
-console.log(lista_modales)
