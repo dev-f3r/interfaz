@@ -1,6 +1,9 @@
 // ! Este archivo es usado para acceder a todos los elementos del DOM creados con HTML.
-
 import { atributos_personajes } from "./../helpers.js";
+import ElementoHTML from "./UImodels.js";
+
+const MAIN = document.querySelector("#main");
+ElementoHTML.padre = MAIN;
 
 // * Top
 /**
@@ -93,11 +96,17 @@ const accionBtn = document.querySelector("#accionBtn");
 /**
  * Contiene el botón que abre el menú de opciones.
  */
-const arma1Btn = [document.querySelector("#arma1ImgBtn"), document.querySelector("#arma1TxtBtn")]
+const arma1Btn = [
+    document.querySelector("#arma1ImgBtn"),
+    document.querySelector("#arma1TxtBtn"),
+];
 /**
  * Contiene el botón que abre el menú de opciones.
  */
-const arma2Btn = [document.querySelector("#arma2ImgBtn"), document.querySelector("#arma2TxtBtn")]
+const arma2Btn = [
+    document.querySelector("#arma2ImgBtn"),
+    document.querySelector("#arma2TxtBtn"),
+];
 /**
  * Contiene el botón que abre el menú de opciones.
  * @const {HTMLButtonElement}
@@ -105,31 +114,45 @@ const arma2Btn = [document.querySelector("#arma2ImgBtn"), document.querySelector
 const habilidades_btn = {};
 for (let i = 1; i <= 3; i++) {
     const btn = document.querySelector(`#habilidad${i}Btn`);
-    habilidades_btn[`habilidad${i}Btn`] = btn;
+    habilidades_btn[`habilidad${i}`] = btn;
 }
 
-
-
 export const ELEMENTOS = {
+    main: MAIN,
     // * Top
-    editarBtn,
-    portadaBtn,
-    expBtn,
-    mochilaBtn,
-    esbirrosBtn,
-    consolaBtn,
-    nombreBtn,
+    editar_btn: new ElementoHTML({ elemento: editarBtn }),
+    portada_btn: new ElementoHTML({ elemento: portadaBtn }),
+    exp_btn: new ElementoHTML({ elemento: expBtn }),
+    mochila_btn: new ElementoHTML({ elemento: mochilaBtn }),
+    esbirros_btn: new ElementoHTML({ elemento: esbirrosBtn }),
+    consola_btn: new ElementoHTML({ elemento: consolaBtn }),
+    nombre_btn: new ElementoHTML({ elemento: nombreBtn }),
     // * Direccionales
-    contenedorArribaAbajo,
-    arribaBtn,
-    abajoBtn,
-    izquierdaBtn,
-    derechaBtn,
+    contenedorArribaAbajo, // Excepción
+    arriba_btn: new ElementoHTML({ elemento: arribaBtn }),
+    abajo_btn: new ElementoHTML({ elemento: abajoBtn }),
+    izquierda_btn: new ElementoHTML({ elemento: izquierdaBtn }),
+    derecha_btn: new ElementoHTML({ elemento: derechaBtn }),
     // * Bot
-    atributos_btn,
-    equipos_btn,
-    accionBtn,
-    arma1Btn,
-    arma2Btn,
-    habilidades_btn,
+    ataque_btn: new ElementoHTML({ elemento: atributos_btn.ataque }),
+    esquiva_btn: new ElementoHTML({ elemento: atributos_btn.esquiva }),
+    bloqueo_btn: new ElementoHTML({ elemento: atributos_btn.bloqueo }),
+    velocidad_btn: new ElementoHTML({ elemento: atributos_btn.velocidad }),
+    vida_btn: new ElementoHTML({ elemento: atributos_btn.vida }),
+    poder_btn: new ElementoHTML({ elemento: atributos_btn.poder }),
+    equipo1_btn: new ElementoHTML({ elemento: equipos_btn.equipo1 }),
+    equipo2_btn: new ElementoHTML({ elemento: equipos_btn.equipo2 }),
+    equipo3_btn: new ElementoHTML({ elemento: equipos_btn.equipo3 }),
+    accion_btn: new ElementoHTML({ elemento: accionBtn }),
+    habilidad1_btn: new ElementoHTML({ elemento: habilidades_btn.habilidad1 }),
+    habilidad2_btn: new ElementoHTML({ elemento: habilidades_btn.habilidad2 }),
+    habilidad3_btn: new ElementoHTML({ elemento: habilidades_btn.habilidad3 }),
+    arma1_btn: [
+        new ElementoHTML({ elemento: arma1Btn[0] }),
+        new ElementoHTML({ elemento: arma1Btn[1] }),
+    ],
+    arma2_btn: [
+        new ElementoHTML({ elemento: arma2Btn[0] }),
+        new ElementoHTML({ elemento: arma2Btn[1] }),
+    ],
 };
