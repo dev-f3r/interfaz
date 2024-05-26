@@ -1,33 +1,6 @@
-import ElementoHTML from "./UImodels.js";
 import { ELEMENTOS } from "./inicializador.js";
 import { lista_modales } from "./UIhelpers.js";
-
-/**
- * Modo de la interfaz.
- */
-let UI_modo = "jugar";
-/**
- * Obtiene el modo de la interfaz.
- * @returns Modo de la interfaz.
- */
-function obtener_modo() {
-    return UI_modo;
-}
-
-/**
- * Cambia el modo de la interfaz.
- * @param {string} modo - Modo de la interfaz.
- * @param {string} especificar - Seleccionar un modo especifico.
- */
-function cambiar_modo(especificar = "") {
-    if (!especificar) {
-        if (UI_modo === "jugar") {
-            UI_modo = "editar";
-        } else UI_modo = "jugar";
-    } else UI_modo = especificar;
-
-    // TODO: Cada vez que se cambia de modo, se debe cerrar todo
-}
+import { cambiar_modo, obtener_modo } from "../juego.js";
 
 // Agrega los modales al main.
 for (const modal in lista_modales) {
@@ -49,3 +22,4 @@ ELEMENTOS.portada_btn.evento_click = () => {
         lista_modales.avatares.mostrar_ocultar();
     }
 };
+// TODO: Los botones cerrar de los modales, ademas de ocultar el modal deben cambiar el modo a "jugar"
