@@ -22,6 +22,11 @@ const portadaBtn = document.querySelector("#portadaBtn");
  */
 const expBtn = document.querySelector("#experienciaBtn");
 /**
+ * Contiene el texto de la experiencia.
+ * @const {HTMLElement}
+ */
+const expTxt = document.querySelector("#experienciaTxt");
+/**
  * Contiene el botón que abre la mochila.
  * @const {HTMLButtonElement}
  */
@@ -123,6 +128,7 @@ export const ELEMENTOS = {
     editar_btn: new ElementoHTML({ elemento: editarBtn }),
     portada_btn: new ElementoHTML({ elemento: portadaBtn }),
     exp_btn: new ElementoHTML({ elemento: expBtn }),
+    exp_txt: new ElementoHTML({ elemento: expTxt }),
     mochila_btn: new ElementoHTML({ elemento: mochilaBtn }),
     esbirros_btn: new ElementoHTML({ elemento: esbirrosBtn }),
     consola_btn: new ElementoHTML({ elemento: consolaBtn }),
@@ -134,19 +140,23 @@ export const ELEMENTOS = {
     izquierda_btn: new ElementoHTML({ elemento: izquierdaBtn }),
     derecha_btn: new ElementoHTML({ elemento: derechaBtn }),
     // * Bot
+    accion_btn: new ElementoHTML({ elemento: accionBtn }),
+    // Atributos
     ataque_btn: new ElementoHTML({ elemento: atributos_btn.ataque }),
     esquiva_btn: new ElementoHTML({ elemento: atributos_btn.esquiva }),
     bloqueo_btn: new ElementoHTML({ elemento: atributos_btn.bloqueo }),
     velocidad_btn: new ElementoHTML({ elemento: atributos_btn.velocidad }),
     vida_btn: new ElementoHTML({ elemento: atributos_btn.vida }),
     poder_btn: new ElementoHTML({ elemento: atributos_btn.poder }),
+    // Equipamiento
     equipo1_btn: new ElementoHTML({ elemento: equipos_btn.equipo1 }),
     equipo2_btn: new ElementoHTML({ elemento: equipos_btn.equipo2 }),
     equipo3_btn: new ElementoHTML({ elemento: equipos_btn.equipo3 }),
-    accion_btn: new ElementoHTML({ elemento: accionBtn }),
+    // Habilidades
     habilidad1_btn: new ElementoHTML({ elemento: habilidades_btn.habilidad1 }),
     habilidad2_btn: new ElementoHTML({ elemento: habilidades_btn.habilidad2 }),
     habilidad3_btn: new ElementoHTML({ elemento: habilidades_btn.habilidad3 }),
+    // Armas
     arma1_btn: [
         new ElementoHTML({ elemento: arma1Btn[0] }),
         new ElementoHTML({ elemento: arma1Btn[1] }),
