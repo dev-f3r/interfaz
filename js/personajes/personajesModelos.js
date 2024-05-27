@@ -1,8 +1,8 @@
-import { EntidadBase } from "../helpers.js";
-import { Modelos } from "./main.js";
-const { Arma, Equipo, Habilidad } = Modelos;
-
+import { EntidadBase, atributos_personajes } from "../helpers.js";
 import { colecciones } from "./../colecciones/main.js";
+import Arma from "./armasModelos.js";
+import Equipo from "./equipamientoModelos.js";
+import Habilidad from "./habilidadesModelo.js";
 
 // TODO: Testear la clase Personaje
 /**
@@ -43,7 +43,7 @@ export default class Personaje extends EntidadBase {
         portada = "img/nada.png",
         descripcion = "sin descripción.",
 
-        atributos = atributos_default,
+        atributos = atributos_personajes,
 
         arma1 = new Arma({}),
         arma2 = new Arma({}),

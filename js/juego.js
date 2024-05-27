@@ -1,4 +1,5 @@
-import { Personaje } from "./personajes/personajesModelos.js";
+import { Modelos } from "./personajes/main.js";
+const { Personaje } = Modelos;
 
 /**
  * Modo de la interfaz.
@@ -51,3 +52,5 @@ export const personajes = [
         nombre: "esbirro 5",
     }),
 ];
+
+console.log(personajes);

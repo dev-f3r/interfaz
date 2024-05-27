@@ -68,7 +68,7 @@ export class EntidadBase {
         descripcion = "Sin descripción.",
         icono = "img/nada.png",
         portada = "img/nada.png",
-        atributos = atributos_default,
+        atributos = atributos_personajes,
     }) {
         this._nombre = nombre;
         this._descripcion = descripcion;
@@ -88,7 +88,7 @@ export class EntidadBase {
         this._portada = nuevo.portada;
 
         // * atributos
-        for (const nombre in atributos_default) {
+        for (const nombre in atributos_personajes) {
             this._atributos[nombre] = nuevo[nombre];
         }
     }
@@ -137,7 +137,7 @@ export class EntidadBase {
      * @param {Object} obj - El objeto con los nuevos atributos.
      */
     set atributos(obj) {
-        for (const nombre in atributos_default) {
+        for (const nombre in atributos_personajes) {
             this._atributos[nombre] = obj[nombre];
         }
     }

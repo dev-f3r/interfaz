@@ -1,4 +1,4 @@
-import { EntidadBase } from "../helpers.js";
+import { EntidadBase, atributos_personajes } from "../helpers.js";
 
 // TODO: Testear la clase Equipo
 export default class Equipo extends EntidadBase {
@@ -15,7 +15,7 @@ export default class Equipo extends EntidadBase {
         icono = "img/nada.png",
         descripcion = "sin descripción.",
 
-        atributos = atributos_default,
+        atributos = atributos_personajes,
     }) {
         super({ nombre, icono, descripcion, atributos });
     }
