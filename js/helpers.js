@@ -56,11 +56,12 @@ export class EntidadBase {
     _atributos;
     /**
      * @constructor
-     * @param {string} nombre - El nombre
-     * @param {string} descripcion - La descripción.
-     * @param {string} icono - La ruta del iconó.
-     * @param {string} portada - La ruta de la portada.
-     * @param {Object} atributos - Los atributos de la entidad. Ej: Ataque, vida, etc.
+     * @param {Object} props - Las propiedades de la entidad.
+     * @param {string} props.nombre - El nombre
+     * @param {string} props.descripcion - La descripción.
+     * @param {string} props.icono - La ruta del iconó.
+     * @param {string} props.portada - La ruta de la portada.
+     * @param {Object} props.atributos - Los atributos de la entidad. Ej: Ataque, vida, etc.
      */
     constructor({
         nombre = "nada",
