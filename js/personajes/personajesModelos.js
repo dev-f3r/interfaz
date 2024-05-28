@@ -45,12 +45,12 @@ export default class Personaje extends EntidadBase {
 
         atributos = atributos_personajes,
 
-        arma1 = new Arma({}),
-        arma2 = new Arma({}),
+        arma1 = new Arma({ nombre: "arma 1" }),
+        arma2 = new Arma({ nombre: "arma 2" }),
 
-        equipo1 = new Equipo({}),
-        equipo2 = new Equipo({}),
-        equipo3 = new Equipo({}),
+        equipo1 = new Equipo({ nombre: "equipo 1" }),
+        equipo2 = new Equipo({ nombre: "equipo 2" }),
+        equipo3 = new Equipo({ nombre: "equipo 3" }),
 
         habilidad1 = new Habilidad({ nombre: "habilidad 1" }),
         habilidad2 = new Habilidad({ nombre: "habilidad 2" }),
@@ -138,4 +138,7 @@ export default class Personaje extends EntidadBase {
     };
 
     // TODO: Metodo para ataquar
+    ataquar = (objeto, slot=1) => {
+        console.log(objeto, slot)
+    };
 }

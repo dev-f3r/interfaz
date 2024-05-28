@@ -1,6 +1,5 @@
 import { EntidadBase } from "../helpers.js";
 
-// TODO: Testear la clase Arma
 /**
  * Clase que representa un arma.
  * @class

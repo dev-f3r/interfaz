@@ -1,6 +1,5 @@
 import { EntidadBase } from "../helpers.js";
 
-// TODO: Testear la clase Habilidad
 /**
  * Clase que representa una habilidad.
  * @class

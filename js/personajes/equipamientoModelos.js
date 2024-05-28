@@ -1,14 +1,13 @@
 import { EntidadBase, atributos_personajes } from "../helpers.js";
 
-// TODO: Testear la clase Equipo
 export default class Equipo extends EntidadBase {
     /**
      * Constructor de la clase Equipo
-     * @constructor
-     * @param {string} nombre - El nombre del equipo.
-     * @param {string} icono - El icono del equipo.
-     * @param {string} descripcion - La descripción.
-     * @param {object} atributos - Los atributos. Ej: ataque, vida, etc.
+     * @param {Object} props. - Los atributos del equipo.
+     * @param {string} props.nombre - El nombre del equipo.
+     * @param {string} props.icono - El icono del equipo.
+     * @param {string} props.descripcion - La descripción.
+     * @param {object} props.atributos - Los atributos. Ej: ataque, vida, etc.
      */
     constructor({
         nombre = "",
