@@ -4,7 +4,6 @@ import Arma from "./armasModelos.js";
 import Equipo from "./equipamientoModelos.js";
 import Habilidad from "./habilidadesModelo.js";
 
-// TODO: Testear la clase Personaje
 /**
  * Clase que representa un personaje (avatar o esbirro).
  * @class

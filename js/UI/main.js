@@ -12,12 +12,18 @@ for (const modal in lista_modales) {
 Modal.evento_btn_cerrar = () => {
     cambiar_modo();
 };
-
-// Evento btn editar
-ELEMENTOS.editar_btn.evento_click = () => {
-    cambiar_modo();
+// El boton especial del modal armas marciales debe desplegar el modal armas naturales
+lista_modales.armas_marciales.btn_especial.evento_click = () => {
+    lista_modales.armas_marciales.mostrar_ocultar(); // Oculta el modal armas marciales
+    lista_modales.armas_naturales.mostrar_ocultar(); // Despliega el modal armas naturales
 };
-// Evento btns armas
+// El boton especial del modal armas naturales debe desplegar el modal armas marciales
+lista_modales.armas_naturales.btn_especial.evento_click = () => {
+    lista_modales.armas_naturales.mostrar_ocultar(); // Oculta el modal armas naturales
+    lista_modales.armas_marciales.mostrar_ocultar(); // Despliega el modal armas marciales
+};
+
+// Evento portada
 ELEMENTOS.portada_btn.evento_click = () => {
     // TODO: Debe desplegar el modal avatares o el modal esbirros
     // Despliega el modal avatares si esta en modo "editar"
@@ -25,6 +31,23 @@ ELEMENTOS.portada_btn.evento_click = () => {
         lista_modales.avatares.mostrar_ocultar();
     }
 };
+// TODO: Evento exp
+// Evento btn editar
+ELEMENTOS.editar_btn.evento_click = () => {
+    cambiar_modo();
+};
+// TODO: Evento nombre
+// TODO: Evento esbirro
+// TODO: Evento consola
+// TODO: Evento atributos
+// Evento btns equipamiento
+for (let i = 1; i <= 3; i++) {
+    ELEMENTOS[`equipo${i}_btn`].evento_click = () => {
+        if (obtener_modo() === "editar")
+            lista_modales.equipos.mostrar_ocultar();
+    };
+}
+// TODO: Evento accion
 // Evento btns armas
 for (let i = 1; i <= 2; i++) {
     ELEMENTOS[`arma${i}_btn`].forEach((boton) => {
@@ -34,23 +57,4 @@ for (let i = 1; i <= 2; i++) {
         };
     });
 }
-// Evento btns equipamiento
-for (let i = 1; i <= 3; i++) {
-    ELEMENTOS[`equipo${i}_btn`].evento_click = () => {
-        if (obtener_modo() === "editar")
-            lista_modales.equipos.mostrar_ocultar();
-    };
-}
-// El boton especial del modal armas marciales debe desplegar el modal armas naturales
-lista_modales.armas_marciales.btn_especial.evento_click = () => {
-    lista_modales.armas_marciales.mostrar_ocultar();
-    lista_modales.armas_naturales.mostrar_ocultar();
-};
-// El boton especial del modal armas naturales debe desplegar el modal armas marciales
-lista_modales.armas_naturales.btn_especial.evento_click = () => {
-    lista_modales.armas_naturales.mostrar_ocultar();
-    lista_modales.armas_marciales.mostrar_ocultar();
-};
-// TODO: Evento nombre
-// TODO: Evento consola
-// TODO: Evento exp
+// TODO: Evento habilidades
