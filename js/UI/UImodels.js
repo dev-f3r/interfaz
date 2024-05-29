@@ -232,6 +232,10 @@ export class BotonModal extends ElementoHTML {
         super.construir(el);
         this._elemento.appendChild(this._icono);
     }
+
+    get icono() {
+        return this._icono;
+    }
 }
 
 /**
@@ -245,6 +249,9 @@ export class Modal extends ElementoHTML {
 
     _btn_grales;
     _btn_cerrar;
+    /**
+     * @type {BotonModal}
+     */
     _btn_especial;
     _btn_atras;
     _btn_adelante;
@@ -515,6 +522,10 @@ export class Modal extends ElementoHTML {
             this._mostrar_vista(this._index_vista);
             this._ocultar_vistas(this._index_vista);
         }
+    }
+
+    get btn_especial() {
+        return this._btn_especial;
     }
 }
 

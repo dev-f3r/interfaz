@@ -21,7 +21,6 @@ export function mostrar_direccionales_arriba_abajo() {
     }
 }
 
-// FIXME: Adaptar a los nuevos cambios.
 /**
  * Cambia el contenido de la pagina para reflejar los cambios en el personaje seleccionado.
  * @param {Personaje} personaje - El personaje a mostrar.

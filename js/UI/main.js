@@ -41,7 +41,16 @@ for (let i = 1; i <= 3; i++) {
             lista_modales.equipos.mostrar_ocultar();
     };
 }
-// TODO: El boton especial del modal armas marciales debe desplegar el modal armas naturales
+// El boton especial del modal armas marciales debe desplegar el modal armas naturales
+lista_modales.armas_marciales.btn_especial.evento_click = () => {
+    lista_modales.armas_marciales.mostrar_ocultar();
+    lista_modales.armas_naturales.mostrar_ocultar();
+};
+// El boton especial del modal armas naturales debe desplegar el modal armas marciales
+lista_modales.armas_naturales.btn_especial.evento_click = () => {
+    lista_modales.armas_naturales.mostrar_ocultar();
+    lista_modales.armas_marciales.mostrar_ocultar();
+};
 // TODO: Evento nombre
 // TODO: Evento consola
 // TODO: Evento exp
