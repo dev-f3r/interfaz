@@ -19,8 +19,26 @@ Modal.evento_btn_cerrar = () => {
 };
 // Evento portada
 ELEMENTOS.portada_btn.evento_click = () => {
+    // TODO: Debe desplegar el modal avatares o el modal esbirros
+    // Despliega el modal avatares si esta en modo "editar"
     if (obtener_modo() === "editar") {
         lista_modales.avatares.mostrar_ocultar();
     }
 };
-// TODO: Los botones cerrar de los modales, ademas de ocultar el modal deben cambiar el modo a "jugar"
+
+// Evento btn arma 1
+ELEMENTOS.arma1_btn.forEach((boton) => {
+    boton.evento_click = () => {
+        if (obtener_modo() === "editar")
+            lista_modales.armas_marciales.mostrar_ocultar();
+    };
+});
+// Evento btn arma 2
+ELEMENTOS.arma2_btn.forEach((boton) => {
+    boton.evento_click = () => {
+        if (obtener_modo() === "editar")
+            lista_modales.armas_marciales.mostrar_ocultar();
+    };
+});
+
+// TODO: El boton especial del modal armas marciales debe desplegar el modal armas naturales
