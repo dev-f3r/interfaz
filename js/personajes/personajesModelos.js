@@ -138,7 +138,32 @@ export default class Personaje extends EntidadBase {
     };
 
     // TODO: Metodo para ataquar
-    ataquar = (objeto, slot=1) => {
-        console.log(objeto, slot)
+    ataquar = (objeto, slot = 1) => {
+        console.log(objeto, slot);
     };
+
+    get arma1() {
+        return this._arma1;
+    }
+    get arma2() {
+        return this._arma2;
+    }
+    get equipo1() {
+        return this._equipo1;
+    }
+    get equipo2() {
+        return this._equipo2;
+    }
+    get equipo3() {
+        return this._equipo3;
+    }
+    get habilidad1() {
+        return this._habilidad1;
+    }
+    get habilidad2() {
+        return this._habilidad2;
+    }
+    get habilidad3() {
+        return this._habilidad3;
+    }
 }

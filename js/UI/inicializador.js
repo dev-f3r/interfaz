@@ -10,76 +10,76 @@ ElementoHTML.padre = MAIN;
  * Contiene el botón que manipula el modo de juego.
  * @const {HTMLButtonElement}
  */
-const editarBtn = document.querySelector("#editarBtn");
+export const editarBtn = document.querySelector("#editarBtn");
 /**
  * Contiene el botón de la portada.
  * @const {HTMLButtonElement}
  */
-const portadaBtn = document.querySelector("#portadaBtn");
+export const portadaBtn = document.querySelector("#portadaBtn");
 /**
  * Contiene el botón de la experiencia.
  * @const {HTMLButtonElement}
  */
-const expBtn = document.querySelector("#experienciaBtn");
+export const expBtn = document.querySelector("#experienciaBtn");
 /**
  * Contiene el texto de la experiencia.
  * @const {HTMLElement}
  */
-const expTxt = document.querySelector("#experienciaTxt");
+export const expTxt = document.querySelector("#experienciaTxt");
 /**
  * Contiene el botón que abre la mochila.
  * @const {HTMLButtonElement}
  */
-const mochilaBtn = document.querySelector("#mochilaBtn");
+export const mochilaBtn = document.querySelector("#mochilaBtn");
 /**
  * Contiene el botón que muestra la lista de esbirros.
  * @const {HTMLButtonElement}
  */
-const esbirrosBtn = document.querySelector("#esbirrosBtn");
+export const esbirrosBtn = document.querySelector("#esbirrosBtn");
 /**
  * Contiene el botón de la consola.
  * @const {HTMLButtonElement}
  */
-const consolaBtn = document.querySelector("#consolaBtn");
+export const consolaBtn = document.querySelector("#consolaBtn");
 /**
  * Contiene el botón que cambia el nombre del personaje.
  * @const {HTMLButtonElement}
  */
-const nombreBtn = document.querySelector("#nombreBtn");
+export const nombreBtn = document.querySelector("#nombreBtn");
 
 // * Direccionales
 /**
  * Contiene los botones arriba y abajo usados principalmente para modificar atributos.
  * @const {HTMLElement}
  */
-const contenedorArribaAbajo = document.querySelector("#btnMasMenos");
+export const contenedorArribaAbajo = document.querySelector("#btnMasMenos");
 /**
  * Contiene el botón arriba usado principalmente para modificar atributos.
  * @const {HTMLButtonElement}
  */
-const arribaBtn = document.querySelector("#arribaBtn");
+export const arribaBtn = document.querySelector("#arribaBtn");
 /**
  * Contiene el botón abajo usado principalmente para modificar atributos.
  * @const {HTMLButtonElement}
  */
-const abajoBtn = document.querySelector("#abajoBtn");
+export const abajoBtn = document.querySelector("#abajoBtn");
 /**
  * Contiene el botón que cambia hacia el personaje anterior.
  * @const {HTMLButtonElement}
  */
-const izquierdaBtn = document.querySelector("#izquierdaBtn");
+export const izquierdaBtn = document.querySelector("#izquierdaBtn");
 /**
  * Contiene el botón que cambia hacie el siguiente personaje.
  * @const {HTMLButtonElement}
  */
-const derechaBtn = document.querySelector("#derechaBtn");
+export const derechaBtn = document.querySelector("#derechaBtn");
 
 // * Bot
 /**
  * Contiene los botones de los atributos.
  * @const {HTMLButtonElement}
  */
-const atributos_btn = {};
+export const atributos_btn = {};
 for (const atributo in atributos_personajes) {
     const btn = document.querySelector(`#${atributo}Btn`);
     atributos_btn[atributo] = btn;
@@ -88,7 +88,7 @@ for (const atributo in atributos_personajes) {
  * Contiene el botón que cambia el equipo actual.
  * @const {HTMLButtonElement}
  */
-const equipos_btn = {};
+export const equipos_btn = {};
 for (let i = 1; i <= 3; i++) {
     const btn = document.querySelector(`#equipo${i}Btn`);
     equipos_btn[`equipo${i}`] = btn;
@@ -97,18 +97,18 @@ for (let i = 1; i <= 3; i++) {
  * Contiene el botón que realiza la acción del turno actual.
  * @const {HTMLButtonElement}
  */
-const accionBtn = document.querySelector("#accionBtn");
+export const accionBtn = document.querySelector("#accionBtn");
 /**
  * Contiene el botón que abre el menú de opciones.
  */
-const arma1Btn = [
+export const arma1Btn = [
     document.querySelector("#arma1ImgBtn"),
     document.querySelector("#arma1TxtBtn"),
 ];
 /**
  * Contiene el botón que abre el menú de opciones.
  */
-const arma2Btn = [
+export const arma2Btn = [
     document.querySelector("#arma2ImgBtn"),
     document.querySelector("#arma2TxtBtn"),
 ];
@@ -116,7 +116,7 @@ const arma2Btn = [
  * Contiene el botón que abre el menú de opciones.
  * @const {HTMLButtonElement}
  */
-const habilidades_btn = {};
+export const habilidades_btn = {};
 for (let i = 1; i <= 3; i++) {
     const btn = document.querySelector(`#habilidad${i}Btn`);
     habilidades_btn[`habilidad${i}`] = btn;

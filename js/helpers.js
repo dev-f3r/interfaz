@@ -104,6 +104,9 @@ export class EntidadBase {
     get descripcion() {
         return this._descripcion;
     }
+    get icono() {
+        return this._icono;
+    }
     get portada() {
         return this._portada;
     }
@@ -124,6 +127,13 @@ export class EntidadBase {
      */
     set descripcion(nueva) {
         this._descripcion = nueva;
+    }
+    /**
+     * Cambia el icono de la entidad.
+     * @param {string} nuevo - La nueva ruta del icono.
+     */
+    set icono(nuevo) {
+        this._icono = nuevo;
     }
     /**
      * Cambia la portada de la entidad.

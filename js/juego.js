@@ -2,6 +2,7 @@ import { Modelos } from "./personajes/main.js";
 const { Personaje } = Modelos;
 
 import { ELEMENTOS } from "./UI/inicializador.js";
+import { mostrar_personaje } from "./UI/UIcontrollers.js";
 
 /**
  * Modo de la interfaz.
@@ -52,6 +53,15 @@ export const personajes = [
     }),
     new Personaje({
         nombre: "esbirro 1",
+        atributos: {
+            ataque: 10,
+            esquiva: 10,
+            bloqueo: 12,
+            poder: 11,
+            vida: 12,
+            velocidad: 8,
+        },
+        descripcion: "lsadkjfañlskdfj",
     }),
     new Personaje({
         nombre: "esbirro 2",
@@ -77,3 +87,5 @@ export let indice_personaje = 0;
  * @var {number}
  */
 export let indice_esbirro = 1;
+
+mostrar_personaje(personajes[1], true);
