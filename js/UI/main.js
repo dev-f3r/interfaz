@@ -1,3 +1,4 @@
+import { Modal } from "./UImodels.js";
 import { ELEMENTOS } from "./inicializador.js";
 import { lista_modales } from "./UIhelpers.js";
 import { cambiar_modo, obtener_modo } from "../juego.js";
@@ -7,14 +8,14 @@ for (const modal in lista_modales) {
     main.appendChild(lista_modales[modal].elemento);
 }
 
-// TODO: Asignar eventos para mostrar los modales
 // Evento boton editar
 ELEMENTOS.editar_btn.evento_click = () => {
     cambiar_modo();
-    // * Cambia la imagen
-    if (obtener_modo() === "jugar")
-        ELEMENTOS.editar_btn.elemento.children[0].src = "img/editar.png";
-    else ELEMENTOS.editar_btn.elemento.children[0].src = "img/guardar.png";
+};
+
+// Agrega el cambio de modo al boton cerrar de cada modal
+Modal.evento_btn_cerrar = () => {
+    cambiar_modo();
 };
 // Evento portada
 ELEMENTOS.portada_btn.evento_click = () => {

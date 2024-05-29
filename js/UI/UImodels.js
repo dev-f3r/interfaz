@@ -1,5 +1,6 @@
 /**
- * ? Superclase que representa un elemento HTML.
+ * Superclase que representa un elemento HTML.
+ * @class
  */
 export default class ElementoHTML {
     static padre = document.createElement("div");
@@ -185,6 +186,10 @@ export default class ElementoHTML {
     }
 }
 
+/**
+ * Clase que representa un botón.
+ * @class
+ */
 export class BotonModal extends ElementoHTML {
     _icono;
     /**
@@ -231,6 +236,7 @@ export class BotonModal extends ElementoHTML {
 
 /**
  * Clase que representa un modal (ventana emergente con un menú de opciones).
+ * @class
  */
 export class Modal extends ElementoHTML {
     _titulo;
@@ -243,8 +249,8 @@ export class Modal extends ElementoHTML {
     _btn_atras;
     _btn_adelante;
 
-    // TODO: Esto debe ejecutarse luego del metodo this.mostrar_ocultar()
-    static _evento_cerrar = () => console.log("cerrar");
+    // Usado para asignarle a todos los btn cerrar de todos los modales la funcion `cambiar_modo()`
+    static evento_btn_cerrar = () => console.log("cerrar");
 
     _vistas = [];
     _index_vista = 0;
@@ -339,7 +345,10 @@ export class Modal extends ElementoHTML {
             id: `${this.id}_cerrar_btn`,
             mostrar: true,
             ruta_icono: "img/cerrar.png",
-            evento_click: () => this.mostrar_ocultar(),
+            evento_click: () => {
+                this.mostrar_ocultar();
+                Modal.evento_btn_cerrar();
+            },
         });
 
         el.appendChild(this._btn_cerrar.elemento);
