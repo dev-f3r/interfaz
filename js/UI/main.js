@@ -8,16 +8,16 @@ for (const modal in lista_modales) {
     main.appendChild(lista_modales[modal].elemento);
 }
 
-// Evento boton editar
-ELEMENTOS.editar_btn.evento_click = () => {
-    cambiar_modo();
-};
-
 // Agrega el cambio de modo al boton cerrar de cada modal
 Modal.evento_btn_cerrar = () => {
     cambiar_modo();
 };
-// Evento portada
+
+// Evento btn editar
+ELEMENTOS.editar_btn.evento_click = () => {
+    cambiar_modo();
+};
+// Evento btns armas
 ELEMENTOS.portada_btn.evento_click = () => {
     // TODO: Debe desplegar el modal avatares o el modal esbirros
     // Despliega el modal avatares si esta en modo "editar"
@@ -25,20 +25,23 @@ ELEMENTOS.portada_btn.evento_click = () => {
         lista_modales.avatares.mostrar_ocultar();
     }
 };
-
-// Evento btn arma 1
-ELEMENTOS.arma1_btn.forEach((boton) => {
-    boton.evento_click = () => {
+// Evento btns armas
+for (let i = 1; i <= 2; i++) {
+    ELEMENTOS[`arma${i}_btn`].forEach((boton) => {
+        boton.evento_click = () => {
+            if (obtener_modo() === "editar")
+                lista_modales.armas_marciales.mostrar_ocultar();
+        };
+    });
+}
+// Evento btns equipamiento
+for (let i = 1; i <= 3; i++) {
+    ELEMENTOS[`equipo${i}_btn`].evento_click = () => {
         if (obtener_modo() === "editar")
-            lista_modales.armas_marciales.mostrar_ocultar();
+            lista_modales.equipos.mostrar_ocultar();
     };
-});
-// Evento btn arma 2
-ELEMENTOS.arma2_btn.forEach((boton) => {
-    boton.evento_click = () => {
-        if (obtener_modo() === "editar")
-            lista_modales.armas_marciales.mostrar_ocultar();
-    };
-});
-
+}
 // TODO: El boton especial del modal armas marciales debe desplegar el modal armas naturales
+// TODO: Evento nombre
+// TODO: Evento consola
+// TODO: Evento exp
