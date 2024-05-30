@@ -243,23 +243,47 @@ export class BotonModal extends ElementoHTML {
  * @class
  */
 export class Modal extends ElementoHTML {
+    /**
+     * @type {HTMLElement}
+     */
     _titulo;
 
+    /**
+     * @type {number}
+     */
     _maximo_botones;
 
+    /**
+     * @type {BotonModal[]}
+     */
     _btn_grales;
+    /**
+     * @type {BotonModal}
+     */
     _btn_cerrar;
     /**
      * @type {BotonModal}
      */
     _btn_especial;
+    /**
+     * @type {BotonModal}
+     */
     _btn_atras;
+    /**
+     * @type {BotonModal}
+     */
     _btn_adelante;
 
     // Usado para asignarle a todos los btn cerrar de todos los modales la funcion `cambiar_modo()`
     static evento_btn_cerrar = () => console.log("cerrar");
 
+    /**
+     * @type {BotonModal[][]}
+     */
     _vistas = [];
+    /**
+     * @type {number}
+     */
     _index_vista = 0;
 
     /**
