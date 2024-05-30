@@ -172,7 +172,7 @@ export default class ElementoHTML {
      * @param {Function} nuevo - El nuevo evento a asignar.
      */
     set evento_click(nuevo) {
-        // TODO: Implementar, de ser necesario
+        // ! Implementar, de ser necesario
         // var element = document.getElementById("yourElementId");
         // var clone = element.cloneNode(true);
         // element.parentNode.replaceChild(clone, element);

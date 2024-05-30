@@ -93,11 +93,6 @@ export class EntidadBase {
         }
     }
 
-    // TODO: Descartar
-    cambiar_nombre = (nuevo) => {
-        this._nombre = nuevo;
-    };
-
     get nombre() {
         return this._nombre;
     }

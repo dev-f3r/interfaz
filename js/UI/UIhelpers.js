@@ -70,7 +70,6 @@ const botones_modal = {
             // TODO: Implementar logica para crear un nuevo esbirro
         }),
     },
-    // * Botones para modal armas:
     armas_marciales: {
         normales: armar_lista_botones_modal(
             colecciones.armas.armas_marciales,
@@ -81,11 +80,6 @@ const botones_modal = {
             id: "salvajes_btn",
             mostrar: true,
             ruta_icono: "img/salvajes.png",
-            // TODO: Implementar logica para cambiar entre armas naturales y armas marciales
-            // funcionClick: () => {
-            //     ocultar_modales();
-            //     mostrar_modal(lista_modales.armas_naturales);
-            // },
         }),
     },
     armas_naturales: {
@@ -99,10 +93,6 @@ const botones_modal = {
             clases: ["item-modal"],
             mostrar: true,
             ruta_icono: "img/marciales.png",
-            // funcionClick: () => {
-            //     ocultar_modales;
-            //     mostrar_modal(lista_modales.armas_marciales);
-            // },
         }),
     },
     equipos: {
@@ -114,8 +104,6 @@ const botones_modal = {
         // TODO: El boton especial debe reestaurar el slot de equipamiento seleccionado.
         especial: new BotonModal({
             mostrar: true,
-            // TODO: Completar boton especial de modal equipo.
-            // TOOD: Implementar logica para reestaurar un slot de equipamiento.
         }),
     },
 };
