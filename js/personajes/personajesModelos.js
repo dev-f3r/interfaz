@@ -1,4 +1,8 @@
-import { EntidadBase, atributos_personajes } from "../helpers.js";
+import {
+    EntidadBase,
+    atributos_personajes,
+    quitar_acentos,
+} from "../helpers.js";
 import { colecciones } from "./../colecciones/main.js";
 import Arma from "./armasModelos.js";
 import Equipo from "./equipamientoModelos.js";
@@ -83,8 +87,8 @@ export default class Personaje extends EntidadBase {
         this.conf_habilidad(3, props.habilidad3);
 
         // * Armas
-        this.ConfigurarArma(1, props.arma1);
-        this.ConfigurarArma(2, props.arma2);
+        this.conf_arma(1, props.arma1);
+        this.conf_arma(2, props.arma2);
     };
 
     /**
@@ -94,9 +98,9 @@ export default class Personaje extends EntidadBase {
      */
     conf_arma = (slot, nombre) => {
         // Verifica si el arma esta en la colección de naturales o marciales
-        const nueva = armas_naturales[nombre]
-            ? armas_naturales[nombre]
-            : armas_marciales[nombre];
+        const nueva = colecciones.armas.armas_naturales[nombre]
+            ? colecciones.armas.armas_naturales[nombre]
+            : colecciones.armas.armas_marciales[nombre];
 
         this[`arma${slot}`].actualizar(nueva); // La actualiza por la nueva
     };
@@ -117,7 +121,7 @@ export default class Personaje extends EntidadBase {
      * @param {string} nombre - El nombre de la nueva habilidad.
      */
     conf_habilidad = (slot, nombre) => {
-        const nueva = colecciones.habilidades[quitarAcentos(nombre)];
+        const nueva = colecciones.habilidades[quitar_acentos(nombre)];
 
         this[`habilidad${slot}`].actualizar(nueva);
     };

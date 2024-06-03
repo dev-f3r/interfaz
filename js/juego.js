@@ -88,4 +88,11 @@ export let indice_personaje = 0;
  */
 export let indice_esbirro = 1;
 
-mostrar_personaje(personajes[1], true);
+/**
+ * Obtiene el personaje seleccionado
+ * @returns {object} - Objeto con el indice (i) y el personaje seleccionado (pers)
+ */
+export function obtener_personaje() {
+    return { i: indice_personaje, pers: personajes[indice_personaje] };
+}
+mostrar_personaje(personajes[0], true);

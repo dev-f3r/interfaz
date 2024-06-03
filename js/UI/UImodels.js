@@ -551,9 +551,14 @@ export class Modal extends ElementoHTML {
     get btn_especial() {
         return this._btn_especial;
     }
+    get btn_grales() {
+        return this._btn_grales;
+    }
+    get btn_cerrar() {
+        return this._btn_cerrar;
+    }
 }
 
-// TODO: Implementar la clase Formulario
 /**
  * Clase que representa un formulario.
  * @class
