@@ -1,12 +1,14 @@
 import { Modal } from "./UImodels.js";
-import { ELEMENTOS } from "./inicializador.js";
-import { lista_modales } from "./UIhelpers.js";
+import { ELEMENTOS, MAIN } from "./inicializador.js";
+import { lista_modales, formulario } from "./UIhelpers.js";
 import { cambiar_modo, obtener_modo } from "../juego.js";
 
 // Agrega los modales al main.
 for (const modal in lista_modales) {
-    main.appendChild(lista_modales[modal].elemento);
+    MAIN.appendChild(lista_modales[modal].elemento);
 }
+// Agrega el formulario al main
+MAIN.appendChild(formulario.elemento);
 
 // Agrega el cambio de modo al boton cerrar de cada modal
 Modal.evento_btn_cerrar = () => {
@@ -58,3 +60,8 @@ for (let i = 1; i <= 2; i++) {
     });
 }
 // TODO: Evento habilidades
+// TODO: Evento para condicionar formulario
+// ? Ejemplo:
+// formulario.nombre = "test";
+// formulario.funcion_ingreso = () => console.log(formulario._input.value);
+// formulario.mostrar_ocultar();

@@ -2,7 +2,7 @@
 import { atributos_personajes } from "./../helpers.js";
 import ElementoHTML from "./UImodels.js";
 
-const MAIN = document.querySelector("#main");
+export const MAIN = document.querySelector("#main");
 ElementoHTML.padre = MAIN;
 
 // * Top

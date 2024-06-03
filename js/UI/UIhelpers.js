@@ -1,4 +1,4 @@
-import { BotonModal, Modal } from "./UImodels.js";
+import { BotonModal, Formulario, Modal } from "./UImodels.js";
 import { colecciones } from "../colecciones/main.js";
 
 /**
@@ -36,7 +36,7 @@ export function armar_lista_botones_modal(
             ruta_icono: `img/${nombre_obj + terminacion}.png`,
         });
     });
-};
+}
 
 /**
  * Contiene las listas de botones para cada modal
@@ -112,35 +112,35 @@ const botones_modal = {
  * Objeto con los modales creados.
  */
 export const lista_modales = {
-    "avatares": new Modal({
+    avatares: new Modal({
         titulo: "avatares",
         id: "modal_avatares",
         maximo_botones: MAXIMO_BOTONES_MODAL,
         btn_especial: botones_modal.avatares.especial,
         btn_grales: botones_modal.avatares.normales,
     }),
-    "esbirros": new Modal({
+    esbirros: new Modal({
         titulo: "esbirros",
         id: "modal_esbirros",
         maximo_botones: MAXIMO_BOTONES_MODAL,
         btn_especial: botones_modal.esbirros.especial,
         btn_grales: botones_modal.esbirros.normales,
     }),
-    "armas_marciales": new Modal({
+    armas_marciales: new Modal({
         titulo: "armas marciales",
         id: "modal_armas_marciales",
         maximo_botones: MAXIMO_BOTONES_MODAL,
         btn_especial: botones_modal.armas_marciales.especial,
         btn_grales: botones_modal.armas_marciales.normales,
     }),
-    "armas_naturales": new Modal({
+    armas_naturales: new Modal({
         titulo: "armas naturales",
         id: "modal_armas_naturales",
         maximo_botones: MAXIMO_BOTONES_MODAL,
         btn_especial: botones_modal.armas_naturales.especial,
         btn_grales: botones_modal.armas_naturales.normales,
     }),
-    "equipos": new Modal({
+    equipos: new Modal({
         titulo: "equipos",
         id: "modal_equipos",
         maximo_botones: MAXIMO_BOTONES_MODAL,
@@ -148,3 +148,8 @@ export const lista_modales = {
         btn_grales: botones_modal.equipos.normales,
     }),
 };
+/**
+ * Instancia del formulario.
+ * @const {Formulario}
+ */
+export const formulario = new Formulario({});

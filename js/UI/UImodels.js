@@ -553,4 +553,164 @@ export class Modal extends ElementoHTML {
     }
 }
 
-// TODO: Clase para formulario
+// TODO: Implementar la clase Formulario
+/**
+ * Clase que representa un formulario.
+ * @class
+ */
+export class Formulario extends ElementoHTML {
+    /**
+     * @type {Function}
+     */
+    _funcion_ingreso;
+    /**
+     * @type {Function}
+     */
+    _evento_input;
+    /**
+     * @type {Function}
+     */
+    _evento_btn;
+    /**
+     * @type {HTMLElement}
+     */
+    _encabezado;
+    /**
+     * @type {HTMLElement}
+     */
+    _input;
+    /**
+     * @type {HTMLElement}
+     */
+    _boton;
+    /**
+     * @type {string}
+     */
+    _nombre;
+
+    /**
+     * Constructor de la clase Formulario. Crea un formulario para ingreso de comandos, nombres, habilidades, etc.
+     * @param {object} opciones - Objeto que contiene las opciones para el formulario.
+     * @param {string} opciones.nombre - Nombre del formulario.
+     * @param {string[]} opciones.clases - Clases CSS para aplicar estilos.
+     * @param {boolean} opciones.mostrar - Indica si el formulario debe mostrarse inicialmente (true: visible, false: oculto).
+     * @param {string} opciones.tipo_display - El tipo de display que tomará en caso de mostrarse.
+     * @param {HTMLElement} opciones.hijo - El elemento hijo del formulario.
+     * @param {HTMLElement} opciones.elemento - El contenedor del formulario.
+     * @param {Function} opciones.funcion_ingreso - La función que se ejecuta al ingresar texto.
+     * @param {Function} opciones.nombre - El nombre del formulario.
+     */
+    constructor({
+        elemento = document.createElement("div"),
+        id = "formulario",
+        clases = ["contenedor-input"],
+        mostrar = false,
+        tipo_display = "flex",
+        evento_click = () => console.log("formulario"),
+        funcion_ingreso = () => {},
+        nombre = "",
+    }) {
+        super({
+            elemento,
+            id,
+            clases,
+            mostrar,
+            tipo_display,
+            evento_click,
+        });
+        this._funcion_ingreso = funcion_ingreso;
+
+        this._encabezado = document.createElement("span");
+        this._input = document.createElement("input");
+        this._boton = document.createElement("button");
+        this._nombre = nombre;
+
+        // Construye el formulario
+        this.construir(this._elemento);
+        // Añade los eventos a sus hijos (usando el setter).
+        this.funcion_ingreso = funcion_ingreso;
+        // Desactiva su evento click
+        this.desactivar_evento_click();
+    }
+
+    // ! Reescribo el metodo
+    /**
+     * Construye el formulario
+     * @param {HTMLElement} el - El elemento HTML donde se creará el formulario.
+     */
+    construir(el) {
+        super.construir(el);
+        // Contenido de hijos
+        this._encabezado.textContent = `Ingrese ${this._nombre}`;
+        this._boton.textContent = "Ingresar";
+
+        // Clases de hijos
+        this._encabezado.classList.add("input-label");
+        this._input.classList.add("comandos-input");
+        this._boton.classList.add("input-button");
+
+        // Ids & nombres de hijos
+        this._input.id = `${this._nombre}_valor`;
+        this._input.name = `${this._nombre}_input`;
+
+        // Configuraciones generales del elemento principal
+        this._elemento.id = `contenedor_input_${this._nombre}`;
+
+        // Añade los elementos
+        this._elemento.appendChild(this._encabezado);
+        this._elemento.appendChild(this._input);
+        this._elemento.appendChild(this._boton);
+    }
+
+    get funcion_ingreso() {
+        return this._funcion_ingreso;
+    }
+    get encabezado() {
+        return this._encabezado;
+    }
+    get nombre() {
+        return this._nombre;
+    }
+    /**
+     * Establece el handler para el ingreso de texto.
+     * @param {Function} nueva - La función que se ejecutara a la hora de ingresar texto.
+     */
+    set funcion_ingreso(nueva) {
+        // Cambia la funcion de ingreso.
+        this._funcion_ingreso = nueva;
+
+        // Remueve los eventos actuales.
+        this._input.removeEventListener("keydown", this._evento_input);
+        this._boton.removeEventListener("click", this._evento_btn);
+
+        // Evento para la tecla "enter".
+        this._evento_input = (event) => {
+            if (event.key === "Enter") {
+                this._funcion_ingreso(this._input.value);
+            }
+        };
+        // Evento del boton de ingreso.
+        this._evento_btn = () => {
+            this._funcion_ingreso(this._input.value);
+        };
+
+        // Agrega los eventos nuevos.
+        this._input.addEventListener("keydown", this._evento_input);
+        this._boton.addEventListener("click", this._evento_btn);
+    }
+    /**
+     * Cambia el encabezado del formulario.
+     * @param {string} nuevo - El nuevo encabezado.
+     */
+    set encabezado(nuevo) {
+        this._encabezado.textContent = `Ingrese ${nuevo}`;
+    }
+    /**
+     * Cambia el nombre del formulario.
+     * @param {string} nuevo - El nuevo nombre.
+     */
+    set nombre(nuevo) {
+        this._nombre = nuevo;
+        this.encabezado = this._nombre;
+    }
+}
