@@ -11,6 +11,7 @@ import { cap_primera } from "./../helpers.js";
 import Personaje from "../personajes/personajesModelos.js";
 import { Formulario } from "./UImodels.js";
 import { coleccion_personajes } from "../colecciones/coleccionPersonajes.js";
+import { cambiar_modo } from "../juego.js";
 
 /**
  * Muestra u oculta el contenedor de direccionales arriba y abajo.
@@ -77,45 +78,41 @@ export function contenido_consola(texto) {
 /**
  * Condiciona un formulario para diferentes tipos de ingresos.
  * @param {Formulario} form - El formulario a condicionar.
- * @param {Function} func - La nuevo funcion de ingreso a ejecutar.
+ * @param {Personaje} personaje - El personaje sobre el cual se van a realizar cambios.
+ * @param {string} modo - El modo del formulario (comando, habilidad, nombre).
  */
-export function condicionar_formulario(form, func) {
-    // TODO: Completar la función para condicionar formulario
+export function condicionar_formulario(form, personaje, modo) {
+    console.log(modo);
+    let nueva_funcion;
+
+    switch (modo) {
+        case "nombre":
+            form.encabezado = "nombre";
+            nueva_funcion = (nombre) => (personaje.nombre = nombre);
+            break;
+        case "comando":
+            form.encabezado = "comando";
+            // TODO: Agregar comandos handler
+            break;
+        case "habilidad":
+            form.encabezado = "habilidad";
+            // TODO: Completar el intercambio de habilidades
+            // nueva_funcion = (nombre) => (personaje.habilidad1.actualizar(nombre));
+            break;
+        default:
+            break;
+    }
+
+    form.funcion_ingreso = (str) => {
+        nueva_funcion(str); // Ejecuta la nueva función de ingreso.
+
+        form.mostrar_ocultar(); // Oculta el modal.
+
+        mostrar_personaje(personaje); // Muestra los cambios en el personaje.
+
+        cambiar_modo(); // Cambia a modo "jugar".
+    };
 }
-
-// /**
-//  * ? Condiciona un determinado formulario (cambia su nombre, funcion de ingreso, etc.).
-//  * @param {Personaje} personaje - El personaje sobre el cual se van a realizar cambios.
-//  * @param {Formulario} formulario - El formulario que se quiere condicionar.
-//  * @param {string} modo - El nuevo del formulario (comando, habilidad, nombre).
-//  * @param {boolean} actualizar - Indica si se debe actualizar el personaje.
-//  */
-// function condicionar_formulario(personaje, formulario, modo, actualizar = false) {
-//     let nueva_funcion = () => { }
-//     let nuevo_titulo = "Ingrese "
-//     switch (modo) {
-//         case "comando":
-//             nueva_funcion = ingresar_comandos
-//             nuevo_titulo += "el comando"
-//             break;
-//         case "nombre":
-//             nueva_funcion = personaje.cambiar_nombre
-//             nuevo_titulo += "el nombre"
-//         // TODO: Lógica para cambio de habilidades
-//         // TODO: Lógica para cambio en la experiencia
-//         default:
-//             break;
-//     }
-
-//     formulario.Funcion_ingreso = (input) => {
-//         nueva_funcion(input)
-
-//         // Muestra los nuevos cambios
-//         mostrar_personaje(personaje)
-//         cambiarModo()
-//     }
-//     formulario.cambiar_encabezado = nuevo_titulo
-// }
 
 /**
  * Cambia un personaje por otro.
@@ -129,3 +126,6 @@ export function cambiar_personaje(actual, nuevo, tipo) {
     // Usa el metodo para actualizar la instancia del personaje que se quiere cambiar.
     actual.actualizar(obj_nuevo_pers);
 }
+
+// TODO: Función para pasar de avatar a esbirros
+export function mostrar_esbirros() {}

@@ -2,7 +2,12 @@ import { Modal } from "./UImodels.js";
 import { ELEMENTOS, MAIN } from "./inicializador.js";
 import { lista_modales, formulario } from "./UIhelpers.js";
 import { cambiar_modo, obtener_modo, obtener_personaje } from "../juego.js";
-import { cambiar_personaje, mostrar_personaje } from "./UIcontrollers.js";
+import {
+    cambiar_personaje,
+    condicionar_formulario,
+    contenido_consola,
+    mostrar_personaje,
+} from "./UIcontrollers.js";
 
 // * AGREGADO DE ELEMENTOS Y CONFIGURACIONES.
 // Agrega los modales al main.
@@ -70,7 +75,19 @@ ELEMENTOS.portada_btn.evento_click = () => {
 ELEMENTOS.editar_btn.evento_click = () => {
     cambiar_modo();
 };
-// TODO: Evento nombre
+// Evento btn nombre
+ELEMENTOS.nombre_btn.evento_click = () => {
+    const pers_actual = obtener_personaje();
+    // Si esta en modo "editar" condiciona el formulario para cambio de nombre de personaje.
+    if (obtener_modo() === "editar") {
+        condicionar_formulario(formulario, pers_actual.pers, "nombre"); // Condiciona el formulario.
+        formulario.mostrar_ocultar(); // Muestra el formulario.
+    }
+    // De lo contrario muestra la descripción del personaje.
+    else {
+        contenido_consola(obtener_personaje().pers.descripcion); // Cambia el contenido de la consola.
+    }
+};
 // TODO: Evento esbirro
 // TODO: Evento consola
 // TODO: Evento atributos

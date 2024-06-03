@@ -1,6 +1,5 @@
 import { Modelos } from "./personajes/main.js";
 const { Personaje } = Modelos;
-
 import { ELEMENTOS } from "./UI/inicializador.js";
 import { mostrar_personaje } from "./UI/UIcontrollers.js";
 
@@ -8,39 +7,6 @@ import { mostrar_personaje } from "./UI/UIcontrollers.js";
  * Modo de la interfaz.
  */
 export let UI_modo = "jugar";
-
-/**
- * Obtiene el modo de la interfaz.
- * @returns Modo de la interfaz.
- */
-export function obtener_modo() {
-    return UI_modo;
-}
-
-/**
- * Cambia el modo de la interfaz.
- * @param {string} modo - Modo de la interfaz.
- * @param {string} especificar - Seleccionar un modo especifico.
- */
-export function cambiar_modo(especificar = "") {
-    // Si no se especifica un modo, lo cambia dinamicamente
-    if (!especificar) {
-        if (UI_modo === "jugar") {
-            UI_modo = "editar";
-        } else UI_modo = "jugar";
-    }
-    // Caso contrario, lo cambia especificamente
-    else UI_modo = especificar;
-
-    // Cambia la imagen del boton editar
-    if (obtener_modo() === "jugar")
-        ELEMENTOS.editar_btn.elemento.children[0].src = "img/editar.png";
-    else ELEMENTOS.editar_btn.elemento.children[0].src = "img/guardar.png";
-
-    // TODO: Cada vez que se cambia de modo, se debe cerrar todo
-    // TODO: En modo editar se debe mostrar la experiencia actual
-}
-
 /**
  * Contiene todos las instancias de los personajes
  * @const {Personaje[]}
@@ -76,7 +42,6 @@ export const personajes = [
         nombre: "esbirro 5",
     }),
 ];
-
 /**
  * Indica el indice del personaje seleccionado
  * @var {number}
@@ -89,10 +54,41 @@ export let indice_personaje = 0;
 export let indice_esbirro = 1;
 
 /**
+ * Obtiene el modo de la interfaz.
+ * @returns Modo de la interfaz.
+ */
+export function obtener_modo() {
+    return UI_modo;
+}
+/**
+ * Cambia el modo de la interfaz.
+ * @param {string} modo - Modo de la interfaz.
+ * @param {string} especificar - Seleccionar un modo especifico.
+ */
+export function cambiar_modo(especificar = "") {
+    // Si no se especifica un modo, lo cambia dinamicamente
+    if (!especificar) {
+        if (UI_modo === "jugar") {
+            UI_modo = "editar";
+        } else UI_modo = "jugar";
+    }
+    // Caso contrario, lo cambia especificamente
+    else UI_modo = especificar;
+
+    // Cambia la imagen del boton editar
+    if (obtener_modo() === "jugar")
+        ELEMENTOS.editar_btn.elemento.children[0].src = "img/editar.png";
+    else ELEMENTOS.editar_btn.elemento.children[0].src = "img/guardar.png";
+
+    // TODO: Cada vez que se cambia de modo, se debe cerrar todo
+    // TODO: En modo editar se debe mostrar la experiencia actual
+}
+/**
  * Obtiene el personaje seleccionado
- * @returns {object} - Objeto con el indice (i) y el personaje seleccionado (pers)
+ * @returns {{i:number, pers: Personaje}} - Objeto con el indice (i) y el personaje seleccionado (pers)
  */
 export function obtener_personaje() {
     return { i: indice_personaje, pers: personajes[indice_personaje] };
 }
+
 mostrar_personaje(personajes[0], true);
