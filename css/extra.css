@@ -1,3 +1,12 @@
+/* Disable text selection for all elements */
+* {
+    user-select: none; /* Standard syntax */
+    -moz-user-select: none; /* Firefox */
+    -webkit-user-select: none; /* Chrome, Safari, Opera */
+    -ms-user-select: none; /* Internet Explorer */
+}
+
+
 .btns-mas-menos {
     grid-row: 8/span 3;
     grid-column: 5/span 1;
