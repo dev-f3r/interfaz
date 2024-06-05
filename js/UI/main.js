@@ -4,10 +4,14 @@ import { lista_modales, formulario } from "./UIhelpers.js";
 import { cambiar_modo, obtener_modo, obtener_personaje } from "../juego.js";
 import {
     cambiar_personaje,
+    condicionar_direccionales_arriba_abajo,
     condicionar_formulario,
     contenido_consola,
+    mostrar_atributo,
+    mostrar_direccionales_arriba_abajo,
     mostrar_personaje,
 } from "./UIcontrollers.js";
+import { atributos_personajes } from "../helpers.js";
 
 // * VARIABLES.
 /**
@@ -124,6 +128,29 @@ ELEMENTOS.nombre_btn.evento_click = () => {
 // TODO: Evento esbirro
 // TODO: Evento consola
 // TODO: Evento atributos
+// FIXME: Cuando cambio de atributo los direccionales no deben desaparecer.
+for (const atributo in atributos_personajes) {
+    ELEMENTOS[`${atributo}_btn`].evento_click = () => {
+        const pers_actual = obtener_personaje();
+
+        mostrar_atributo(pers_actual.pers, atributo);
+        // Si esta en modo "editar" muestra los direccionales arriba y abajo.
+        if (obtener_modo() === "editar") {
+            condicionar_direccionales_arriba_abajo(
+                pers_actual.pers,
+                atributo,
+                true
+            );
+            mostrar_direccionales_arriba_abajo();
+        } else if (atributo === "vida_actual" || atributo === "poder_actual")
+            condicionar_direccionales_arriba_abajo(
+                pers_actual.pers,
+                atributo,
+                true
+            );
+    };
+}
+
 for (let i = 1; i <= 3; i++) {
     // Evento btns equipamiento
     ELEMENTOS[`equipo${i}_btn`].evento_click = () => {

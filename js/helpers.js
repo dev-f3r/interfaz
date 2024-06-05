@@ -8,6 +8,14 @@ export const atributos_personajes = {
 };
 
 /**
+ * Copia los atributos de personajes.
+ * @returns {Object} Los atributos de personajes.
+ */
+export function copia_atr_default() {
+    return JSON.parse(JSON.stringify(atributos_personajes));
+}
+
+/**
  * Quita cualquier tipo de acentuación.
  * @param {string} text - El texto a modificar.
  * @returns {string} El texto sin acentos.
@@ -53,6 +61,9 @@ export class EntidadBase {
     _descripcion;
     _icono;
     _portada;
+    /**
+     * @type {Object}
+     */
     _atributos;
     /**
      * @constructor

@@ -1,12 +1,12 @@
-import {
-    EntidadBase,
-    atributos_personajes,
-    quitar_acentos,
-} from "../helpers.js";
+import { EntidadBase, copia_atr_default, quitar_acentos } from "../helpers.js";
 import { colecciones } from "./../colecciones/main.js";
 import Arma from "./armasModelos.js";
 import Equipo from "./equipamientoModelos.js";
 import Habilidad from "./habilidadesModelo.js";
+
+function atr_pers_default() {
+    return { ...copia_atr_default(), vida_actual: 0, poder_actual: 0 };
+}
 
 /**
  * Clase que representa un personaje (avatar o esbirro).
@@ -46,7 +46,7 @@ export default class Personaje extends EntidadBase {
         portada = "img/nada.png",
         descripcion = "sin descripción.",
 
-        atributos = atributos_personajes,
+        atributos = atr_pers_default(),
 
         arma1 = new Arma({ nombre: "arma 1" }),
         arma2 = new Arma({ nombre: "arma 2" }),
@@ -138,6 +138,22 @@ export default class Personaje extends EntidadBase {
             this._equipo2.atributos[nombre] +
             this._equipo3.atributos[nombre]
         );
+    };
+
+    /**
+     * Incrementa el valor de un atributo en base a la experiencia.
+     * @param {string} nombre - El nombre del atributo.
+     */
+    incrementar_atributo(atributo) {
+        this.atributos[atributo]++;
+    }
+
+    /**
+     * Decrementa el valor de un atributo en base a la experiencia.
+     * @param {string} nombre - El nombre del atributo.
+     */
+    decrementar_atributo = (atributo) => {
+        this.atributos[atributo]--;
     };
 
     // TODO: Metodo para ataquar

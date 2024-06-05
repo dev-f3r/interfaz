@@ -1,4 +1,4 @@
-import { EntidadBase, atributos_personajes } from "../helpers.js";
+import { EntidadBase, copia_atr_default } from "../helpers.js";
 
 export default class Equipo extends EntidadBase {
     /**
@@ -14,7 +14,7 @@ export default class Equipo extends EntidadBase {
         icono = "img/nada.png",
         descripcion = "sin descripción.",
 
-        atributos = atributos_personajes,
+        atributos = copia_atr_default(),
     }) {
         super({ nombre, icono, descripcion, atributos });
     }

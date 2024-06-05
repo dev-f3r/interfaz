@@ -6,6 +6,7 @@ import {
     arma1Btn,
     arma2Btn,
     habilidades_btn,
+    ELEMENTOS,
 } from "./inicializador.js";
 import { Formulario } from "./UImodels.js";
 
@@ -26,6 +27,44 @@ export function mostrar_direccionales_arriba_abajo() {
     } else {
         ELEMENTOS.contenedorArribaAbajo.style.display = "flex";
     }
+}
+
+/**
+ * Condiciona los direccionales arriba y abajo
+ * @param {Personaje} personaje - El personaje actual.
+ * @param {string} atributo - El nombre del atributo.
+ * @param {boolean} modo - El modo de direccionamiento (true: full, false: actual).
+ */
+export function condicionar_direccionales_arriba_abajo(
+    personaje,
+    atributo,
+    modo
+) {
+    const [arriba, abajo] = [ELEMENTOS.arriba_btn, ELEMENTOS.abajo_btn];
+
+    let evento_arriba;
+    let evento_abajo;
+
+    let general = () => {
+        mostrar_personaje(personaje);
+        mostrar_atributo(personaje, atributo);
+    };
+
+    if (modo) {
+        evento_arriba = () => {
+            personaje.incrementar_atributo(atributo);
+            general();
+        };
+        evento_abajo = () => {
+            personaje.decrementar_atributo(atributo);
+            general();
+        };
+    } else {
+        // TODO: Edicion de vida y poder actual.
+    }
+
+    arriba.evento_click = evento_arriba;
+    abajo.evento_click = evento_abajo;
 }
 
 /**
@@ -146,4 +185,14 @@ export function cambiar_habilidad(nombre) {
     const habi_nueva = coleccion_habilidades[habi_nombre]; // Accede al objeto
 
     if (habi_nueva) return habi_nueva;
+}
+
+/**
+ * Muestra el valor de un atributo.
+ * @param {Personaje} personaje - El personaje actual.
+ * @param {string} atributo - El nombre del atributo a mostrar.
+ */
+export function mostrar_atributo(personaje, atributo) {
+    const valor = personaje.ttal_atributo(atributo);
+    contenido_consola(`${cap_primera(atributo)}: ${valor}`);
 }
