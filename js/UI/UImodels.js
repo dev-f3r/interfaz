@@ -537,8 +537,12 @@ export class Modal extends ElementoHTML {
     }
 
     // Reescribo el metodo para reestaurar la vista a la default
-    mostrar_ocultar() {
-        super.mostrar_ocultar();
+    /**
+     * Muestra u oculta el elemento estableciendo su estilo de visualización a `this._tipo_display`.
+     * @param {string} opcion - Indica si se debe "ocultar" o "mostrar" el elemento.
+     */
+    mostrar_ocultar(opcion) {
+        super.mostrar_ocultar(opcion);
 
         // Reestablece la vista mostrada a la primera.
         if (!this._vistas[0][0].mostrar) {

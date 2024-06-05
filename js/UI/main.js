@@ -9,6 +9,15 @@ import {
     mostrar_personaje,
 } from "./UIcontrollers.js";
 
+// * VARIABLES.
+/**
+ * Arma seleccionada
+ */
+let slot_arma = 1;
+export function obtener_slot_arma() {
+    return slot_arma;
+}
+
 // * AGREGADO DE ELEMENTOS Y CONFIGURACIONES.
 // Agrega los modales al main.
 for (const modal in lista_modales) {
@@ -56,7 +65,31 @@ lista_modales.avatares.btn_grales.forEach((btn) => {
     };
 });
 // TODO: Los botones del modal esbirros deben cambiar al personaje seleccionado.
-// TODO: Los botones del modal armas deben cambiar el arma del personaje seleccionado.
+// Los botones del modal armas marciales y armas naturales deben cambiar el arma en el slot seleccionado del personaje seleccionado.
+lista_modales.armas_marciales.btn_grales
+    .concat(lista_modales.armas_naturales.btn_grales)
+    .forEach((btn) => {
+        // Cambia el evento click de cada boton el en modal.
+        btn.evento_click = () => {
+            // Obtiene el personaje actual.
+            const pers_actual = obtener_personaje();
+            // Obtiene el nombre del nuevo arma.
+            const nombre_arma_nuevo = btn.id.slice(0, -4);
+
+            // Cambia el arma del personaje seleccionado.
+            pers_actual.pers.conf_arma(obtener_slot_arma(), nombre_arma_nuevo);
+
+            // Muestra los cambios.
+            mostrar_personaje(pers_actual.pers);
+
+            // Cierra ambos modales.
+            lista_modales.armas_marciales.mostrar_ocultar("ocultar");
+            lista_modales.armas_naturales.mostrar_ocultar("ocultar");
+
+            // Cambia a modo "jugar".
+            cambiar_modo();
+        };
+    });
 // TODO: Los botones del modal de equipamiento deben cambiar el slot del personaje seleccionado.
 // TODO: El boton especial del modal de avatares y esbirros debe crear un nuevo personaje.
 // TODO: El boton especial del modal de equipamiento debe reestaurar el slot especificado.
@@ -129,8 +162,10 @@ for (let i = 1; i <= 2; i++) {
     ELEMENTOS[`arma${i}_btn`].forEach((boton) => {
         boton.evento_click = () => {
             // Si esta en modo "editar" muestra el modal armas marciales.
-            if (obtener_modo() === "editar")
-                lista_modales.armas_marciales.mostrar_ocultar();
+            if (obtener_modo() === "editar") {
+                lista_modales.armas_marciales.mostrar_ocultar(); // Muestra el modal.
+                slot_arma = i; // Cambia el slot de arma seleccionada.
+            }
             // De lo contrario muestra la descripción del arma.
             else
                 contenido_consola(
@@ -139,4 +174,3 @@ for (let i = 1; i <= 2; i++) {
         };
     });
 }
-// TODO: Evento habilidades
