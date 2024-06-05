@@ -147,6 +147,7 @@ export const lista_modales = {
         btn_especial: botones_modal.equipos.especial,
         btn_grales: botones_modal.equipos.normales,
     }),
+    // TODO: Modal mochila
 };
 /**
  * Instancia del formulario.

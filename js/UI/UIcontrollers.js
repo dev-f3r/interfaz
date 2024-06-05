@@ -7,12 +7,15 @@ import {
     arma2Btn,
     habilidades_btn,
 } from "./inicializador.js";
-import { cap_primera, quitar_acentos } from "./../helpers.js";
-import Personaje from "../personajes/personajesModelos.js";
 import { Formulario } from "./UImodels.js";
+
+import { cap_primera, quitar_acentos } from "./../helpers.js";
+
+import Personaje from "../personajes/personajesModelos.js";
 import { coleccion_personajes } from "../colecciones/coleccionPersonajes.js";
-import { cambiar_modo } from "../juego.js";
 import { coleccion_habilidades } from "../colecciones/coleccionHabilidades.js";
+
+import { cambiar_modo } from "../juego.js";
 
 /**
  * Muestra u oculta el contenedor de direccionales arriba y abajo.
