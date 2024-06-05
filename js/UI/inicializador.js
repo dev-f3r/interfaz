@@ -100,6 +100,7 @@ for (let i = 1; i <= 3; i++) {
 export const accionBtn = document.querySelector("#accionBtn");
 /**
  * Contiene el botón que abre el menú de opciones.
+ * @const {HTMLButtonElement[]}
  */
 export const arma1Btn = [
     document.querySelector("#arma1ImgBtn"),
@@ -107,6 +108,7 @@ export const arma1Btn = [
 ];
 /**
  * Contiene el botón que abre el menú de opciones.
+ * @const {HTMLButtonElement[]}
  */
 export const arma2Btn = [
     document.querySelector("#arma2ImgBtn"),

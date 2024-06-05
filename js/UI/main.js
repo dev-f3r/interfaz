@@ -91,11 +91,36 @@ ELEMENTOS.nombre_btn.evento_click = () => {
 // TODO: Evento esbirro
 // TODO: Evento consola
 // TODO: Evento atributos
-// Evento btns equipamiento
 for (let i = 1; i <= 3; i++) {
+    // Evento btns equipamiento
     ELEMENTOS[`equipo${i}_btn`].evento_click = () => {
+        // Si esta en modo "editar" muestra el modal de equipamiento.
         if (obtener_modo() === "editar")
             lista_modales.equipos.mostrar_ocultar();
+        // De lo contrario muestra la descripción del slot.
+        else
+            contenido_consola(
+                obtener_personaje().pers[`equipo${i}`].descripcion
+            );
+    };
+
+    // Evento habilidades
+    ELEMENTOS[`habilidad${i}_btn`].evento_click = () => {
+        const pers_actual = obtener_personaje();
+        // Si esta en modo "editar" condiciona el formulario para cambio de habilidad.
+        if (obtener_modo() === "editar") {
+            condicionar_formulario(
+                formulario,
+                pers_actual.pers,
+                "habilidad",
+                i
+            );
+            formulario.mostrar_ocultar();
+        }
+        // De lo contrario muestra la descripción de la habilidad.
+        else {
+            contenido_consola(pers_actual.pers[`habilidad${i}`].descripcion);
+        }
     };
 }
 // TODO: Evento accion
@@ -103,14 +128,15 @@ for (let i = 1; i <= 3; i++) {
 for (let i = 1; i <= 2; i++) {
     ELEMENTOS[`arma${i}_btn`].forEach((boton) => {
         boton.evento_click = () => {
+            // Si esta en modo "editar" muestra el modal armas marciales.
             if (obtener_modo() === "editar")
                 lista_modales.armas_marciales.mostrar_ocultar();
+            // De lo contrario muestra la descripción del arma.
+            else
+                contenido_consola(
+                    obtener_personaje().pers[`arma${i}`].descripcion
+                );
         };
     });
 }
 // TODO: Evento habilidades
-// TODO: Evento para condicionar formulario
-// ? Ejemplo:
-// formulario.nombre = "test";
-// formulario.funcion_ingreso = () => console.log(formulario._input.value);
-// formulario.mostrar_ocultar();

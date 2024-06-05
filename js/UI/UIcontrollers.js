@@ -7,11 +7,12 @@ import {
     arma2Btn,
     habilidades_btn,
 } from "./inicializador.js";
-import { cap_primera } from "./../helpers.js";
+import { cap_primera, quitar_acentos } from "./../helpers.js";
 import Personaje from "../personajes/personajesModelos.js";
 import { Formulario } from "./UImodels.js";
 import { coleccion_personajes } from "../colecciones/coleccionPersonajes.js";
 import { cambiar_modo } from "../juego.js";
+import { coleccion_habilidades } from "../colecciones/coleccionHabilidades.js";
 
 /**
  * Muestra u oculta el contenedor de direccionales arriba y abajo.
@@ -80,9 +81,9 @@ export function contenido_consola(texto) {
  * @param {Formulario} form - El formulario a condicionar.
  * @param {Personaje} personaje - El personaje sobre el cual se van a realizar cambios.
  * @param {string} modo - El modo del formulario (comando, habilidad, nombre).
+ * @param {number} slot - (Si es una habilidad) El slot de habilidad que se quiere cambiar.
  */
-export function condicionar_formulario(form, personaje, modo) {
-    console.log(modo);
+export function condicionar_formulario(form, personaje, modo, slot = 1) {
     let nueva_funcion;
 
     switch (modo) {
@@ -96,8 +97,10 @@ export function condicionar_formulario(form, personaje, modo) {
             break;
         case "habilidad":
             form.encabezado = "habilidad";
-            // TODO: Completar el intercambio de habilidades
-            // nueva_funcion = (nombre) => (personaje.habilidad1.actualizar(nombre));
+            nueva_funcion = (nombre) =>
+                personaje[`habilidad${slot}`].actualizar(
+                    cambiar_habilidad(nombre)
+                );
             break;
         default:
             break;
@@ -129,3 +132,15 @@ export function cambiar_personaje(actual, nuevo, tipo) {
 
 // TODO: Función para pasar de avatar a esbirros
 export function mostrar_esbirros() {}
+
+/**
+ *
+ * @param {string} nombre - El nombre de la nueva habilidad.
+ * @returns {Object} El objeto con la información de la nueva habilidad.
+ */
+export function cambiar_habilidad(nombre) {
+    const habi_nombre = quitar_acentos(nombre).toLowerCase(); // Filtra el nombre
+    const habi_nueva = coleccion_habilidades[habi_nombre]; // Accede al objeto
+
+    if (habi_nueva) return habi_nueva;
+}
