@@ -136,7 +136,7 @@ export const ELEMENTOS = {
     consola_btn: new ElementoHTML({ elemento: consolaBtn }),
     nombre_btn: new ElementoHTML({ elemento: nombreBtn }),
     // * Direccionales
-    contenedorArribaAbajo, // Excepción
+    cnt_arriba_abajo: new ElementoHTML({elemento: contenedorArribaAbajo}), // Excepción
     arriba_btn: new ElementoHTML({ elemento: arribaBtn }),
     abajo_btn: new ElementoHTML({ elemento: abajoBtn }),
     izquierda_btn: new ElementoHTML({ elemento: izquierdaBtn }),

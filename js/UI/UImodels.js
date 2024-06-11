@@ -86,21 +86,17 @@ export default class ElementoHTML {
 
     /**
      * Muestra u oculta el elemento estableciendo su estilo de visualización a `this._tipo_display`.
-     * @param {boolean} ocultar - Indica si se debe ocultar o mostrar el elemento.
+     * @param {boolean} opcion - Indica si se debe ocultar o mostrar el elemento.
      */
-    mostrar_ocultar(opcion = "") {
+    mostrar_ocultar(opcion) {
         // Si se especifica el parametro opcion
-        if (opcion) {
-            switch (opcion) {
-                case "mostrar":
-                    this._mostrar = true;
-                    this._elemento.style.display = this._tipo_display;
-                    break;
-                case "ocultar":
-                    this._mostrar = false;
-                    this._elemento.style.display = "none";
-                default:
-                    break;
+        if (opcion !== undefined) {
+            if(opcion) {
+                this._mostrar = true;
+                this._elemento.style.display = this._tipo_display;
+            } else {
+                this._mostrar = false;
+                this._elemento.style.display = "none";
             }
         }
         // De lo contrario se muestra o se oculta dependiendo del estado actual
@@ -118,7 +114,7 @@ export default class ElementoHTML {
         }
     }
 
-    // ? Metodos getter para acceder a campos privados
+    // * Metodos getter para acceder a campos privados
     get tipo_display() {
         return this._tipo_display;
     }
@@ -138,7 +134,7 @@ export default class ElementoHTML {
         return this._evento_click;
     }
 
-    // Metodos setter para campos privados
+    // * Metodos setter para campos privados
     /**
      * Asigna el tipo de display al elemento.
      * @param {string} tipo_display - El tipo de display a asignar.
