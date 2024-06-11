@@ -141,7 +141,7 @@ export function condicionar_formulario(form, personaje, modo, slot = 1) {
     form.funcion_ingreso = (str) => {
         nueva_funcion(str); // Ejecuta la nueva función de ingreso.
 
-        form.mostrar_ocultar(); // Oculta el modal.
+        ocultar_elementos([form]); // Oculta el modal.
 
         mostrar_personaje(personaje); // Muestra los cambios en el personaje.
 
