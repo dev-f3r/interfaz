@@ -1,4 +1,4 @@
-import { Modal } from "./UImodels.js";
+import ElementoHTML, { Modal } from "./UImodels.js";
 import { ELEMENTOS, MAIN } from "./inicializador.js";
 import { lista_modales, formulario } from "./UIhelpers.js";
 import { cambiar_modo, obtener_modo, obtener_personaje } from "../juego.js";
@@ -7,8 +7,8 @@ import {
     condicionar_direccionales_arriba_abajo,
     condicionar_formulario,
     contenido_consola,
+    limpiar_consola,
     mostrar_atributo,
-    mostrar_direccionales_arriba_abajo,
     mostrar_personaje,
 } from "./UIcontrollers.js";
 import { atributos_personajes } from "../helpers.js";
@@ -16,13 +16,62 @@ import { atributos_personajes } from "../helpers.js";
 // * VARIABLES.
 /**
  * Arma seleccionada
+ * @type {number}
+ * @var
  */
 let slot_arma = 1;
+
+/**
+ * Contiene los elementos que se estan mostrando.
+ * @type {ElementoHTML[]}
+ * @const
+ */
+export const elementos_mostrados = [];
+
+// * HELPERS.
+/**
+ * Obtiene el slot de la arma seleccionada.
+ * @returns {number} Slot de la arma seleccionada.
+ */
 export function obtener_slot_arma() {
     return slot_arma;
 }
 
+/**
+ * Oculta elementos que se estan mostrando.
+ * @param {ElementoHTML[]} elementos - Lista con los elementos a ocultar.
+ */
+export function ocultar_elementos(elementos) {
+    /**
+     * @type {ElementoHTML}
+     */
+    let elemento = elementos.pop();
+    while (elemento) {
+        elemento.mostrar_ocultar(false);
+        elemento = elementos.pop();
+    }
+}
+
+/**
+ * Muestra elementos que NO se estan mostrando.
+ * @param {ElementoHTML[]} elementos - Lista con los elementos a mostrar.
+ */
+export function mostrar_elementos(elementos) {
+    /**
+     * @type {ElementoHTML}
+     */
+    let elemento = elementos.pop();
+    while (elemento) {
+        elemento.mostrar_ocultar(true);
+        elementos_mostrados.push(elemento);
+
+        elemento = elementos.pop();
+    }
+}
+
 // * AGREGADO DE ELEMENTOS Y CONFIGURACIONES.
+// El contenedor de direccionales arriba/abajo por default tiene display="flex".
+ELEMENTOS.cnt_arriba_abajo.tipo_display = "flex";
 // Agrega los modales al main.
 for (const modal in lista_modales) {
     MAIN.appendChild(lista_modales[modal].elemento);
@@ -87,8 +136,8 @@ lista_modales.armas_marciales.btn_grales
             mostrar_personaje(pers_actual.pers);
 
             // Cierra ambos modales.
-            lista_modales.armas_marciales.mostrar_ocultar("ocultar");
-            lista_modales.armas_naturales.mostrar_ocultar("ocultar");
+            lista_modales.armas_marciales.mostrar_ocultar(false);
+            lista_modales.armas_naturales.mostrar_ocultar(false);
 
             // Cambia a modo "jugar".
             cambiar_modo();
@@ -101,7 +150,7 @@ lista_modales.armas_marciales.btn_grales
 // * EVENTOS.
 // Evento portada
 ELEMENTOS.portada_btn.evento_click = () => {
-    // TODO: Debe desplegar el modal avatares o el modal esbirros
+    // TODO: Logica para desplegar modal de esbirros.
     // Despliega el modal avatares si esta en modo "editar"
     if (obtener_modo() === "editar") {
         lista_modales.avatares.mostrar_ocultar();
@@ -126,8 +175,8 @@ ELEMENTOS.nombre_btn.evento_click = () => {
     }
 };
 // TODO: Evento esbirro
-// TODO: Evento consola
-// TODO: Evento atributos
+// Evento consola.
+ELEMENTOS.consola_btn.evento_click = () => limpiar_consola(true);
 // FIXME: Cuando cambio de atributo los direccionales no deben desaparecer.
 for (const atributo in atributos_personajes) {
     ELEMENTOS[`${atributo}_btn`].evento_click = () => {
@@ -141,13 +190,18 @@ for (const atributo in atributos_personajes) {
                 atributo,
                 true
             );
-            mostrar_direccionales_arriba_abajo();
-        } else if (atributo === "vida_actual" || atributo === "poder_actual")
+            mostrar_elementos([ELEMENTOS.cnt_arriba_abajo]);
+        } else if (
+            atributo === "vida" ||
+            (atributo === "poder" && obtener_modo() === "jugar")
+        ) {
             condicionar_direccionales_arriba_abajo(
                 pers_actual.pers,
                 atributo,
                 true
             );
+            mostrar_elementos([ELEMENTOS.cnt_arriba_abajo]);
+        }
     };
 }
 

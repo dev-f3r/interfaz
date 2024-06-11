@@ -17,17 +17,7 @@ import { coleccion_personajes } from "../colecciones/coleccionPersonajes.js";
 import { coleccion_habilidades } from "../colecciones/coleccionHabilidades.js";
 
 import { cambiar_modo } from "../juego.js";
-
-/**
- * Muestra u oculta el contenedor de direccionales arriba y abajo.
- */
-export function mostrar_direccionales_arriba_abajo() {
-    if (ELEMENTOS.contenedorArribaAbajo.style.display === "flex") {
-        ELEMENTOS.contenedorArribaAbajo.style.display = "none";
-    } else {
-        ELEMENTOS.contenedorArribaAbajo.style.display = "flex";
-    }
-}
+import { elementos_mostrados, ocultar_elementos } from "./main.js";
 
 /**
  * Condiciona los direccionales arriba y abajo
@@ -195,4 +185,15 @@ export function cambiar_habilidad(nombre) {
 export function mostrar_atributo(personaje, atributo) {
     const valor = personaje.ttal_atributo(atributo);
     contenido_consola(`${cap_primera(atributo)}: ${valor}`);
+}
+
+/**
+ * Limpia la consola y oculta todos los elementos que se estan mostrando.
+ * @param {boolean} cambio_modo - Indica si se debe cambiar a modo "jugar".
+ */
+export function limpiar_consola(cambio_modo = false) {
+    contenido_consola("consola"); // Reestaura el texto mostrado
+    ocultar_elementos(elementos_mostrados); // Oculta todos los elementos que se estan mostrando.
+
+    if(cambio_modo) cambiar_modo("jugar"); // Cambia a modo "jugar".
 }

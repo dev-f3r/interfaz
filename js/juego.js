@@ -1,12 +1,13 @@
 import { Modelos } from "./personajes/main.js";
 const { Personaje } = Modelos;
 import { ELEMENTOS } from "./UI/inicializador.js";
-import { mostrar_personaje } from "./UI/UIcontrollers.js";
+import { elementos_mostrados, ocultar_elementos } from "./UI/main.js";
+import { contenido_consola, limpiar_consola, mostrar_personaje } from "./UI/UIcontrollers.js";
 
 /**
  * Modo de la interfaz.
  */
-export let UI_modo = "jugar";
+let UI_modo = "jugar";
 /**
  * Contiene todos las instancias de los personajes
  * @const {Personaje[]}
@@ -42,6 +43,28 @@ export const personajes = [
         nombre: "esbirro 5",
     }),
 ];
+/**
+ * Contiene la experiencia actual
+ * @var {number}
+ */
+let exp = 0;
+/**
+ * Obtiene la experiencia actual.
+ * @returns {number} Experiencia actual.
+ */
+export function obtener_exp() {
+    return exp;
+}
+/**
+ * Modifica la experiencia actual.
+ * @param {boolean} accion - Indica si se debe aumentar o disminuir la experiencia.
+ * @param {number} valor - El valor a aumentar o disminuir.
+ */
+export function modificar_exp(accion, valor) {
+    if (accion) exp += valor;
+    else exp -= valor;
+}
+
 /**
  * Indica el indice del personaje seleccionado
  * @var {number}
@@ -80,7 +103,8 @@ export function cambiar_modo(especificar = "") {
         ELEMENTOS.editar_btn.elemento.children[0].src = "img/editar.png";
     else ELEMENTOS.editar_btn.elemento.children[0].src = "img/guardar.png";
 
-    // TODO: Cada vez que se cambia de modo, se debe cerrar todo
+    // Reestaura la consola y oculta todos los elementos.
+    limpiar_consola(false);
     // TODO: En modo editar se debe mostrar la experiencia actual
 }
 /**
