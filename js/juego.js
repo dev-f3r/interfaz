@@ -2,7 +2,11 @@ import { Modelos } from "./personajes/main.js";
 const { Personaje } = Modelos;
 import { ELEMENTOS } from "./UI/inicializador.js";
 import { elementos_mostrados, ocultar_elementos } from "./UI/main.js";
-import { contenido_consola, limpiar_consola, mostrar_personaje } from "./UI/UIcontrollers.js";
+import {
+    contenido_consola,
+    limpiar_consola,
+    mostrar_personaje,
+} from "./UI/UIcontrollers.js";
 
 /**
  * Modo de la interfaz.
@@ -66,15 +70,14 @@ export function modificar_exp(accion, valor) {
 }
 
 /**
- * Indica el indice del personaje seleccionado
- * @var {number}
+ * Contiene los indices de los personajes.
+ * @type {{personaje:number, avatar:number, esbirro:number}}
  */
-export let indice_personaje = 0;
-/**
- * Contiene el indice de ultimo esbirro seleccionado
- * @var {number}
- */
-export let indice_esbirro = 1;
+export const indice_personajes = {
+    personaje: 0,
+    avatar: 0,
+    esbirro: 1,
+};
 
 /**
  * Obtiene el modo de la interfaz.
@@ -112,7 +115,10 @@ export function cambiar_modo(especificar = "") {
  * @returns {{i:number, pers: Personaje}} - Objeto con el indice (i) y el personaje seleccionado (pers)
  */
 export function obtener_personaje() {
-    return { i: indice_personaje, pers: personajes[indice_personaje] };
+    return {
+        i: indice_personajes.personaje,
+        pers: personajes[indice_personajes.personaje],
+    };
 }
 
 mostrar_personaje(personajes[0], true);

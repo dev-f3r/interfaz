@@ -9,6 +9,7 @@ import {
     contenido_consola,
     limpiar_consola,
     mostrar_atributo,
+    mostrar_esbirros,
     mostrar_personaje,
 } from "./UIcontrollers.js";
 import { atributos_personajes } from "../helpers.js";
@@ -206,7 +207,10 @@ ELEMENTOS.nombre_btn.evento_click = () => {
         contenido_consola(obtener_personaje().pers.descripcion); // Cambia el contenido de la consola.
     }
 };
-// TODO: Evento esbirro
+// Evento esbirro
+ELEMENTOS.esbirros_btn.evento_click = () => {
+    mostrar_esbirros(obtener_personaje().i);
+};
 // Evento consola.
 ELEMENTOS.consola_btn.evento_click = () => limpiar_consola(true);
 // Evento atributos.
@@ -293,3 +297,4 @@ for (let i = 1; i <= 2; i++) {
         };
     });
 }
+// TODO: Evento direccionales izquierda/derecha arriba/abajo

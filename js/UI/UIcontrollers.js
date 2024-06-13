@@ -16,7 +16,7 @@ import Personaje from "../personajes/personajesModelos.js";
 import { coleccion_personajes } from "../colecciones/coleccionPersonajes.js";
 import { coleccion_habilidades } from "../colecciones/coleccionHabilidades.js";
 
-import { cambiar_modo } from "../juego.js";
+import { cambiar_modo, indice_personajes, personajes } from "../juego.js";
 import { elementos_mostrados, ocultar_elementos } from "./main.js";
 
 /**
@@ -174,8 +174,19 @@ export function cambiar_personaje(actual, nuevo, tipo) {
     actual.actualizar(obj_nuevo_pers);
 }
 
-// TODO: Función para pasar de avatar a esbirros
-export function mostrar_esbirros() {}
+/**
+ * Muestra los esbirros ó el personaje principal.
+ * @param {number} i - El indice del personaje actual.
+ */
+export function mostrar_esbirros(i = 0) {
+    // Si se trata de un esbirro.
+    if (i > 0) indice_personajes.personaje = 0;
+    // Si se trata de el personaje principal.
+    else indice_personajes.personaje = indice_personajes.esbirro;
+
+    // Cambia el personaje actual.
+    mostrar_personaje(personajes[indice_personajes.personaje]);
+}
 
 /**
  *
