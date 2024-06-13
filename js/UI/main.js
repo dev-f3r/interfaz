@@ -11,6 +11,7 @@ import {
     mostrar_atributo,
     mostrar_esbirros,
     mostrar_personaje,
+    navegar_esbirros,
 } from "./UIcontrollers.js";
 import { atributos_personajes } from "../helpers.js";
 import Personaje from "../personajes/personajesModelos.js";
@@ -86,19 +87,21 @@ export function mostrar_elementos(elementos) {
     }
 }
 
-// * AGREGADO DE ELEMENTOS Y CONFIGURACIONES.
-// El contenedor de direccionales arriba/abajo por default tiene display="flex".
-ELEMENTOS.cnt_arriba_abajo.tipo_display = "flex";
+// * AGREGADO DE ELEMENTOS.
 // Agrega los modales al main.
 for (const modal in lista_modales) {
     MAIN.appendChild(lista_modales[modal].elemento);
 }
 // Agrega el formulario al main
 MAIN.appendChild(formulario.elemento);
+
+// * CONFIGURACIONES.
 // Agrega el cambio de modo al boton cerrar de cada modal
 Modal.evento_btn_cerrar = () => {
     cambiar_modo();
 };
+// El contenedor de direccionales arriba/abajo por default tiene display="flex".
+ELEMENTOS.cnt_arriba_abajo.tipo_display = "flex";
 // El boton especial del modal armas marciales debe desplegar el modal armas naturales
 lista_modales.armas_marciales.btn_especial.evento_click = () => {
     ocultar_elementos([lista_modales.armas_marciales]); // Oculta el modal armas marciales
@@ -110,31 +113,43 @@ lista_modales.armas_naturales.btn_especial.evento_click = () => {
     mostrar_elementos([lista_modales.armas_marciales]); // Despliega el modal armas marciales
 };
 // Los botones del modal avatares deben cambiar al personaje seleccionado.
-lista_modales.avatares.btn_grales.forEach((btn) => {
-    // Cambia el evento click de cada boton el en modal.
-    btn.evento_click = () => {
-        // Obtiene el personaje actual.
-        const pers_actual = obtener_personaje();
-        // Obtiene el nombre del nuevo personaje.
-        const nombre_pers_nuevo = btn.id.slice(0, -4);
+lista_modales.avatares.btn_grales
+    .concat(lista_modales.esbirros.btn_grales)
+    .forEach((btn) => {
+        // Cambia el evento click de cada boton el en modal.
+        btn.evento_click = () => {
+            // Obtiene el personaje actual.
+            const pers_actual = obtener_personaje();
+            // Obtiene el nombre del nuevo personaje.
+            const nombre_pers_nuevo = btn.id.slice(0, -4);
 
-        // Si el personaje actual es un esbirro.
-        if (pers_actual.i > 0) {
-            // Cambia el personaje a un esbirro con el nuevo nombre.
-            cambiar_personaje(pers_actual.pers, nombre_pers_nuevo, "esbirros");
-        } else {
-            // Cambia el personaje a un avatar con el nuevo nombre.
-            cambiar_personaje(pers_actual.pers, nombre_pers_nuevo, "avatares");
-        }
+            // Si el personaje actual es un esbirro.
+            if (pers_actual.i > 0) {
+                // Cambia el personaje a un esbirro con el nuevo nombre.
+                cambiar_personaje(
+                    pers_actual.pers,
+                    nombre_pers_nuevo,
+                    "esbirros"
+                );
+            } else {
+                // Cambia el personaje a un avatar con el nuevo nombre.
+                cambiar_personaje(
+                    pers_actual.pers,
+                    nombre_pers_nuevo,
+                    "avatares"
+                );
+            }
 
-        // Muestra el nuevo personaje y su descripción por consola.
-        mostrar_personaje(pers_actual.pers, true);
+            // Muestra el nuevo personaje y su descripción por consola.
+            mostrar_personaje(pers_actual.pers, true);
 
-        // Cierra el modal.
-        lista_modales.avatares.btn_cerrar.elemento.click();
-    };
-});
-// TODO: Los botones del modal esbirros deben cambiar al personaje seleccionado.
+            // Cierra el modal.
+            ocultar_elementos([lista_modales.avatares, lista_modales.esbirros]);
+
+            // Cambia a modo "jugar".
+            cambiar_modo();
+        };
+    });
 // Los botones del modal armas marciales y armas naturales deben cambiar el arma en el slot seleccionado del personaje seleccionado.
 lista_modales.armas_marciales.btn_grales
     .concat(lista_modales.armas_naturales.btn_grales)
@@ -162,7 +177,7 @@ lista_modales.armas_marciales.btn_grales
             cambiar_modo();
         };
     });
-// TODO: Los botones del modal de equipamiento deben cambiar el slot del personaje seleccionado.
+// Los botones del modal de equipamiento cambian un slot de equipamiento del personaje seleccionado.
 lista_modales.equipos.btn_grales.forEach((btn) => {
     btn.evento_click = () => {
         const pers_actual = obtener_personaje();
@@ -183,10 +198,18 @@ lista_modales.equipos.btn_grales.forEach((btn) => {
 // * EVENTOS.
 // Evento portada
 ELEMENTOS.portada_btn.evento_click = () => {
-    // TODO: Logica para desplegar modal de esbirros.
     // Despliega el modal avatares si esta en modo "editar"
     if (obtener_modo() === "editar") {
-        mostrar_elementos([lista_modales.avatares]);
+        // TODO: Logica para desplegar modal de esbirros.
+        if (obtener_personaje().i > 0)
+            mostrar_elementos([lista_modales.esbirros]);
+        else mostrar_elementos([lista_modales.avatares]);
+    } else {
+        if (obtener_personaje().i > 0 && !ELEMENTOS.izquierda_btn.mostrar) {
+            mostrar_elementos([ELEMENTOS.izquierda_btn, ELEMENTOS.derecha_btn]);
+        } else {
+            ocultar_elementos([ELEMENTOS.izquierda_btn, ELEMENTOS.derecha_btn]);
+        }
     }
 };
 // TODO: Evento exp
@@ -210,9 +233,16 @@ ELEMENTOS.nombre_btn.evento_click = () => {
 // Evento esbirro
 ELEMENTOS.esbirros_btn.evento_click = () => {
     mostrar_esbirros(obtener_personaje().i);
+    cambiar_modo("jugar");
 };
 // Evento consola.
 ELEMENTOS.consola_btn.evento_click = () => limpiar_consola(true);
+// Evento direccionales izquierda/derecha.
+ELEMENTOS.izquierda_btn.evento_click = () =>
+    navegar_esbirros(obtener_personaje().i, "izquierda");
+ELEMENTOS.derecha_btn.evento_click = () =>
+    navegar_esbirros(obtener_personaje().i, "derecha");
+
 // Evento atributos.
 // FIXME: Cuando cambio de atributo los direccionales no deben desaparecer.
 for (const atributo in atributos_personajes) {
@@ -297,4 +327,3 @@ for (let i = 1; i <= 2; i++) {
         };
     });
 }
-// TODO: Evento direccionales izquierda/derecha arriba/abajo

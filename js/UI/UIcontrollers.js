@@ -30,16 +30,19 @@ export function condicionar_direccionales_arriba_abajo(
     atributo,
     modo
 ) {
+    // Obtiene los botones de direccionamiento.
     const [arriba, abajo] = [ELEMENTOS.arriba_btn, ELEMENTOS.abajo_btn];
 
     let evento_arriba;
     let evento_abajo;
 
+    // Funcion general para condicionar los direccionales.
     let general = () => {
         mostrar_personaje(personaje);
         mostrar_atributo(personaje, atributo);
     };
 
+    // Condiciona los direccionales para editar los atributos reales del personaje.
     if (modo) {
         evento_arriba = () => {
             personaje.incrementar_atributo(atributo);
@@ -49,10 +52,13 @@ export function condicionar_direccionales_arriba_abajo(
             personaje.decrementar_atributo(atributo);
             general();
         };
-    } else {
+    }
+    // Condiciona los direccionales para editar la vida y poder ACTUAL del personaje.
+    else {
         // TODO: Edicion de vida y poder actual.
     }
 
+    // Asigna los nuevos eventos.
     arriba.evento_click = evento_arriba;
     abajo.evento_click = evento_abajo;
 }
@@ -176,16 +182,41 @@ export function cambiar_personaje(actual, nuevo, tipo) {
 
 /**
  * Muestra los esbirros ó el personaje principal.
- * @param {number} i - El indice del personaje actual.
+ * @param {number} indice - El indice del personaje actual.
  */
-export function mostrar_esbirros(i = 0) {
+export function mostrar_esbirros(indice = 0) {
     // Si se trata de un esbirro.
-    if (i > 0) indice_personajes.personaje = 0;
+    if (indice > 0) indice_personajes.actual = 0;
     // Si se trata de el personaje principal.
-    else indice_personajes.personaje = indice_personajes.esbirro;
+    else indice_personajes.actual = indice_personajes.esbirro;
 
     // Cambia el personaje actual.
-    mostrar_personaje(personajes[indice_personajes.personaje]);
+    mostrar_personaje(personajes[indice_personajes.actual], true);
+}
+
+/**
+ * Navega entre los esbirros.
+ * @param {number} indice - El indice del personaje actual.
+ * @param {string} direccion - La dirección a la que se quiere navegar.
+ */
+export function navegar_esbirros(indice, direccion) {
+    switch (direccion) {
+        case "izquierda":
+            // Excepción para el primer esbirro.
+            if (indice === 1) indice_personajes.esbirro = personajes.length - 1;
+            else indice_personajes.esbirro--;
+            break;
+        case "derecha":
+            // Excepción para el ultimo esbirro.
+            if (indice === personajes.length - 1) indice_personajes.esbirro = 1;
+            else indice_personajes.esbirro++;
+            break;
+        default:
+            break;
+    }
+
+    indice_personajes.actual = indice_personajes.esbirro; // Actualiza el indice del esbirro actual.
+    mostrar_personaje(personajes[indice_personajes.actual], true); // Muestra el personaje.
 }
 
 /**
@@ -210,6 +241,7 @@ export function mostrar_atributo(personaje, atributo) {
     contenido_consola(`${cap_primera(atributo)}: ${valor}`);
 }
 
+// FIXME: Se ejecuta cuando no deberia, revisar las llamadas.
 /**
  * Limpia la consola y oculta todos los elementos que se estan mostrando.
  * @param {boolean} cambio_modo - Indica si se debe cambiar a modo "jugar".

@@ -1,9 +1,7 @@
 import { Modelos } from "./personajes/main.js";
 const { Personaje } = Modelos;
 import { ELEMENTOS } from "./UI/inicializador.js";
-import { elementos_mostrados, ocultar_elementos } from "./UI/main.js";
 import {
-    contenido_consola,
     limpiar_consola,
     mostrar_personaje,
 } from "./UI/UIcontrollers.js";
@@ -71,10 +69,10 @@ export function modificar_exp(accion, valor) {
 
 /**
  * Contiene los indices de los personajes.
- * @type {{personaje:number, avatar:number, esbirro:number}}
+ * @type {{actual:number, avatar:number, esbirro:number}}
  */
 export const indice_personajes = {
-    personaje: 0,
+    actual: 0,
     avatar: 0,
     esbirro: 1,
 };
@@ -116,8 +114,8 @@ export function cambiar_modo(especificar = "") {
  */
 export function obtener_personaje() {
     return {
-        i: indice_personajes.personaje,
-        pers: personajes[indice_personajes.personaje],
+        i: indice_personajes.actual,
+        pers: personajes[indice_personajes.actual],
     };
 }
 
