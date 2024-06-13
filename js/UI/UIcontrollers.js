@@ -70,7 +70,8 @@ export function mostrar_personaje(personaje, cambiar_consola = false) {
         const span = boton.children[1].children[0];
 
         // Actualiza el valor del span
-        span.textContent = personaje.atributos[atributo];
+        // FIXME: No suma los atributos del equipamiento a la hora de mostrar el total.
+        span.textContent = personaje.ttal_atributo(atributo);
     }
 
     // * Portada
@@ -91,11 +92,22 @@ export function mostrar_personaje(personaje, cambiar_consola = false) {
     arma2Btn[0].children[0].src = personaje.arma2.icono; // Icono
     arma2Btn[1].children[0].textContent = cap_primera(personaje.arma2.nombre); // Nombre
 
-    // * Equipamientos
+    // * Habilidades
     for (const habilidad in habilidades_btn) {
         const span = habilidades_btn[habilidad].children[0];
 
         span.textContent = personaje[habilidad].nombre.toUpperCase();
+    }
+
+    // * Equipamiento
+    for (let i = 1; i <= 3; i++) {
+        /**
+         * @type {HTMLElement[]}
+         */
+        const el = ELEMENTOS[`equipo${i}_btn`].elemento.children;
+
+        el[0].children[0].src = personaje[`equipo${i}`].icono;
+        el[1].children[0].textContent = personaje[`equipo${i}`].nivel;
     }
 }
 
@@ -195,5 +207,5 @@ export function limpiar_consola(cambio_modo = false) {
     contenido_consola("consola"); // Reestaura el texto mostrado
     ocultar_elementos(elementos_mostrados); // Oculta todos los elementos que se estan mostrando.
 
-    if(cambio_modo) cambiar_modo("jugar"); // Cambia a modo "jugar".
+    if (cambio_modo) cambiar_modo("jugar"); // Cambia a modo "jugar".
 }

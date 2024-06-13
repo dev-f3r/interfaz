@@ -12,7 +12,7 @@ import {
     mostrar_personaje,
 } from "./UIcontrollers.js";
 import { atributos_personajes } from "../helpers.js";
-
+import Personaje from "../personajes/personajesModelos.js";
 // * VARIABLES.
 /**
  * Arma seleccionada
@@ -20,6 +20,13 @@ import { atributos_personajes } from "../helpers.js";
  * @var
  */
 let slot_arma = 1;
+
+/**
+ * Equipo seleccionado
+ * @type {number}
+ * @var
+ */
+let slot_equipo = 1;
 
 // FIXME: Solo se debe permitir un solo elemento mostrado.
 /**
@@ -36,6 +43,14 @@ export const elementos_mostrados = [];
  */
 export function obtener_slot_arma() {
     return slot_arma;
+}
+
+/**
+ * Obtiene el slot del equipo seleccionado.
+ * @returns {number} Slot del equipo seleccionado.
+ */
+export function obtener_slot_equipo() {
+    return slot_equipo;
 }
 
 /**
@@ -137,13 +152,30 @@ lista_modales.armas_marciales.btn_grales
             mostrar_personaje(pers_actual.pers);
 
             // Cierra ambos modales.
-            ocultar_elementos([lista_modales.armas_marciales, lista_modales.armas_naturales]);
+            ocultar_elementos([
+                lista_modales.armas_marciales,
+                lista_modales.armas_naturales,
+            ]);
 
             // Cambia a modo "jugar".
             cambiar_modo();
         };
     });
 // TODO: Los botones del modal de equipamiento deben cambiar el slot del personaje seleccionado.
+lista_modales.equipos.btn_grales.forEach((btn) => {
+    btn.evento_click = () => {
+        const pers_actual = obtener_personaje();
+        const nombre_equipo_nuevo = btn.id.slice(0, -4);
+
+        pers_actual.pers.conf_equipamiento(
+            obtener_slot_equipo(),
+            nombre_equipo_nuevo
+        );
+
+        mostrar_personaje(pers_actual.pers, false);
+        lista_modales.equipos.btn_cerrar.elemento.click();
+    };
+});
 // TODO: El boton especial del modal de avatares y esbirros debe crear un nuevo personaje.
 // TODO: El boton especial del modal de equipamiento debe reestaurar el slot especificado.
 
@@ -153,7 +185,7 @@ ELEMENTOS.portada_btn.evento_click = () => {
     // TODO: Logica para desplegar modal de esbirros.
     // Despliega el modal avatares si esta en modo "editar"
     if (obtener_modo() === "editar") {
-        mostrar_elementos([lista_modales.avatares]); 
+        mostrar_elementos([lista_modales.avatares]);
     }
 };
 // TODO: Evento exp
@@ -193,8 +225,8 @@ for (const atributo in atributos_personajes) {
             );
             mostrar_elementos([ELEMENTOS.cnt_arriba_abajo]);
         } else if (
-            atributo === "vida" ||
-            (atributo === "poder" && obtener_modo() === "jugar")
+            (atributo === "vida" || atributo === "poder") &&
+            obtener_modo() === "jugar"
         ) {
             condicionar_direccionales_arriba_abajo(
                 pers_actual.pers,
@@ -202,6 +234,8 @@ for (const atributo in atributos_personajes) {
                 true
             );
             mostrar_elementos([ELEMENTOS.cnt_arriba_abajo]);
+        } else {
+            ocultar_elementos([ELEMENTOS.cnt_arriba_abajo]);
         }
     };
 }
@@ -209,8 +243,12 @@ for (const atributo in atributos_personajes) {
 for (let i = 1; i <= 3; i++) {
     // Evento btns equipamiento
     ELEMENTOS[`equipo${i}_btn`].evento_click = () => {
+        // Cambia el slot de equipo seleccionado.
+        slot_equipo = i;
+
         // Si esta en modo "editar" muestra el modal de equipamiento.
-        if (obtener_modo() === "editar") mostrar_elementos(lista_modales.equipos);
+        if (obtener_modo() === "editar")
+            mostrar_elementos([lista_modales.equipos]);
         // De lo contrario muestra la descripción del slot.
         else
             contenido_consola(

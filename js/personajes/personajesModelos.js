@@ -111,8 +111,9 @@ export default class Personaje extends EntidadBase {
      * @param {string} nombre - El nombre de la nueva equipo.
      */
     conf_equipamiento = (slot, nombre) => {
-        console.log(slot, nombre);
         // TODO: Completar logica para cambio de equipamiento.
+        const nueva = colecciones.equipos[nombre]
+        this[`equipo${slot}`].actualizar(nueva);
     };
 
     /**

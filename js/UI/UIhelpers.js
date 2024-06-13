@@ -39,6 +39,23 @@ export function armar_lista_botones_modal(
 }
 
 /**
+ * Crea una lista con los botones a partir de una lista con nombres de objetos
+ * @param {Object.<string, Object>} coleccion - La colección en la que se basa la lista de nombres.
+ * @param {number} maximo - El máximo de botones visibles.
+ * @returns {BotonModal[]} Una lista con los botones creados.
+ */
+function armar_lista_btns_modal_equipo(coleccion, maximo) {
+    return Object.entries(coleccion).map(([key, obj], i) => {
+        const mostrar = i <= maximo - 1 ? true : false; // Visivilidad según el maximo.
+        return new BotonModal({
+            id: `${key}_btn`,
+            mostrar,
+            ruta_icono: obj.icono,
+        });
+    });
+}
+
+/**
  * Contiene las listas de botones para cada modal
  */
 const botones_modal = {
@@ -96,9 +113,8 @@ const botones_modal = {
         }),
     },
     equipos: {
-        normales: armar_lista_botones_modal(
+        normales: armar_lista_btns_modal_equipo(
             colecciones.equipos,
-            "icono",
             MAXIMO_BOTONES_MODAL
         ),
         // TODO: El boton especial debe reestaurar el slot de equipamiento seleccionado.
