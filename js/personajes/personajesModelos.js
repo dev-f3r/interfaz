@@ -91,6 +91,8 @@ export default class Personaje extends EntidadBase {
         // * Armas
         this.conf_arma(1, props.arma1);
         this.conf_arma(2, props.arma2);
+
+        this.actualizar_atributos_actuales(); // Actualiza los atributos actuales.
     };
 
     /**
@@ -115,9 +117,8 @@ export default class Personaje extends EntidadBase {
     conf_equipamiento = (slot, nombre) => {
         const nueva = colecciones.equipos[nombre]; // Obtiene el objeto nuevo.
         this[`equipo${slot}`].actualizar(nueva); // Actualiza el slot de equipamiento correspondiente.
-        // Actualiza los atributos de vida y poder ACTUAL.
-        this.atributos.vida_actual = this.ttal_atributo("vida");
-        this.atributos.poder_actual = this.ttal_atributo("poder");
+
+        this.actualizar_atributos_actuales(); // Actualiza los atributos actuales.
     };
 
     /**
@@ -218,6 +219,15 @@ export default class Personaje extends EntidadBase {
         // Decremento
         else if (!accion && val_atri > 0)
             this.atributos[`${atributo}_actual`]--;
+    };
+
+    /**
+     * Actualiza los atributos de vida y poder ACTUAL.
+     */
+    actualizar_atributos_actuales = () => {
+        // Actualiza los atributos de vida y poder ACTUAL.
+        this.atributos.vida_actual = this.ttal_atributo("vida");
+        this.atributos.poder_actual = this.ttal_atributo("poder");
     };
 
     // TODO: Metodo para ataquar
