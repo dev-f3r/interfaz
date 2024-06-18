@@ -73,6 +73,8 @@ export default class Personaje extends EntidadBase {
         this._habilidad1 = habilidad1;
         this._habilidad2 = habilidad2;
         this._habilidad3 = habilidad3;
+
+        this.actualizar_atributos_actuales(); // Actualiza los atributos actuales.
     }
 
     /**
