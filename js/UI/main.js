@@ -102,6 +102,8 @@ for (const modal in lista_modales) {
 MAIN.appendChild(formulario.elemento);
 
 // * CONFIGURACIONES.
+// El indicador de experiencia tiene por default display="flex".
+ELEMENTOS.exp_txt.tipo_display = "flex";
 // Agrega el cambio de modo al boton cerrar de cada modal
 Modal.evento_btn_cerrar = () => {
     cambiar_modo();
@@ -225,15 +227,19 @@ ELEMENTOS.portada_btn.evento_click = () => {
         }
     }
 };
-// TODO: Evento exp
+// Evento exp
 ELEMENTOS.exp_btn.evento_click = () => {
+    // Si se trata del modo "editar"
+    // condiciona el formulario para modificar la experiencia.
     if (obtener_modo() === "editar") {
         const pers_actual = obtener_personaje();
         // Condicionar formulario
         condicionar_formulario(formulario, pers_actual.pers, "exp");
         // Mostrar formulario
-        mostrar_elementos([formulario])
-    } else contenido_consola(obtener_exp());
+        mostrar_elementos([formulario]);
+    }
+    // De lo contrario muestra la experiencia actual.
+    else contenido_consola(`Experiencia: ${obtener_exp()}`);
 };
 // Evento btn editar
 ELEMENTOS.editar_btn.evento_click = () => {

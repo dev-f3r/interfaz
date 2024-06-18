@@ -4,7 +4,9 @@ import { ELEMENTOS } from "./UI/inicializador.js";
 import { limpiar_consola, mostrar_personaje } from "./UI/UIcontrollers.js";
 
 /**
- * Modo de la interfaz.
+ * Modo de la interfaz (`jugar` o `editar`).
+ * @type {string}
+ * @var
  */
 let UI_modo = "jugar";
 /**
@@ -96,13 +98,16 @@ export function cambiar_modo(especificar = "") {
     else UI_modo = especificar;
 
     // Cambia la imagen del boton editar
-    if (obtener_modo() === "jugar")
-        ELEMENTOS.editar_btn.elemento.children[0].src = "img/editar.png";
-    else ELEMENTOS.editar_btn.elemento.children[0].src = "img/guardar.png";
+    if (obtener_modo() === "jugar") {
+        ELEMENTOS.editar_btn.elemento.children[0].src = "img/editar.png"; // Cambia el icono.
+        ELEMENTOS.exp_txt.mostrar_ocultar(false); // Oculta el indicador de exp.
+    } else {
+        ELEMENTOS.editar_btn.elemento.children[0].src = "img/guardar.png"; // Cambio el icono.
+        ELEMENTOS.exp_txt.mostrar_ocultar(true); // Muestra el indicador de exp.
+    }
 
     // Reestaura la consola y oculta todos los elementos.
     limpiar_consola(false);
-    // TODO: En modo editar se debe mostrar la experiencia actual
 }
 /**
  * Obtiene el personaje seleccionado
