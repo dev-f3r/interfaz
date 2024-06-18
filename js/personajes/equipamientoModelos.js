@@ -1,4 +1,4 @@
-import { EntidadBase, copia_atr_default } from "../helpers.js";
+import { EntidadBase, copia_atr_default, cp_atr_simple } from "../helpers.js";
 
 export default class Equipo extends EntidadBase {
     /**
@@ -21,7 +21,7 @@ export default class Equipo extends EntidadBase {
 
         nivel = 0,
 
-        atributos = copia_atr_default(),
+        atributos = cp_atr_simple(),
     }) {
         super({ nombre, icono, descripcion, atributos });
         this._nivel = nivel;
@@ -29,11 +29,13 @@ export default class Equipo extends EntidadBase {
 
     // ! Reescribo el metodo
     /**
-     * ? Actualiza las propiedades del equipo por otras.
+     * Actualiza las propiedades del equipo por otras.
      * @param {Object} nuevo - El objeto con las nuevas propiedades
      */
     actualizar = (nuevo) => {
-        Object.assign(this, nuevo);
+        super.actualizar(nuevo);
+        this._nivel = nuevo.nivel;
+        this._icono = nuevo.icono;
     };
 
     get nivel() {
