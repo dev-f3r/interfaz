@@ -1,4 +1,4 @@
-import { EntidadBase, copia_atr_default, cp_atr_simple } from "../helpers.js";
+import { EntidadBase, cp_atr_simple } from "../helpers.js";
 
 export default class Equipo extends EntidadBase {
     /**

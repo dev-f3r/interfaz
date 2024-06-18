@@ -212,7 +212,6 @@ export default class Personaje extends EntidadBase {
      * @param {boolean} accion - `true` para incrementar, `false` para decrementar.
      */
     modificar_atributo_actual = (atributo, accion) => {
-        // TODO: Completar logica para que el atr actual varie en un rango [0, ttal_atr(atributo)]
         const val_atri = this.atributos[`${atributo}_actual`];
 
         // Incremento.

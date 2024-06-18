@@ -1,5 +1,5 @@
 // ! Este archivo es usado para acceder a todos los elementos del DOM creados con HTML.
-import { atributos_personajes } from "./../helpers.js";
+import { atributos_personajes, atributos_simple } from "./../helpers.js";
 import ElementoHTML from "./UImodels.js";
 
 export const MAIN = document.querySelector("#main");
@@ -80,7 +80,7 @@ export const derechaBtn = document.querySelector("#derechaBtn");
  * @const {HTMLButtonElement}
  */
 export const atributos_btn = {};
-for (const atributo in atributos_personajes) {
+for (const atributo in atributos_simple) {
     const btn = document.querySelector(`#${atributo}Btn`);
     atributos_btn[atributo] = btn;
 }
@@ -136,7 +136,7 @@ export const ELEMENTOS = {
     consola_btn: new ElementoHTML({ elemento: consolaBtn }),
     nombre_btn: new ElementoHTML({ elemento: nombreBtn }),
     // * Direccionales
-    cnt_arriba_abajo: new ElementoHTML({elemento: contenedorArribaAbajo}), // Excepción
+    cnt_arriba_abajo: new ElementoHTML({ elemento: contenedorArribaAbajo }), // Excepción
     arriba_btn: new ElementoHTML({ elemento: arribaBtn }),
     abajo_btn: new ElementoHTML({ elemento: abajoBtn }),
     izquierda_btn: new ElementoHTML({ elemento: izquierdaBtn }),

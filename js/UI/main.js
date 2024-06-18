@@ -19,7 +19,7 @@ import {
     mostrar_personaje,
     navegar_esbirros,
 } from "./UIcontrollers.js";
-import { atributos_personajes } from "../helpers.js";
+import { atributos_simple } from "../helpers.js";
 import Personaje from "../personajes/personajesModelos.js";
 // * VARIABLES.
 /**
@@ -272,7 +272,7 @@ ELEMENTOS.derecha_btn.evento_click = () =>
     navegar_esbirros(obtener_personaje().i, "derecha");
 
 // Evento atributos.
-for (const atributo in atributos_personajes) {
+for (const atributo in atributos_simple) {
     ELEMENTOS[`${atributo}_btn`].evento_click = () => {
         const pers_actual = obtener_personaje(); // Obtiene el personaje actual.
 

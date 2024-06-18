@@ -12,25 +12,6 @@ export const val_experiencia = {
     poder: 1,
 };
 
-// TODO: Descartar
-export const atributos_personajes = {
-    ataque: 0,
-    esquiva: 0,
-    bloqueo: 0,
-    velocidad: 0,
-    vida: 0,
-    poder: 0,
-};
-// TODO: Descartar
-/**
- * Copia los atributos de personajes.
- * @returns {Object} Los atributos de personajes.
- */
-export function copia_atr_default() {
-    return JSON.parse(JSON.stringify(atributos_personajes));
-}
-
-// TODO: Implementar
 /**
  * Atributos base de una entidad cualquiera.
  * @type {Object}
@@ -52,7 +33,6 @@ export function cp_atr_simple() {
     return JSON.parse(JSON.stringify(atributos_simple));
 }
 
-// TODO: Implementar
 /**
  * Atributos completos para un personaje.
  * @type {Object}
@@ -155,7 +135,7 @@ export class EntidadBase {
         this._portada = nuevo.portada;
 
         // * atributos
-        for (const nombre in atributos_personajes) {
+        for (const nombre in atributos_simple) {
             this._atributos[nombre] = nuevo[nombre];
         }
     }
@@ -209,7 +189,7 @@ export class EntidadBase {
      * @param {Object} obj - El objeto con los nuevos atributos.
      */
     set atributos(obj) {
-        for (const nombre in atributos_personajes) {
+        for (const nombre in atributos_simple) {
             this._atributos[nombre] = obj[nombre];
         }
     }
