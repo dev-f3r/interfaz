@@ -33,30 +33,32 @@ export function condicionar_direccionales_arriba_abajo(
     // Obtiene los botones de direccionamiento.
     const [arriba, abajo] = [ELEMENTOS.arriba_btn, ELEMENTOS.abajo_btn];
 
-    let evento_arriba;
-    let evento_abajo;
-
     // Funcion general para condicionar los direccionales.
-    let general = () => {
+    const general = () => {
         mostrar_personaje(personaje);
-        mostrar_atributo(personaje, atributo);
+        modo
+            ? mostrar_atributo(personaje, atributo)
+            : mostrar_atributo_actual(personaje, atributo);
     };
 
-    // Condiciona los direccionales para editar los atributos reales del personaje.
-    if (modo) {
-        evento_arriba = () => {
-            personaje.incrementar_atributo(atributo);
-            general();
-        };
-        evento_abajo = () => {
-            personaje.decrementar_atributo(atributo);
-            general();
-        };
-    }
-    // Condiciona los direccionales para editar la vida y poder ACTUAL del personaje.
-    else {
-        // TODO: Edicion de vida y poder actual.
-    }
+    // Evento direccional arriba
+    const evento_arriba = () => {
+        modo
+            ? // `true` se trata de un atributo simple.
+              personaje.modificar_atributo(atributo, true)
+            : // `false` se trata o de vida_actual o de poder_actual.
+              personaje.modificar_atributo_actual(atributo, true);
+        general();
+    };
+    // Evento direccional abajo
+    const evento_abajo = () => {
+        modo
+            ? // `true` se trata de un atributo simple.
+              personaje.modificar_atributo(atributo, false)
+            : // `false` se trata o de vida_actual o de poder_actual.
+              personaje.modificar_atributo_actual(atributo, false);
+        general();
+    };
 
     // Asigna los nuevos eventos.
     arriba.evento_click = evento_arriba;
@@ -75,9 +77,15 @@ export function mostrar_personaje(personaje, cambiar_consola = false) {
         // Es span que muestra el valor
         const span = boton.children[1].children[0];
 
+        let contenido = "";
+        // Si se trata de vida o poder, muestra la vida_actual y poder_actual.
+        if (atributo === "vida" || atributo === "poder")
+            contenido = personaje.atributos[`${atributo}_actual`];
+        // Caso contrario el atributo simple.
+        else contenido = personaje.ttal_atributo(atributo);
+
         // Actualiza el valor del span
-        // FIXME: No suma los atributos del equipamiento a la hora de mostrar el total.
-        span.textContent = personaje.ttal_atributo(atributo);
+        span.textContent = contenido;
     }
 
     // * Portada
@@ -239,6 +247,20 @@ export function cambiar_habilidad(nombre) {
 export function mostrar_atributo(personaje, atributo) {
     const valor = personaje.ttal_atributo(atributo);
     contenido_consola(`${cap_primera(atributo)}: ${valor}`);
+}
+
+/**
+ * Muestra el valor de un atributo actual.
+ * @param {Personaje} personaje - El personaje actual.
+ * @param {string} atributo - El nombre del atributo a mostrar (vida o poder).
+ */
+export function mostrar_atributo_actual(personaje, atributo) {
+    const valor = personaje.ttal_atributo(atributo);
+    contenido_consola(
+        `${cap_primera(atributo)}: ${
+            personaje.atributos[atributo + "_actual"]
+        }/${valor}`
+    );
 }
 
 // FIXME: Se ejecuta cuando no deberia, revisar las llamadas.

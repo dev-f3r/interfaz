@@ -1,10 +1,7 @@
 import { Modelos } from "./personajes/main.js";
 const { Personaje } = Modelos;
 import { ELEMENTOS } from "./UI/inicializador.js";
-import {
-    limpiar_consola,
-    mostrar_personaje,
-} from "./UI/UIcontrollers.js";
+import { limpiar_consola, mostrar_personaje } from "./UI/UIcontrollers.js";
 
 /**
  * Modo de la interfaz.
@@ -49,7 +46,7 @@ export const personajes = [
  * Contiene la experiencia actual
  * @var {number}
  */
-let exp = 0;
+let exp = 100;
 /**
  * Obtiene la experiencia actual.
  * @returns {number} Experiencia actual.
@@ -57,14 +54,13 @@ let exp = 0;
 export function obtener_exp() {
     return exp;
 }
+
 /**
  * Modifica la experiencia actual.
- * @param {boolean} accion - Indica si se debe aumentar o disminuir la experiencia.
  * @param {number} valor - El valor a aumentar o disminuir.
  */
-export function modificar_exp(accion, valor) {
-    if (accion) exp += valor;
-    else exp -= valor;
+export function modificar_exp(valor) {
+    exp += valor;
 }
 
 /**

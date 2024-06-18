@@ -1,12 +1,14 @@
-import { EntidadBase, copia_atr_default, quitar_acentos } from "../helpers.js";
+import {
+    EntidadBase,
+    cp_atr_full,
+    quitar_acentos,
+    val_experiencia,
+} from "../helpers.js";
+import { modificar_exp, obtener_exp, personajes } from "../juego.js";
 import { colecciones } from "./../colecciones/main.js";
 import Arma from "./armasModelos.js";
 import Equipo from "./equipamientoModelos.js";
 import Habilidad from "./habilidadesModelo.js";
-
-function atr_pers_default() {
-    return { ...copia_atr_default(), vida_actual: 0, poder_actual: 0 };
-}
 
 /**
  * Clase que representa un personaje (avatar o esbirro).
@@ -46,7 +48,7 @@ export default class Personaje extends EntidadBase {
         portada = "img/nada.png",
         descripcion = "sin descripción.",
 
-        atributos = atr_pers_default(),
+        atributos = cp_atr_full(),
 
         arma1 = new Arma({ nombre: "arma 1" }),
         arma2 = new Arma({ nombre: "arma 2" }),
@@ -111,8 +113,11 @@ export default class Personaje extends EntidadBase {
      * @param {string} nombre - El nombre de la nueva equipo.
      */
     conf_equipamiento = (slot, nombre) => {
-        const nueva = colecciones.equipos[nombre]
-        this[`equipo${slot}`].actualizar(nueva);
+        const nueva = colecciones.equipos[nombre]; // Obtiene el objeto nuevo.
+        this[`equipo${slot}`].actualizar(nueva); // Actualiza el slot de equipamiento correspondiente.
+        // Actualiza los atributos de vida y poder ACTUAL.
+        this.atributos.vida_actual = this.ttal_atributo("vida");
+        this.atributos.poder_actual = this.ttal_atributo("poder");
     };
 
     /**
@@ -127,7 +132,7 @@ export default class Personaje extends EntidadBase {
     };
 
     /**
-     * Entrega el valor total de un atributo (ataque, vida, etc)
+     * Entrega el valor de un atributo (ataque, vida, etc) mas el de los equipos.
      * @param {string} nombre - El nombre del atributo.
      * @returns {number} El resultado de la suma.
      */
@@ -141,19 +146,78 @@ export default class Personaje extends EntidadBase {
     };
 
     /**
-     * Incrementa el valor de un atributo en base a la experiencia.
-     * @param {string} nombre - El nombre del atributo.
+     * Incrementa o decrementa el valor de un atributo.
+     * @param {string} atributo - El nombre del atributo.
+     * @param {boolean} accion - `true` para incrementar, `false` para decrementar.
      */
-    incrementar_atributo(atributo) {
-        this.atributos[atributo]++;
-    }
+    modificar_atributo = (atributo, accion) => {
+        /**
+         * El costo de experiencia del atributo.
+         * @type {number}
+         */
+        let costo = val_experiencia[atributo];
+        /**
+         * El valor actual del atributo.
+         * @type {number}
+         */
+        const val_atri = this.atributos[atributo];
+        /**
+         * El valor actual de la experiencia.
+         * @type {number}
+         */
+        const exp = obtener_exp();
+
+        // Si se trata de un incremento.
+        if (accion) {
+            // Calcula el costo de exp a decrementar.
+            costo = (val_atri === 0 ? 1 : val_atri + 1) * costo;
+
+            // ! Excepción.
+            if (atributo === "vida" || atributo === "poder") costo = 1;
+
+            // Verifica que el exp sea suficiente.
+            if (costo <= exp) {
+                // Incrementa el atributo.
+                this.atributos[atributo]++;
+                // Decrementa la exp.
+                modificar_exp(-costo);
+            } else {
+                // TODO: Debe mostrar por consola si la experiencia no es suficiente.
+            }
+        }
+        // Si se trata de un decremento.
+        else {
+            // Calcula el costo de exp a incrementar.
+            costo = val_atri * costo;
+
+            // ! Excepción.
+            if (atributo === "vida" || atributo === "poder") costo = 1;
+
+            // Si el atributo es positivo.
+            if (val_atri > 0) {
+                // Decrementa el atributo.
+                this.atributos[atributo]--;
+                // Incrementa la experiencia.
+                modificar_exp(costo);
+            }
+        }
+    };
 
     /**
-     * Decrementa el valor de un atributo en base a la experiencia.
-     * @param {string} nombre - El nombre del atributo.
+     * Incrementa o decrementa el valor de la vida o poder actual.
+     * @param {string} atributo - El nombre del atributo.
+     * @param {boolean} accion - `true` para incrementar, `false` para decrementar.
      */
-    decrementar_atributo = (atributo) => {
-        this.atributos[atributo]--;
+    modificar_atributo_actual = (atributo, accion) => {
+        // TODO: Completar logica para que el atr actual varie en un rango [0, ttal_atr(atributo)]
+        const val_atri = this.atributos[`${atributo}_actual`];
+
+        // Incremento.
+        if (accion && val_atri < this.ttal_atributo(atributo))
+            this.atributos[`${atributo}_actual`]++;
+        // Decremento
+        else if (!accion && val_atri > 0)
+            this.atributos[`${atributo}_actual`]--;
     };
 
     // TODO: Metodo para ataquar

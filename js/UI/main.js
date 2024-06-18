@@ -9,6 +9,7 @@ import {
     contenido_consola,
     limpiar_consola,
     mostrar_atributo,
+    mostrar_atributo_actual,
     mostrar_esbirros,
     mostrar_personaje,
     navegar_esbirros,
@@ -102,6 +103,8 @@ Modal.evento_btn_cerrar = () => {
 };
 // El contenedor de direccionales arriba/abajo por default tiene display="flex".
 ELEMENTOS.cnt_arriba_abajo.tipo_display = "flex";
+// Desactiva el evento click del contenedor de direccionales arriba/abajo.
+ELEMENTOS.cnt_arriba_abajo.desactivar_evento_click();
 // El boton especial del modal armas marciales debe desplegar el modal armas naturales
 lista_modales.armas_marciales.btn_especial.evento_click = () => {
     ocultar_elementos([lista_modales.armas_marciales]); // Oculta el modal armas marciales
@@ -200,14 +203,19 @@ lista_modales.equipos.btn_grales.forEach((btn) => {
 ELEMENTOS.portada_btn.evento_click = () => {
     // Despliega el modal avatares si esta en modo "editar"
     if (obtener_modo() === "editar") {
-        // TODO: Logica para desplegar modal de esbirros.
+        // Si se trata de un esbirro, despliega el modal de esbirros.
         if (obtener_personaje().i > 0)
             mostrar_elementos([lista_modales.esbirros]);
         else mostrar_elementos([lista_modales.avatares]);
-    } else {
+    }
+    // De lo contrario.
+    else {
+        // Si se trata de un esbirro, muestra los botones de direccionales.
         if (obtener_personaje().i > 0 && !ELEMENTOS.izquierda_btn.mostrar) {
             mostrar_elementos([ELEMENTOS.izquierda_btn, ELEMENTOS.derecha_btn]);
-        } else {
+        }
+        // Los oculta.
+        else {
             ocultar_elementos([ELEMENTOS.izquierda_btn, ELEMENTOS.derecha_btn]);
         }
     }
@@ -244,32 +252,37 @@ ELEMENTOS.derecha_btn.evento_click = () =>
     navegar_esbirros(obtener_personaje().i, "derecha");
 
 // Evento atributos.
-// FIXME: Cuando cambio de atributo los direccionales no deben desaparecer.
 for (const atributo in atributos_personajes) {
     ELEMENTOS[`${atributo}_btn`].evento_click = () => {
-        const pers_actual = obtener_personaje();
+        const pers_actual = obtener_personaje(); // Obtiene el personaje actual.
 
-        mostrar_atributo(pers_actual.pers, atributo);
         // Si esta en modo "editar" muestra los direccionales arriba y abajo.
         if (obtener_modo() === "editar") {
             condicionar_direccionales_arriba_abajo(
                 pers_actual.pers,
                 atributo,
                 true
-            );
-            mostrar_elementos([ELEMENTOS.cnt_arriba_abajo]);
-        } else if (
+            ); // Condiciona para edición de atributos simple.
+            mostrar_elementos([ELEMENTOS.cnt_arriba_abajo]); // Muestra los direccionales arriba y abajo.
+            mostrar_atributo(pers_actual.pers, atributo); // Muestra el valor del atributo simple.
+        }
+        // Caso contrario, si esta en modo jugar y se trata de los atributos vida y poder (vida_actual, poder_actual).
+        else if (
             (atributo === "vida" || atributo === "poder") &&
             obtener_modo() === "jugar"
         ) {
             condicionar_direccionales_arriba_abajo(
                 pers_actual.pers,
                 atributo,
-                true
-            );
-            mostrar_elementos([ELEMENTOS.cnt_arriba_abajo]);
-        } else {
-            ocultar_elementos([ELEMENTOS.cnt_arriba_abajo]);
+                false
+            ); // Condiciona para edición de vida_actual y poder_actual.
+            mostrar_elementos([ELEMENTOS.cnt_arriba_abajo]); // Muestra los direccionales arriba y abajo.
+            mostrar_atributo_actual(pers_actual.pers, atributo); // Muestra el valor de vida_actual y poder_actual.
+        }
+        // De lo contrario oculta los direccionales arriba y abajo.
+        else {
+            ocultar_elementos([ELEMENTOS.cnt_arriba_abajo]); // Oculta los direccionales arriba y abajo.
+            mostrar_atributo(pers_actual.pers, atributo); // Muestra el valor del atributo simple.
         }
     };
 }

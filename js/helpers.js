@@ -1,3 +1,18 @@
+/**
+ * Contiene el costo de experiencia de cada atributo.
+ * @type {Object}
+ * @const
+ */
+export const val_experiencia = {
+    ataque: 3,
+    esquiva: 3,
+    bloqueo: 3,
+    velocidad: 6,
+    vida: 1,
+    poder: 1,
+};
+
+// TODO: Descartar
 export const atributos_personajes = {
     ataque: 0,
     esquiva: 0,
@@ -6,13 +21,54 @@ export const atributos_personajes = {
     vida: 0,
     poder: 0,
 };
-
+// TODO: Descartar
 /**
  * Copia los atributos de personajes.
  * @returns {Object} Los atributos de personajes.
  */
 export function copia_atr_default() {
     return JSON.parse(JSON.stringify(atributos_personajes));
+}
+
+// TODO: Implementar
+/**
+ * Atributos base de una entidad cualquiera.
+ * @type {Object}
+ * @const
+ */
+export const atributos_simple = {
+    ataque: 0,
+    esquiva: 0,
+    bloqueo: 0,
+    velocidad: 0,
+    vida: 0,
+    poder: 0,
+};
+/**
+ * Crea una copia de los atributos base de una entidad cualquiera.
+ * @returns {Object} Atributos base de una entidad cualquiera.
+ */
+export function cp_atr_simple() {
+    return JSON.parse(JSON.stringify(atributos_simple));
+}
+
+// TODO: Implementar
+/**
+ * Atributos completos para un personaje.
+ * @type {Object}
+ * @const
+ */
+export const atributos_full = {
+    ...atributos_simple,
+    vida_actual: 0,
+    poder_actual: 0,
+};
+/**
+ * Crea una copia de los atributos completos para un personaje.
+ * @returns {Object} Atributos completos para un personaje.
+ */
+export function cp_atr_full() {
+    return JSON.parse(JSON.stringify(atributos_full));
 }
 
 /**
@@ -53,7 +109,7 @@ export function quitar_espacios(texto) {
 }
 
 /**
- * ? Clase con propiedades basicas de uso general.
+ * Clase con propiedades basicas de uso general.
  * @class
  */
 export class EntidadBase {
@@ -79,7 +135,7 @@ export class EntidadBase {
         descripcion = "Sin descripción.",
         icono = "img/nada.png",
         portada = "img/nada.png",
-        atributos = atributos_personajes,
+        atributos = cp_atr_simple(),
     }) {
         this._nombre = nombre;
         this._descripcion = descripcion;

@@ -70,7 +70,6 @@ const botones_modal = {
             id: "nuevopj_btn",
             mostrar: true,
             ruta_icono: "img/nuevopjico.png",
-            // TODO: Implementar logica crear un nuevo personaje
         }),
     },
     esbirros: {
@@ -84,7 +83,6 @@ const botones_modal = {
             id: "nuevoesbirro_btn",
             mostrar: true,
             ruta_icono: "img/nuevopjico.png",
-            // TODO: Implementar logica para crear un nuevo esbirro
         }),
     },
     armas_marciales: {
