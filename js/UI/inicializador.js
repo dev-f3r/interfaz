@@ -1,5 +1,5 @@
 // ! Este archivo es usado para acceder a todos los elementos del DOM creados con HTML.
-import { atributos_personajes, atributos_simple } from "./../helpers.js";
+import { atributos_simple } from "./../helpers.js";
 import ElementoHTML from "./UImodels.js";
 
 export const MAIN = document.querySelector("#main");
