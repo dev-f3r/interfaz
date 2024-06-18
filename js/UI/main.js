@@ -1,7 +1,12 @@
 import ElementoHTML, { Modal } from "./UImodels.js";
 import { ELEMENTOS, MAIN } from "./inicializador.js";
 import { lista_modales, formulario } from "./UIhelpers.js";
-import { cambiar_modo, obtener_modo, obtener_personaje } from "../juego.js";
+import {
+    cambiar_modo,
+    obtener_exp,
+    obtener_modo,
+    obtener_personaje,
+} from "../juego.js";
 import {
     cambiar_personaje,
     condicionar_direccionales_arriba_abajo,
@@ -221,6 +226,15 @@ ELEMENTOS.portada_btn.evento_click = () => {
     }
 };
 // TODO: Evento exp
+ELEMENTOS.exp_btn.evento_click = () => {
+    if (obtener_modo() === "editar") {
+        const pers_actual = obtener_personaje();
+        // Condicionar formulario
+        condicionar_formulario(formulario, pers_actual.pers, "exp");
+        // Mostrar formulario
+        mostrar_elementos([formulario])
+    } else contenido_consola(obtener_exp());
+};
 // Evento btn editar
 ELEMENTOS.editar_btn.evento_click = () => {
     cambiar_modo();

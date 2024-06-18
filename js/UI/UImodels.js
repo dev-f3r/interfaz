@@ -91,7 +91,7 @@ export default class ElementoHTML {
     mostrar_ocultar(opcion) {
         // Si se especifica el parametro opcion
         if (opcion !== undefined) {
-            if(opcion) {
+            if (opcion) {
                 this._mostrar = true;
                 this._elemento.style.display = this._tipo_display;
             } else {
@@ -581,7 +581,11 @@ export class Formulario extends ElementoHTML {
      */
     _encabezado;
     /**
-     * @type {HTMLElement}
+     * @type {string}
+     */
+    _tipo_formulario;
+    /**
+     * @type {HTMLFieldSetElement}
      */
     _input;
     /**
@@ -613,6 +617,7 @@ export class Formulario extends ElementoHTML {
         tipo_display = "flex",
         evento_click = () => console.log("formulario"),
         funcion_ingreso = () => {},
+        tipo_formulario = "text",
         nombre = "",
     }) {
         super({
@@ -629,6 +634,7 @@ export class Formulario extends ElementoHTML {
         this._input = document.createElement("input");
         this._boton = document.createElement("button");
         this._nombre = nombre;
+        this._tipo_formulario = tipo_formulario;
 
         // Construye el formulario
         this.construir(this._elemento);
@@ -660,6 +666,7 @@ export class Formulario extends ElementoHTML {
 
         // Configuraciones generales del elemento principal
         this._elemento.id = `contenedor_input_${this._nombre}`;
+        this._input.type = this._tipo_formulario;
 
         // Añade los elementos
         this._elemento.appendChild(this._encabezado);
@@ -676,6 +683,10 @@ export class Formulario extends ElementoHTML {
     get nombre() {
         return this._nombre;
     }
+    get tipo_formulario() {
+        return this._tipo_formulario;
+    }
+
     /**
      * Establece el handler para el ingreso de texto.
      * @param {Function} nueva - La función que se ejecutara a la hora de ingresar texto.
@@ -717,5 +728,13 @@ export class Formulario extends ElementoHTML {
     set nombre(nuevo) {
         this._nombre = nuevo;
         this.encabezado = this._nombre;
+    }
+    /**
+     * Cambia el tipo de formulario.
+     * @param {string} nuevo - El nuevo tipo de formulario.
+     */
+    set tipo_formulario(nuevo) {
+        this._tipo_formulario = nuevo;
+        this._input.type = nuevo;
     }
 }

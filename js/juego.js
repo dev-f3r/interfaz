@@ -46,7 +46,7 @@ export const personajes = [
  * Contiene la experiencia actual
  * @var {number}
  */
-let exp = 100;
+let exp = 0;
 /**
  * Obtiene la experiencia actual.
  * @returns {number} Experiencia actual.

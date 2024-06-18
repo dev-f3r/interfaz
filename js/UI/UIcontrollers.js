@@ -16,7 +16,12 @@ import Personaje from "../personajes/personajesModelos.js";
 import { coleccion_personajes } from "../colecciones/coleccionPersonajes.js";
 import { coleccion_habilidades } from "../colecciones/coleccionHabilidades.js";
 
-import { cambiar_modo, indice_personajes, personajes } from "../juego.js";
+import {
+    cambiar_modo,
+    indice_personajes,
+    modificar_exp,
+    personajes,
+} from "../juego.js";
 import { elementos_mostrados, ocultar_elementos } from "./main.js";
 
 /**
@@ -143,7 +148,7 @@ export function contenido_consola(texto) {
  */
 export function condicionar_formulario(form, personaje, modo, slot = 1) {
     let nueva_funcion;
-
+    let tipo = "text";
     switch (modo) {
         case "nombre":
             form.encabezado = "nombre";
@@ -152,6 +157,7 @@ export function condicionar_formulario(form, personaje, modo, slot = 1) {
         case "comando":
             form.encabezado = "comando";
             // TODO: Agregar comandos handler
+            // nueva_funcion = (text) => comandos(text);
             break;
         case "habilidad":
             form.encabezado = "habilidad";
@@ -160,9 +166,15 @@ export function condicionar_formulario(form, personaje, modo, slot = 1) {
                     cambiar_habilidad(nombre)
                 );
             break;
+        case "exp":
+            form.encabezado = "experiencia";
+            nueva_funcion = (valor) => modificar_exp(Number(valor));
+            tipo = "number";
         default:
             break;
     }
+
+    form.tipo_formulario = tipo;
 
     form.funcion_ingreso = (str) => {
         nueva_funcion(str); // Ejecuta la nueva función de ingreso.
