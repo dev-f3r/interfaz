@@ -60,9 +60,11 @@ export function obtener_exp() {
 /**
  * Modifica la experiencia actual.
  * @param {number} valor - El valor a aumentar o disminuir.
+ * @param {boolean} reemplazar - Indica si se debe reemplazar la experiencia actual.
  */
-export function modificar_exp(valor) {
-    exp += valor;
+export function modificar_exp(valor, reemplazar = false) {
+    if (reemplazar) exp = valor;
+    else exp += valor;
 }
 
 /**

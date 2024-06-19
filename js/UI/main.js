@@ -3,6 +3,7 @@ import { ELEMENTOS, MAIN } from "./inicializador.js";
 import { lista_modales, formulario } from "./UIhelpers.js";
 import {
     cambiar_modo,
+    modificar_exp,
     obtener_exp,
     obtener_modo,
     obtener_personaje,
@@ -12,6 +13,7 @@ import {
     condicionar_direccionales_arriba_abajo,
     condicionar_formulario,
     contenido_consola,
+    crear_nuevo_pj,
     limpiar_consola,
     mostrar_atributo,
     mostrar_atributo_actual,
@@ -202,8 +204,21 @@ lista_modales.equipos.btn_grales.forEach((btn) => {
         lista_modales.equipos.btn_cerrar.elemento.click();
     };
 });
-// TODO: El boton especial del modal de avatares y esbirros debe crear un nuevo personaje.
+// El boton especial del modal de avatares crea un nuevo personaje.
+lista_modales.avatares.btn_especial.evento_click = () => {
+    const pers_actual = obtener_personaje();
+    crear_nuevo_pj(pers_actual.pers, true);
+};
+// El boton especial del modal de esbirros crea un nuevo personaje.
+lista_modales.esbirros.btn_especial.evento_click = () => {
+    const pers_actual = obtener_personaje();
+    crear_nuevo_pj(pers_actual.pers, false);
+};
 // TODO: El boton especial del modal de equipamiento debe reestaurar el slot especificado.
+lista_modales.equipos.btn_especial.evento_click = () => {
+    console.log("reestaurar slot");
+    // reestaurar slot
+};
 
 // * EVENTOS.
 // Evento portada

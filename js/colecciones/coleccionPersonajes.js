@@ -1,5 +1,31 @@
 const esbirros = {
-    "lobo": {
+    nuevo_esbirro: {
+        nombre: "nuevo esbirro",
+        portada: "img/nuevopj.png",
+        icono: "",
+        descripcion: "Sin descripción.",
+
+        ataque: 0,
+        esquiva: 0,
+        bloqueo: 0,
+        velocidad: 0,
+        vida: 0,
+        vidaMaxima: 0,
+        poder: 0,
+        poderMaximo: 0,
+
+        arma1: "nada",
+        arma2: "nada",
+
+        equipo1: "nada",
+        equipo2: "nada",
+        equipo3: "nada",
+
+        habilidad1: "habilidad 1",
+        habilidad2: "habilidad 2",
+        habilidad3: "habilidad 3",
+    },
+    lobo: {
         nombre: "lobo",
         portada: "img/lobo.png",
         icono: "",
@@ -20,13 +46,14 @@ const esbirros = {
         habilidad2: "desgarro",
         habilidad3: "habilidad 3",
 
-        descripcion: "LOBO <br> Criatura de Sangre <br> Coste de invocación: 20",
+        descripcion:
+            "LOBO <br> Criatura de Sangre <br> Coste de invocación: 20",
 
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "esqueleto": {
+    esqueleto: {
         nombre: "esqueleto",
         portada: "img/esqueleto.png",
         icono: "",
@@ -43,12 +70,13 @@ const esbirros = {
         habilidad1: "derribo",
         habilidad2: "desgarro",
         habilidad3: "habilidad 3",
-        descripcion: "ESQUELETO <br> Criatura de Vida y Éter <br> Coste de invocación: 15",
+        descripcion:
+            "ESQUELETO <br> Criatura de Vida y Éter <br> Coste de invocación: 15",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "kardanto": {
+    kardanto: {
         nombre: "kardanto",
         portada: "img/kardanto.png",
         icono: "",
@@ -65,12 +93,13 @@ const esbirros = {
         habilidad1: "enraizar",
         habilidad2: "envenenar",
         habilidad3: "habilidad 3",
-        descripcion: "KARDANTO <br> Elemental de Vida <br> Coste de invocación: 20",
+        descripcion:
+            "KARDANTO <br> Elemental de Vida <br> Coste de invocación: 20",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "momontu": {
+    momontu: {
         nombre: "momontu",
         portada: "img/momontu.png",
         icono: "",
@@ -87,12 +116,13 @@ const esbirros = {
         habilidad1: "bola de fuego",
         habilidad2: "desgarro",
         habilidad3: "habilidad 3",
-        descripcion: "MOMONTU <br> Elemental de Fuego <br> Coste de invocación: 20",
+        descripcion:
+            "MOMONTU <br> Elemental de Fuego <br> Coste de invocación: 20",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "tortakla": {
+    tortakla: {
         nombre: "tortakla",
         portada: "img/tortakla.png",
         icono: "",
@@ -109,12 +139,13 @@ const esbirros = {
         habilidad1: "tsunami",
         habilidad2: "triturar",
         habilidad3: "habilidad 3",
-        descripcion: "TORTAKLA <br> Elemental de Agua <br> Coste de invocación: 20",
+        descripcion:
+            "TORTAKLA <br> Elemental de Agua <br> Coste de invocación: 20",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "ghalidos": {
+    ghalidos: {
         nombre: "ghalidos",
         portada: "img/ghalidos.png",
         icono: "",
@@ -131,12 +162,13 @@ const esbirros = {
         habilidad1: "tornado",
         habilidad2: "desgarro",
         habilidad3: "habilidad 3",
-        descripcion: "GHALIDOS <br> Elemental de Aire <br> Coste de invocación: 20",
+        descripcion:
+            "GHALIDOS <br> Elemental de Aire <br> Coste de invocación: 20",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "terronte": {
+    terronte: {
         nombre: "terronte",
         portada: "img/terronte.png",
         icono: "",
@@ -153,12 +185,13 @@ const esbirros = {
         habilidad1: "ataque poderoso",
         habilidad2: "terremoto",
         habilidad3: "habilidad 3",
-        descripcion: "TERRONTE <br> Elemental de Tierra <br> Coste de invocación: 20",
+        descripcion:
+            "TERRONTE <br> Elemental de Tierra <br> Coste de invocación: 20",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "naigaran": {
+    naigaran: {
         nombre: "naigaran",
         portada: "img/naigaran.png",
         icono: "",
@@ -175,12 +208,13 @@ const esbirros = {
         habilidad1: "confundir",
         habilidad2: "desgarro",
         habilidad3: "habilidad 3",
-        descripcion: "NAIGARAN <br> Elemental Etereo <br> Coste de invocación: 20",
+        descripcion:
+            "NAIGARAN <br> Elemental Etereo <br> Coste de invocación: 20",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "sarcomos": {
+    sarcomos: {
         nombre: "sarcomos",
         portada: "img/sarcomos.png",
         icono: "",
@@ -197,12 +231,13 @@ const esbirros = {
         habilidad1: "confundir",
         habilidad2: "desgarro",
         habilidad3: "habilidad 3",
-        descripcion: "SARCOMOS <br> Elemental Psíquico <br> Coste de invocación: 20",
+        descripcion:
+            "SARCOMOS <br> Elemental Psíquico <br> Coste de invocación: 20",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "cinirus": {
+    cinirus: {
         nombre: "cinirus",
         portada: "img/cinirus.png",
         icono: "",
@@ -219,12 +254,13 @@ const esbirros = {
         habilidad1: "sanar",
         habilidad2: "sentencia",
         habilidad3: "habilidad 3",
-        descripcion: "CINIRUS <br> Elemental de Luz <br> Coste de invocación: 20",
+        descripcion:
+            "CINIRUS <br> Elemental de Luz <br> Coste de invocación: 20",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "raizor": {
+    raizor: {
         nombre: "raizor",
         portada: "img/raizor.png",
         icono: "",
@@ -241,12 +277,13 @@ const esbirros = {
         habilidad1: "relampago",
         habilidad2: "sobrecarga",
         habilidad3: "habilidad 3",
-        descripcion: "RAIZOR <br> Elemental de Rayo <br> Coste de invocación: 20",
+        descripcion:
+            "RAIZOR <br> Elemental de Rayo <br> Coste de invocación: 20",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-    "raptor": {
+    raptor: {
         nombre: "raptor",
         portada: "img/raptor.png",
         icono: "",
@@ -263,72 +300,47 @@ const esbirros = {
         habilidad1: "desgarro",
         habilidad2: "triturar",
         habilidad3: "ira ciega",
-        descripcion: "RAPTOR <br> Criatura de sangre <br> Coste de invocación: 20",
+        descripcion:
+            "RAPTOR <br> Criatura de sangre <br> Coste de invocación: 20",
         equipo1: "nada",
         equipo2: "nada",
-        equipo3: "nada"
+        equipo3: "nada",
     },
-}
+};
 
 const avatares = {
+    nuevo_avatar: {
+        nombre: "nuevo avatar",
+        portada: "img/nuevopj.png",
+        icono: "",
+        descripcion: "Sin descripción.",
 
-    // "bienvenida": {
-    //     nombre: "BEINVENIDO",
-    //     portada: "img/logo-meeple-combat.png",
-    //     icono: "",
-    //     descripcion: "Sin descripción.",
+        ataque: 0,
+        esquiva: 0,
+        bloqueo: 0,
+        velocidad: 0,
+        vida: 0,
+        vidaMaxima: 0,
+        poder: 0,
+        poderMaximo: 0,
 
-    //     ataque: 0,
-    //     esquiva: 0,
-    //     bloqueo: 0,
-    //     velocidad: 0,
-    //     vida: 0,
-    //     vidaMaxima: 0,
-    //     poder: 0,
-    //     poderMaximo: 0,
+        arma1: "nada",
+        arma2: "nada",
 
-    //     arma1: "nada",
-    //     arma2: "nada",
+        equipo1: "nada",
+        equipo2: "nada",
+        equipo3: "nada",
 
-    //     equipo1: "nada",
-    //     equipo2: "nada",
-    //     equipo3: "nada",
-
-    //     habilidad1: "habilidad 1",
-    //     habilidad2: "habilidad 2",
-    //     habilidad3: "habilidad 3",
-    // },
-    // "nuevoesbirro": {
-    //     nombre: "nuevo",
-    //     portada: "img/nuevoesbirro.png",
-    //     icono: "",
-    //     descripcion: "Sin descripción.",
-
-    //     ataque: 0,
-    //     esquiva: 0,
-    //     bloqueo: 0,
-    //     velocidad: 0,
-    //     vida: 0,
-    //     vidaMaxima: 0,
-    //     poder: 0,
-    //     poderMaximo: 0,
-
-    //     arma1: "nada",
-    //     arma2: "nada",
-
-    //     equipo1: "nada",
-    //     equipo2: "nada",
-    //     equipo3: "nada",
-
-    //     habilidad1: "habilidad 1",
-    //     habilidad2: "habilidad 2",
-    //     habilidad3: "habilidad 3",
-    // },
-    "guerrero": {
+        habilidad1: "habilidad 1",
+        habilidad2: "habilidad 2",
+        habilidad3: "habilidad 3",
+    },
+    guerrero: {
         nombre: "guerrero",
         portada: "img/guerrero.png",
         icono: "",
-        descripcion: "combatiente cuerpo a cuerpo, con mucha resistencia pero muy poco daño base.",
+        descripcion:
+            "combatiente cuerpo a cuerpo, con mucha resistencia pero muy poco daño base.",
 
         ataque: 4,
         esquiva: 2,
@@ -350,11 +362,12 @@ const avatares = {
         habilidad2: "cobertura",
         habilidad3: "ataque poderoso",
     },
-    "chaman": {
+    chaman: {
         nombre: "chaman",
         portada: "img/chaman.png",
         icono: "",
-        descripcion: "combatiente mágico elemental, utiliza totems para ampliar su área de efectos.",
+        descripcion:
+            "combatiente mágico elemental, utiliza totems para ampliar su área de efectos.",
 
         ataque: 5,
         esquiva: 3,
@@ -376,11 +389,12 @@ const avatares = {
         habilidad2: "terremoto",
         habilidad3: "sobrecarga",
     },
-    "barbaro": {
+    barbaro: {
         nombre: "barbaro",
         portada: "img/barbaro.png",
         icono: "",
-        descripcion: "combatiente cuerpo a cuerpo que genera el mayor daño posible sin pensar mucho en su seguridad.",
+        descripcion:
+            "combatiente cuerpo a cuerpo que genera el mayor daño posible sin pensar mucho en su seguridad.",
 
         ataque: 6,
         esquiva: 1,
@@ -402,11 +416,12 @@ const avatares = {
         habilidad2: "incansable",
         habilidad3: "ataque poderoso",
     },
-    "picaro": {
+    picaro: {
         nombre: "picaro",
         portada: "img/picaro.png",
         icono: "",
-        descripcion: "combatiente sigiloso y rápido, siempre intenta infligir daño sin quedar expuesto.",
+        descripcion:
+            "combatiente sigiloso y rápido, siempre intenta infligir daño sin quedar expuesto.",
 
         ataque: 4,
         esquiva: 4,
@@ -428,11 +443,12 @@ const avatares = {
         habilidad2: "sigilo",
         habilidad3: "desarmar",
     },
-    "mago": {
+    mago: {
         nombre: "mago",
         portada: "img/mago.png",
         icono: "",
-        descripcion: "experto en el manejo de armas y habilidades mágicas, mantiene distancia de sus enemigos.",
+        descripcion:
+            "experto en el manejo de armas y habilidades mágicas, mantiene distancia de sus enemigos.",
 
         ataque: 5,
         esquiva: 3,
@@ -454,11 +470,12 @@ const avatares = {
         habilidad2: "explosiondeescarcha",
         habilidad3: "confundir",
     },
-    "paladin": {
+    paladin: {
         nombre: "paladin",
         portada: "img/paladin.png",
         icono: "",
-        descripcion: "combatiente mixto, con buen daño cuerpo a cuerpo y control de habilidades mágicas.",
+        descripcion:
+            "combatiente mixto, con buen daño cuerpo a cuerpo y control de habilidades mágicas.",
 
         ataque: 5,
         esquiva: 3,
@@ -480,11 +497,12 @@ const avatares = {
         habilidad2: "sentencia",
         habilidad3: "exorcismo",
     },
-    "cazador": {
+    cazador: {
         nombre: "cazador",
         portada: "img/cazador.png",
         icono: "",
-        descripcion: "combatiente de larga distancia, utiliza invocaciones a modo de mascotas.",
+        descripcion:
+            "combatiente de larga distancia, utiliza invocaciones a modo de mascotas.",
 
         ataque: 4,
         esquiva: 3,
@@ -506,11 +524,12 @@ const avatares = {
         habilidad2: "flecha energizada",
         habilidad3: "invocar",
     },
-    "monje": {
+    monje: {
         nombre: "monje",
         portada: "img/monje.png",
         icono: "",
-        descripcion: "combatiente cuerpo a cuerpo con armas naturales, aumenta el daño utilizando mucha energía.",
+        descripcion:
+            "combatiente cuerpo a cuerpo con armas naturales, aumenta el daño utilizando mucha energía.",
 
         ataque: 4,
         esquiva: 4,
@@ -532,11 +551,12 @@ const avatares = {
         habilidad2: "golpe de chi",
         habilidad3: "desarmar",
     },
-    "druida": {
+    druida: {
         nombre: "druida",
         portada: "img/druida.png",
         icono: "",
-        descripcion: "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
+        descripcion:
+            "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
 
         ataque: 5,
         esquiva: 2,
@@ -559,11 +579,12 @@ const avatares = {
         habilidad3: "sanar",
     },
 
-    "nigromante": {
+    nigromante: {
         nombre: "nigromante",
         portada: "img/nigromante.png",
         icono: "",
-        descripcion: "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
+        descripcion:
+            "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
 
         ataque: 5,
         esquiva: 2,
@@ -585,11 +606,12 @@ const avatares = {
         habilidad2: "envenenar",
         habilidad3: "sanar",
     },
-    "paladinoscuro": {
+    paladinoscuro: {
         nombre: "paladin oscuro",
         portada: "img/paladinoscuro.png",
         icono: "",
-        descripcion: "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
+        descripcion:
+            "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
 
         ataque: 5,
         esquiva: 2,
@@ -611,11 +633,12 @@ const avatares = {
         habilidad2: "ataque poderoso",
         habilidad3: "reanimar",
     },
-    "guardiarunico": {
+    guardiarunico: {
         nombre: "guardia runico",
         portada: "img/guardiarunico.png",
         icono: "",
-        descripcion: "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
+        descripcion:
+            "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
 
         ataque: 5,
         esquiva: 2,
@@ -637,44 +660,17 @@ const avatares = {
         habilidad2: "enraizar",
         habilidad3: "envenenar",
     },
-
-    // "nuevopj": {
-    //     nombre: "nuevo",
-    //     portada: "img/nuevopj.png",
-    //     icono: "",
-    //     descripcion: "Sin descripción.",
-
-    //     ataque: 0,
-    //     esquiva: 0,
-    //     bloqueo: 0,
-    //     velocidad: 0,
-    //     vida: 0,
-    //     vidaMaxima: 0,
-    //     poder: 0,
-    //     poderMaximo: 0,
-
-    //     arma1: "nada",
-    //     arma2: "nada",
-
-    //     equipo1: "nada",
-    //     equipo2: "nada",
-    //     equipo3: "nada",
-
-    //     habilidad1: "habilidad 1",
-    //     habilidad2: "habilidad 2",
-    //     habilidad3: "habilidad 3",
-    // },
 
     // ! NUEVOS AVATARES HUMANOS DEBEN IR DESPUES DE "nuevopj"
-}
+};
 
 const avatares_ocultos = {
-
-    "nigromante": {
+    nigromante: {
         nombre: "nigromante",
         portada: "img/nigromante.png",
         icono: "",
-        descripcion: "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
+        descripcion:
+            "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
 
         ataque: 5,
         esquiva: 2,
@@ -696,11 +692,12 @@ const avatares_ocultos = {
         habilidad2: "envenenar",
         habilidad3: "sanar",
     },
-    "paladinoscuro": {
+    paladinoscuro: {
         nombre: "paladin oscuro",
         portada: "img/paladinoscuro.png",
         icono: "",
-        descripcion: "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
+        descripcion:
+            "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
 
         ataque: 5,
         esquiva: 2,
@@ -722,11 +719,12 @@ const avatares_ocultos = {
         habilidad2: "ataque poderoso",
         habilidad3: "reanimar",
     },
-    "guardiarunico": {
+    guardiarunico: {
         nombre: "guardia runico",
         portada: "img/guardiarunico.png",
         icono: "",
-        descripcion: "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
+        descripcion:
+            "combatiente mágico con habilidades del Reino Vida, prefiere sanar antes que dañar.",
 
         ataque: 5,
         esquiva: 2,
@@ -748,11 +746,12 @@ const avatares_ocultos = {
         habilidad2: "enraizar",
         habilidad3: "envenenar",
     },
-    "soldado": {
+    soldado: {
         nombre: "soldado",
         portada: "img/soldado.png",
         icono: "",
-        descripcion: "Combatiente con poco entrenamiento y equipado con armas de tecnología arcana.",
+        descripcion:
+            "Combatiente con poco entrenamiento y equipado con armas de tecnología arcana.",
 
         ataque: 5,
         esquiva: 2,
@@ -773,11 +772,10 @@ const avatares_ocultos = {
         habilidad1: "",
         habilidad2: "",
         habilidad3: "",
-    }
-
-}
+    },
+};
 export const coleccion_personajes = {
     esbirros,
     avatares,
     avatares_ocultos,
-}
+};

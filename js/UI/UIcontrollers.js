@@ -24,7 +24,7 @@ import {
     personajes,
 } from "../juego.js";
 import { elementos_mostrados, ocultar_elementos } from "./main.js";
-import { formulario } from "./UIhelpers.js";
+import { formulario, lista_modales } from "./UIhelpers.js";
 
 /**
  * Condiciona los direccionales arriba y abajo
@@ -312,4 +312,23 @@ export function comandos(comando = "") {
         ocultar_elementos([formulario]);
         mostrar_esbirros();
     }
+}
+
+/**
+ *
+ * @param {Personaje} personaje - El personaje actual.
+ * @param {boolean} opcion - Opcion del boton `true`: avatar y `false`: esbirro.
+ */
+export function crear_nuevo_pj(personaje, opcion) {
+    cambiar_personaje(
+        personaje,
+        opcion ? "nuevo_avatar" : "nuevo_esbirro",
+        opcion ? "avatares" : "esbirros"
+    ); // Cambia el personaje actual.
+    ocultar_elementos([
+        opcion ? lista_modales.avatares : lista_modales.esbirros,
+    ]); // Cierra el modal correspondiente.
+    modificar_exp(200, true); // Reemplaza el exp por 200.
+    mostrar_personaje(personaje, false); // Muestra los cambios.
+    cambiar_modo("jugar"); // Cambia a modo "jugar".
 }
