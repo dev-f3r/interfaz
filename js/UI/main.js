@@ -214,10 +214,13 @@ lista_modales.esbirros.btn_especial.evento_click = () => {
     const pers_actual = obtener_personaje();
     crear_nuevo_pj(pers_actual.pers, false);
 };
-// TODO: El boton especial del modal de equipamiento debe reestaurar el slot especificado.
+// El boton especial del modal de equipamiento restaura el slot especificado.
 lista_modales.equipos.btn_especial.evento_click = () => {
-    console.log("reestaurar slot");
-    // reestaurar slot
+    const pers_actual = obtener_personaje(); // Obtiene el personaje actual
+    pers_actual.pers.conf_equipamiento(obtener_slot_equipo(), "nada"); // Configura el equipamiento del personaje actual a "nada" para el espacio de equipamiento seleccionado
+    ocultar_elementos([lista_modales.equipos]); // Oculta el modal de equipamiento
+    mostrar_personaje(pers_actual.pers); // Muestra la información actualizada del personaje
+    cambiar_modo("jugar"); // Cambia el modo del juego a "jugar"
 };
 
 // * EVENTOS.

@@ -22,20 +22,23 @@ export function armar_lista_botones_modal(
     terminacion = ""
 ) {
     const lista = Object.keys(coleccion); // Obtiene la lista de nombres de objetos.
+    return lista
+        .filter(
+            (nombre) => nombre !== "nuevo_avatar" && nombre !== "nuevo_esbirro"
+        ) // Excluye "nuevo_avatar" y "nuevo_esbirro"
+        .map((nombre, i) => {
+            const objeto = coleccion[nombre]; // Extrae el objeto de la colección.
+            const nombre_obj = objeto[propiedad].match(/\/([a-z]+?)\.png/)[1]; // Obtiene el nombre del icono.
 
-    return lista.map((nombre, i) => {
-        const objeto = coleccion[nombre]; // Extrae el objeto de la colección.
-        const nombre_obj = objeto[propiedad].match(/\/([a-z]+?)\.png/)[1]; // Obtiene el nombre del icono.
+            const mostrar = i <= maximo - 1 ? true : false; // Visivilidad según el maximo.
 
-        const mostrar = i <= maximo - 1 ? true : false; // Visivilidad según el maximo.
-
-        return new BotonModal({
-            id: `${nombre_obj}_btn`,
-            clases: ["item-modal"],
-            mostrar,
-            ruta_icono: `img/${nombre_obj + terminacion}.png`,
+            return new BotonModal({
+                id: `${nombre_obj}_btn`,
+                clases: ["item-modal"],
+                mostrar,
+                ruta_icono: `img/${nombre_obj + terminacion}.png`,
+            });
         });
-    });
 }
 
 /**
@@ -45,14 +48,16 @@ export function armar_lista_botones_modal(
  * @returns {BotonModal[]} Una lista con los botones creados.
  */
 function armar_lista_btns_modal_equipo(coleccion, maximo) {
-    return Object.entries(coleccion).map(([key, obj], i) => {
-        const mostrar = i <= maximo - 1 ? true : false; // Visivilidad según el maximo.
-        return new BotonModal({
-            id: `${key}_btn`,
-            mostrar,
-            ruta_icono: obj.icono,
+    return Object.entries(coleccion)
+        .filter(([key, obj]) => key !== "nada") // Excluye "nada".
+        .map(([key, obj], i) => {
+            const mostrar = i <= maximo - 1 ? true : false; // Visivilidad según el maximo.
+            return new BotonModal({
+                id: `${key}_btn`,
+                mostrar,
+                ruta_icono: obj.icono,
+            });
         });
-    });
 }
 
 /**
