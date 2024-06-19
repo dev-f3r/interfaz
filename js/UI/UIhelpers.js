@@ -120,7 +120,6 @@ const botones_modal = {
             colecciones.equipos,
             MAXIMO_BOTONES_MODAL
         ),
-        // TODO: El boton especial debe reestaurar el slot de equipamiento seleccionado.
         especial: new BotonModal({
             mostrar: true,
         }),

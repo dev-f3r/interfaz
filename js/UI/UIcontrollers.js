@@ -20,6 +20,7 @@ import {
     cambiar_modo,
     indice_personajes,
     modificar_exp,
+    obtener_exp,
     obtener_personaje,
     personajes,
 } from "../juego.js";
@@ -50,12 +51,19 @@ export function condicionar_direccionales_arriba_abajo(
 
     // Evento direccional arriba
     const evento_arriba = () => {
-        modo
-            ? // `true` se trata de un atributo simple.
-              personaje.modificar_atributo(atributo, true)
-            : // `false` se trata o de vida_actual o de poder_actual.
-              personaje.modificar_atributo_actual(atributo, true);
+        let salida;
+        // Si se trata de un atributo simple.
+        if (modo) {
+            // Guarda el resultado de la operación.
+            salida = personaje.modificar_atributo(atributo, true);
+        }
+        // Si se trata de vida_actual o poder_actual.
+        else personaje.modificar_atributo_actual(atributo, true);
+
         general();
+
+        // Si la operación resulto fallida, significa que no hubo exp suficiente.
+        if (!salida) contenido_consola("Experiencia insuficiente.");
     };
     // Evento direccional abajo
     const evento_abajo = () => {
@@ -77,6 +85,9 @@ export function condicionar_direccionales_arriba_abajo(
  * @param {Personaje} personaje - El personaje a mostrar.
  */
 export function mostrar_personaje(personaje, cambiar_consola = false) {
+    // * Experiencia
+    ELEMENTOS.exp_txt.elemento.textContent = obtener_exp();
+
     // * Atributos
     for (const atributo in atributos_btn) {
         // Boton del atributo

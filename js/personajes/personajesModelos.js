@@ -1,3 +1,4 @@
+import { contenido_consola } from "../UI/UIcontrollers.js";
 import {
     EntidadBase,
     cp_atr_full,
@@ -152,8 +153,10 @@ export default class Personaje extends EntidadBase {
      * Incrementa o decrementa el valor de un atributo.
      * @param {string} atributo - El nombre del atributo.
      * @param {boolean} accion - `true` para incrementar, `false` para decrementar.
+     * @returns {boolean} En caso de incremento si la experiencia fue suficiente.
      */
     modificar_atributo = (atributo, accion) => {
+        let salida = true;
         /**
          * El costo de experiencia del atributo.
          * @type {number}
@@ -185,7 +188,7 @@ export default class Personaje extends EntidadBase {
                 // Decrementa la exp.
                 modificar_exp(-costo);
             } else {
-                // TODO: Debe mostrar por consola si la experiencia no es suficiente.
+                salida = false; // No hay experiencia suficiente.
             }
         }
         // Si se trata de un decremento.
@@ -204,6 +207,8 @@ export default class Personaje extends EntidadBase {
                 modificar_exp(costo);
             }
         }
+
+        return salida;
     };
 
     /**
