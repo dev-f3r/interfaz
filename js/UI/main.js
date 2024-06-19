@@ -264,7 +264,16 @@ ELEMENTOS.esbirros_btn.evento_click = () => {
     cambiar_modo("jugar");
 };
 // Evento consola.
-ELEMENTOS.consola_btn.evento_click = () => limpiar_consola(true);
+ELEMENTOS.consola_btn.evento_click = () => {
+    // Si esta en modo "editar" condiciona el formulario para ingreso de comandos.
+    if (obtener_modo() === "editar") {
+        const pers_actual = obtener_personaje(); // Obtiene el personaje actual.
+        condicionar_formulario(formulario, pers_actual.pers, "comando"); // Condiciona el formulario.
+        mostrar_elementos([formulario]); // Muestra el formulario.
+    }
+    // De lo contrario limpia consola.
+    else limpiar_consola(true);
+};
 // Evento direccionales izquierda/derecha.
 ELEMENTOS.izquierda_btn.evento_click = () =>
     navegar_esbirros(obtener_personaje().i, "izquierda");

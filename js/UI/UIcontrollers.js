@@ -20,9 +20,11 @@ import {
     cambiar_modo,
     indice_personajes,
     modificar_exp,
+    obtener_personaje,
     personajes,
 } from "../juego.js";
 import { elementos_mostrados, ocultar_elementos } from "./main.js";
+import { formulario } from "./UIhelpers.js";
 
 /**
  * Condiciona los direccionales arriba y abajo
@@ -152,15 +154,17 @@ export function condicionar_formulario(form, personaje, modo, slot = 1) {
     switch (modo) {
         case "nombre":
             form.encabezado = "nombre";
+            // Función para cambio de nombre.
             nueva_funcion = (nombre) => (personaje.nombre = nombre);
             break;
         case "comando":
             form.encabezado = "comando";
-            // TODO: Agregar comandos handler
-            // nueva_funcion = (text) => comandos(text);
+            // Función para ingreso de comandos.
+            nueva_funcion = (text) => comandos(text);
             break;
         case "habilidad":
             form.encabezado = "habilidad";
+            // Función para cambio de habilidades.
             nueva_funcion = (nombre) =>
                 personaje[`habilidad${slot}`].actualizar(
                     cambiar_habilidad(nombre)
@@ -168,6 +172,7 @@ export function condicionar_formulario(form, personaje, modo, slot = 1) {
             break;
         case "exp":
             form.encabezado = "experiencia";
+            // Función para modificar la experiencia.
             nueva_funcion = (valor) => modificar_exp(Number(valor));
             tipo = "number";
         default:
@@ -191,7 +196,7 @@ export function condicionar_formulario(form, personaje, modo, slot = 1) {
  * Cambia un personaje por otro.
  * @param {Personaje} actual - El personaje a cambiar.
  * @param {string} nuevo - El nombre del nuevo.
- * @param {string} tipo - El tipo del personaje (esbirro o avatar)
+ * @param {string} tipo - El tipo del personaje (`esbirros` o `avatares`)
  */
 export function cambiar_personaje(actual, nuevo, tipo) {
     // Obtiene el objeto con la información del nuevo personaje.
@@ -285,4 +290,26 @@ export function limpiar_consola(cambio_modo = false) {
     ocultar_elementos(elementos_mostrados); // Oculta todos los elementos que se estan mostrando.
 
     if (cambio_modo) cambiar_modo("jugar"); // Cambia a modo "jugar".
+}
+
+/**
+ * Administrador de comandos del juego.
+ * @param {string} comando - El comando a procesar.
+ */
+export function comandos(comando = "") {
+    const pers_actual = obtener_personaje(); // Obtiene el personaje actual.
+
+    // Si el comando es el nombre de un personaje de la colección.
+    // Realiza un cambio de personaje.
+    if (
+        coleccion_personajes.avatares[comando] ||
+        coleccion_personajes.esbirros[comando]
+    ) {
+        const tipo = coleccion_personajes.avatares[comando]
+            ? "avatares"
+            : "esbirros";
+        cambiar_personaje(pers_actual.pers, comando, tipo);
+        ocultar_elementos([formulario]);
+        mostrar_esbirros();
+    }
 }
