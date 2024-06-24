@@ -8,7 +8,7 @@ import {
     habilidades_btn,
     ELEMENTOS,
 } from "./inicializador.js";
-import { Formulario } from "./UImodels.js";
+import ElementoHTML, { Formulario } from "./UImodels.js";
 
 import { cap_primera, quitar_acentos } from "./../helpers.js";
 
@@ -24,8 +24,53 @@ import {
     obtener_personaje,
     personajes,
 } from "../juego.js";
-import { elementos_mostrados, ocultar_elementos } from "./main.js";
+import { elemento_mostrado } from "./main.js";
 import { formulario, lista_modales } from "./UIhelpers.js";
+
+/**
+ * Muestra un elemento y oculta los demas.
+ * @param {ElementoHTML[]} oculto - El elemento que se quiere mostrar.
+ */
+export function mostrar_elemento(oculto) {
+    /**
+     * Elemento que se esta mostrando.
+     * @type {ElementoHTML}
+     */
+    const mostrado = elemento_mostrado.pop();
+
+    if (mostrado === undefined) {
+        if (oculto instanceof Array) {
+            for (const el of oculto) el.mostrar_ocultar(true);
+        } else oculto.mostrar_ocultar(true);
+        elemento_mostrado.push(oculto);
+    } else {
+        if (mostrado instanceof Array) {
+            for (const el of mostrado) el.mostrar_ocultar(false);
+        } else mostrado.mostrar_ocultar(false);
+
+        if (oculto instanceof Array) {
+            for (const el of oculto) el.mostrar_ocultar(true);
+        } else oculto.mostrar_ocultar(true);
+        elemento_mostrado.push(oculto);
+    }
+}
+
+// FIXME: Revisar las llamadas.
+/**
+ * Oculta elementos que se estan mostrando.
+ * @param {ElementoHTML[]} elementos - Lista con los elementos a ocultar.
+ */
+export function ocultar_elementos(elementos) {
+    console.log(elementos);
+    /**
+     * @type {ElementoHTML}
+     */
+    let elemento = elementos.pop();
+    while (elemento) {
+        elemento.mostrar_ocultar(false);
+        elemento = elementos.pop();
+    }
+}
 
 /**
  * Condiciona los direccionales arriba y abajo
@@ -298,7 +343,7 @@ export function mostrar_atributo_actual(personaje, atributo) {
  */
 export function limpiar_consola(cambio_modo = false) {
     contenido_consola("consola"); // Reestaura el texto mostrado
-    ocultar_elementos(elementos_mostrados); // Oculta todos los elementos que se estan mostrando.
+    ocultar_elementos(elemento_mostrado); // Oculta todos los elementos que se estan mostrando.
 
     if (cambio_modo) cambiar_modo("jugar"); // Cambia a modo "jugar".
 }
