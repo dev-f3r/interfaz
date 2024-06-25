@@ -1,7 +1,11 @@
 import { Modelos } from "./personajes/main.js";
 const { Personaje } = Modelos;
 import { ELEMENTOS } from "./UI/inicializador.js";
-import { limpiar_consola, mostrar_personaje } from "./UI/UIcontrollers.js";
+import {
+    limpiar_consola,
+    limpiar_UI,
+    mostrar_personaje,
+} from "./UI/UIcontrollers.js";
 
 /**
  * Modo de la interfaz (`jugar` o `editar`).
@@ -88,8 +92,9 @@ export function obtener_modo() {
  * Cambia el modo de la interfaz.
  * @param {string} modo - Modo de la interfaz.
  * @param {string} especificar - Seleccionar un modo especifico.
+ * @param {boolean} limpiar - Limpiar la consola y el UI.
  */
-export function cambiar_modo(especificar = "") {
+export function cambiar_modo(especificar = "", limpiar = false) {
     // Si no se especifica un modo, lo cambia dinamicamente
     if (!especificar) {
         if (UI_modo === "jugar") {
@@ -109,7 +114,10 @@ export function cambiar_modo(especificar = "") {
     }
 
     // Reestaura la consola y oculta todos los elementos.
-    limpiar_consola(false);
+    if (limpiar) {
+        limpiar_UI();
+        limpiar_consola(false);
+    }
 }
 /**
  * Obtiene el personaje seleccionado

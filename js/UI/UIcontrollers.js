@@ -24,8 +24,44 @@ import {
     obtener_personaje,
     personajes,
 } from "../juego.js";
-import { elemento_mostrado } from "./main.js";
 import { formulario, lista_modales } from "./UIhelpers.js";
+
+/**
+ * Contiene el elemento que se esta mostrando.
+ * @type {ElementoHTML[]}
+ * @const
+ */
+export let elemento_mostrado = [];
+
+/**
+ * Cambia el/los elementos mostrados por otro/otros.
+ * @param {ElementoHTML[]} list_ocultos - La lista con los elementos que se desean mostrar.
+ */
+export function cambiar_mostrado(list_ocultos) {
+    limpiar_UI(); // Oculta los actuales.
+
+    let oculto = list_ocultos.pop(); // Extrae uno de los ocultos.
+    while (oculto) {
+        oculto.mostrar_ocultar(true); // Lo muestra.
+        elemento_mostrado.push(oculto); // Lo guarda.
+        oculto = list_ocultos.pop(); // Extrae el siguiente.
+    }
+}
+
+// TODO: Reemplazar todas las llamadas del metodo `mostrar_ocultar` por esta función.
+/**
+ * Oculta los elementos que se estan mostrando.
+ */
+export function limpiar_UI() {
+    // Oculta y elimina actuales.
+    if (elemento_mostrado.length > 0) {
+        let mostrado = elemento_mostrado.pop(); // Extrae un elemento.
+        while (mostrado) {
+            mostrado.mostrar_ocultar(false); // Lo oculta.
+            mostrado = elemento_mostrado.pop(); // Extrae el siguiente
+        }
+    }
+}
 
 /**
  * Muestra un elemento y oculta los demas.
@@ -52,23 +88,6 @@ export function mostrar_elemento(oculto) {
             for (const el of oculto) el.mostrar_ocultar(true);
         } else oculto.mostrar_ocultar(true);
         elemento_mostrado.push(oculto);
-    }
-}
-
-// FIXME: Revisar las llamadas.
-/**
- * Oculta elementos que se estan mostrando.
- * @param {ElementoHTML[]} elementos - Lista con los elementos a ocultar.
- */
-export function ocultar_elementos(elementos) {
-    console.log(elementos);
-    /**
-     * @type {ElementoHTML}
-     */
-    let elemento = elementos.pop();
-    while (elemento) {
-        elemento.mostrar_ocultar(false);
-        elemento = elementos.pop();
     }
 }
 
@@ -240,7 +259,8 @@ export function condicionar_formulario(form, personaje, modo, slot = 1) {
     form.funcion_ingreso = (str) => {
         nueva_funcion(str); // Ejecuta la nueva función de ingreso.
 
-        ocultar_elementos([form]); // Oculta el modal.
+        // ocultar_elementos([form]); // Oculta el modal.
+        form.mostrar_ocultar(false);
 
         mostrar_personaje(personaje); // Muestra los cambios en el personaje.
 
@@ -266,6 +286,9 @@ export function cambiar_personaje(actual, nuevo, tipo) {
  * @param {number} indice - El indice del personaje actual.
  */
 export function mostrar_esbirros(indice = 0) {
+    limpiar_UI(); // Oculta los actuales.
+    cambiar_modo("jugar"); // Cambia a modo "jugar".
+
     // Si se trata de un esbirro.
     if (indice > 0) indice_personajes.actual = 0;
     // Si se trata de el personaje principal.
@@ -336,14 +359,12 @@ export function mostrar_atributo_actual(personaje, atributo) {
     );
 }
 
-// FIXME: Se ejecuta cuando no deberia, revisar las llamadas.
 /**
  * Limpia la consola y oculta todos los elementos que se estan mostrando.
  * @param {boolean} cambio_modo - Indica si se debe cambiar a modo "jugar".
  */
 export function limpiar_consola(cambio_modo = false) {
     contenido_consola("consola"); // Reestaura el texto mostrado
-    ocultar_elementos(elemento_mostrado); // Oculta todos los elementos que se estan mostrando.
 
     if (cambio_modo) cambiar_modo("jugar"); // Cambia a modo "jugar".
 }
@@ -365,8 +386,6 @@ export function comandos(comando = "") {
             ? "avatares"
             : "esbirros";
         cambiar_personaje(pers_actual.pers, comando, tipo);
-        ocultar_elementos([formulario]);
-        mostrar_esbirros();
     }
 }
 
@@ -381,10 +400,8 @@ export function crear_nuevo_pj(personaje, opcion) {
         opcion ? "nuevo_avatar" : "nuevo_esbirro",
         opcion ? "avatares" : "esbirros"
     ); // Cambia el personaje actual.
-    ocultar_elementos([
-        opcion ? lista_modales.avatares : lista_modales.esbirros,
-    ]); // Cierra el modal correspondiente.
+
     modificar_exp(200, true); // Reemplaza el exp por 200.
     mostrar_personaje(personaje, false); // Muestra los cambios.
-    cambiar_modo("jugar"); // Cambia a modo "jugar".
+    cambiar_modo("jugar", true); // Cambia a modo "jugar".
 }

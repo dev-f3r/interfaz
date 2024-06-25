@@ -3,7 +3,6 @@ import { ELEMENTOS, MAIN } from "./inicializador.js";
 import { lista_modales, formulario } from "./UIhelpers.js";
 import {
     cambiar_modo,
-    modificar_exp,
     obtener_exp,
     obtener_modo,
     obtener_personaje,
@@ -17,14 +16,13 @@ import {
     limpiar_consola,
     mostrar_atributo,
     mostrar_atributo_actual,
-    mostrar_elemento,
+    cambiar_mostrado,
     mostrar_esbirros,
     mostrar_personaje,
     navegar_esbirros,
-    ocultar_elementos,
 } from "./UIcontrollers.js";
 import { atributos_simple } from "../helpers.js";
-import Personaje from "../personajes/personajesModelos.js";
+
 // * VARIABLES.
 /**
  * Arma seleccionada
@@ -39,13 +37,6 @@ let slot_arma = 1;
  * @var
  */
 let slot_equipo = 1;
-
-/**
- * Contiene el elemento que se esta mostrando.
- * @type {ElementoHTML}
- * @const
- */
-export const elemento_mostrado = [];
 
 // * HELPERS.
 /**
@@ -85,11 +76,11 @@ ELEMENTOS.cnt_arriba_abajo.tipo_display = "flex";
 ELEMENTOS.cnt_arriba_abajo.desactivar_evento_click();
 // El boton especial del modal armas marciales debe desplegar el modal armas naturales
 lista_modales.armas_marciales.btn_especial.evento_click = () => {
-    mostrar_elemento([lista_modales.armas_naturales]);
+    cambiar_mostrado([lista_modales.armas_naturales]);
 };
 // El boton especial del modal armas naturales debe desplegar el modal armas marciales
 lista_modales.armas_naturales.btn_especial.evento_click = () => {
-    mostrar_elemento([lista_modales.armas_marciales]);
+    cambiar_mostrado([lista_modales.armas_marciales]);
 };
 // Los botones del modal avatares deben cambiar al personaje seleccionado.
 lista_modales.avatares.btn_grales
@@ -126,10 +117,6 @@ lista_modales.avatares.btn_grales
             if (lista_modales.avatares.mostrar)
                 lista_modales.avatares.btn_cerrar.elemento.click();
             else lista_modales.esbirros.btn_cerrar.elemento.click();
-            // ocultar_elementos([lista_modales.avatares, lista_modales.esbirros]);
-
-            // Cambia a modo "jugar".
-            // cambiar_modo();
         };
     });
 // Los botones del modal armas marciales y armas naturales deben cambiar el arma en el slot seleccionado del personaje seleccionado.
@@ -153,13 +140,6 @@ lista_modales.armas_marciales.btn_grales
             if (lista_modales.armas_marciales.mostrar)
                 lista_modales.armas_marciales.btn_cerrar.elemento.click();
             else lista_modales.armas_naturales.btn_cerrar.elemento.click();
-            // ocultar_elementos([
-            //     lista_modales.armas_marciales,
-            //     lista_modales.armas_naturales,
-            // ]);
-
-            // Cambia a modo "jugar".
-            // cambiar_modo();
         };
     });
 // Los botones del modal de equipamiento cambian un slot de equipamiento del personaje seleccionado.
@@ -191,8 +171,6 @@ lista_modales.esbirros.btn_especial.evento_click = () => {
 lista_modales.equipos.btn_especial.evento_click = () => {
     const pers_actual = obtener_personaje(); // Obtiene el personaje actual
     pers_actual.pers.conf_equipamiento(obtener_slot_equipo(), "nada"); // Configura el equipamiento del personaje actual a "nada" para el espacio de equipamiento seleccionado
-    // ocultar_elementos([lista_modales.equipos]); // Oculta el modal de equipamiento
-    // cambiar_modo("jugar"); // Cambia el modo del juego a "jugar"
     lista_modales.equipos.btn_cerrar.elemento.click(); // Oculta el modal y cambia a modo "jugar".
     mostrar_personaje(pers_actual.pers); // Muestra la información actualizada del personaje
 };
@@ -204,19 +182,20 @@ ELEMENTOS.portada_btn.evento_click = () => {
     if (obtener_modo() === "editar") {
         // Si se trata de un esbirro, despliega el modal de esbirros.
         if (obtener_personaje().i > 0)
-            mostrar_elemento([lista_modales.esbirros]);
+            cambiar_mostrado([lista_modales.esbirros]);
         // De lo contrario despliega el modal avatares.
-        else mostrar_elemento([lista_modales.avatares]);
+        else cambiar_mostrado([lista_modales.avatares]);
     }
     // De lo contrario.
     else {
         // Si se trata de un esbirro, muestra los botones de direccionales.
         if (obtener_personaje().i > 0 && !ELEMENTOS.izquierda_btn.mostrar) {
-            mostrar_elemento([ELEMENTOS.izquierda_btn, ELEMENTOS.derecha_btn]);
+            cambiar_mostrado([ELEMENTOS.izquierda_btn, ELEMENTOS.derecha_btn]);
         }
         // Los oculta.
         else {
-            ocultar_elementos([ELEMENTOS.izquierda_btn, ELEMENTOS.derecha_btn]);
+            ELEMENTOS.izquierda_btn.mostrar_ocultar(false);
+            ELEMENTOS.derecha_btn.mostrar_ocultar(false);
         }
     }
 };
@@ -229,7 +208,7 @@ ELEMENTOS.exp_btn.evento_click = () => {
         // Condicionar formulario
         condicionar_formulario(formulario, pers_actual.pers, "exp");
         // Mostrar formulario
-        mostrar_elemento([formulario]);
+        cambiar_mostrado([formulario]);
     }
     // De lo contrario muestra la experiencia actual.
     else contenido_consola(`Experiencia: ${obtener_exp()}`);
@@ -244,7 +223,7 @@ ELEMENTOS.nombre_btn.evento_click = () => {
     // Si esta en modo "editar" condiciona el formulario para cambio de nombre de personaje.
     if (obtener_modo() === "editar") {
         condicionar_formulario(formulario, pers_actual.pers, "nombre"); // Condiciona el formulario.
-        mostrar_elemento([formulario]); // Muestra el formulario.
+        cambiar_mostrado([formulario]); // Muestra el formulario.
     }
     // De lo contrario muestra la descripción del personaje.
     else {
@@ -262,7 +241,7 @@ ELEMENTOS.consola_btn.evento_click = () => {
     if (obtener_modo() === "editar") {
         const pers_actual = obtener_personaje(); // Obtiene el personaje actual.
         condicionar_formulario(formulario, pers_actual.pers, "comando"); // Condiciona el formulario.
-        mostrar_elemento([formulario]); // Muestra el formulario.
+        cambiar_mostrado([formulario]); // Muestra el formulario.
     }
     // De lo contrario limpia consola.
     else limpiar_consola(true);
@@ -285,7 +264,7 @@ for (const atributo in atributos_simple) {
                 atributo,
                 true
             ); // Condiciona para edición de atributos simple.
-            mostrar_elemento([ELEMENTOS.cnt_arriba_abajo]); // Muestra los direccionales arriba y abajo.
+            cambiar_mostrado([ELEMENTOS.cnt_arriba_abajo]); // Muestra los direccionales arriba y abajo.
             mostrar_atributo(pers_actual.pers, atributo); // Muestra el valor del atributo simple.
         }
         // Caso contrario, si esta en modo jugar y se trata de los atributos vida y poder (vida_actual, poder_actual).
@@ -298,12 +277,12 @@ for (const atributo in atributos_simple) {
                 atributo,
                 false
             ); // Condiciona para edición de vida_actual y poder_actual.
-            mostrar_elemento([ELEMENTOS.cnt_arriba_abajo]); // Muestra los direccionales arriba y abajo.
+            cambiar_mostrado([ELEMENTOS.cnt_arriba_abajo]); // Muestra los direccionales arriba y abajo.
             mostrar_atributo_actual(pers_actual.pers, atributo); // Muestra el valor de vida_actual y poder_actual.
         }
         // De lo contrario oculta los direccionales arriba y abajo.
         else {
-            ocultar_elementos([ELEMENTOS.cnt_arriba_abajo]); // Oculta los direccionales arriba y abajo.
+            ELEMENTOS.cnt_arriba_abajo.mostrar_ocultar(false); // Oculta los direccionales arriba y abajo.
             mostrar_atributo(pers_actual.pers, atributo); // Muestra el valor del atributo simple.
         }
     };
@@ -317,7 +296,7 @@ for (let i = 1; i <= 3; i++) {
 
         // Si esta en modo "editar" muestra el modal de equipamiento.
         if (obtener_modo() === "editar")
-            mostrar_elemento([lista_modales.equipos]);
+            cambiar_mostrado([lista_modales.equipos]);
         // De lo contrario muestra la descripción del slot.
         else
             contenido_consola(
@@ -336,7 +315,7 @@ for (let i = 1; i <= 3; i++) {
                 "habilidad",
                 i
             );
-            mostrar_elemento([formulario]);
+            cambiar_mostrado([formulario]);
         }
         // De lo contrario muestra la descripción de la habilidad.
         else {
@@ -351,7 +330,7 @@ for (let i = 1; i <= 2; i++) {
         boton.evento_click = () => {
             // Si esta en modo "editar" muestra el modal armas marciales.
             if (obtener_modo() === "editar") {
-                mostrar_elemento([lista_modales.armas_marciales]); // Muestra el modal.
+                cambiar_mostrado([lista_modales.armas_marciales]); // Muestra el modal.
                 slot_arma = i; // Cambia el slot de arma seleccionada.
             }
             // De lo contrario muestra la descripción del arma.
