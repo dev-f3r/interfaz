@@ -90,7 +90,6 @@ export function obtener_modo() {
 }
 /**
  * Cambia el modo de la interfaz.
- * @param {string} modo - Modo de la interfaz.
  * @param {string} especificar - Seleccionar un modo especifico.
  * @param {boolean} limpiar - Limpiar la consola y el UI.
  */

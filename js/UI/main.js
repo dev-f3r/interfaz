@@ -211,11 +211,11 @@ ELEMENTOS.exp_btn.evento_click = () => {
         cambiar_mostrado([formulario]);
     }
     // De lo contrario muestra la experiencia actual.
-    else contenido_consola(`Experiencia: ${obtener_exp()}`);
+    else contenido_consola(`Experiencia: ${obtener_exp()}`, true);
 };
 // Evento btn editar
 ELEMENTOS.editar_btn.evento_click = () => {
-    cambiar_modo();
+    cambiar_modo("", true);
 };
 // Evento btn nombre
 ELEMENTOS.nombre_btn.evento_click = () => {
@@ -227,13 +227,13 @@ ELEMENTOS.nombre_btn.evento_click = () => {
     }
     // De lo contrario muestra la descripción del personaje.
     else {
-        contenido_consola(obtener_personaje().pers.descripcion); // Cambia el contenido de la consola.
+        contenido_consola(obtener_personaje().pers.descripcion, true); // Cambia el contenido de la consola.
     }
 };
 // Evento esbirro
 ELEMENTOS.esbirros_btn.evento_click = () => {
     mostrar_esbirros(obtener_personaje().i);
-    cambiar_modo("jugar");
+    cambiar_modo("jugar", true);
 };
 // Evento consola.
 ELEMENTOS.consola_btn.evento_click = () => {
@@ -264,8 +264,8 @@ for (const atributo in atributos_simple) {
                 atributo,
                 true
             ); // Condiciona para edición de atributos simple.
-            cambiar_mostrado([ELEMENTOS.cnt_arriba_abajo]); // Muestra los direccionales arriba y abajo.
             mostrar_atributo(pers_actual.pers, atributo); // Muestra el valor del atributo simple.
+            cambiar_mostrado([ELEMENTOS.cnt_arriba_abajo]); // Muestra los direccionales arriba y abajo.
         }
         // Caso contrario, si esta en modo jugar y se trata de los atributos vida y poder (vida_actual, poder_actual).
         else if (
@@ -300,7 +300,8 @@ for (let i = 1; i <= 3; i++) {
         // De lo contrario muestra la descripción del slot.
         else
             contenido_consola(
-                obtener_personaje().pers[`equipo${i}`].descripcion
+                obtener_personaje().pers[`equipo${i}`].descripcion,
+                true
             );
     };
 
@@ -319,7 +320,10 @@ for (let i = 1; i <= 3; i++) {
         }
         // De lo contrario muestra la descripción de la habilidad.
         else {
-            contenido_consola(pers_actual.pers[`habilidad${i}`].descripcion);
+            contenido_consola(
+                pers_actual.pers[`habilidad${i}`].descripcion,
+                true
+            );
         }
     };
 }
@@ -336,7 +340,8 @@ for (let i = 1; i <= 2; i++) {
             // De lo contrario muestra la descripción del arma.
             else
                 contenido_consola(
-                    obtener_personaje().pers[`arma${i}`].descripcion
+                    obtener_personaje().pers[`arma${i}`].descripcion,
+                    true
                 );
         };
     });

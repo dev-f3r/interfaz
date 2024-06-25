@@ -210,10 +210,12 @@ export function mostrar_personaje(personaje, cambiar_consola = false) {
 /**
  * Cambia el contenido de la consola.
  * @param {string} texto - El nuevo texto.
+ * @param {boolean} limpiar - Opción para limpiar el UI.
  */
-export function contenido_consola(texto) {
+export function contenido_consola(texto, limpiar = false) {
     // Convierte a string y capitaliza la primera letra.
     consolaBtn.innerHTML = cap_primera(String(texto));
+    if(limpiar) limpiar_UI();
 }
 
 /**
@@ -342,7 +344,7 @@ export function cambiar_habilidad(nombre) {
  */
 export function mostrar_atributo(personaje, atributo) {
     const valor = personaje.ttal_atributo(atributo);
-    contenido_consola(`${cap_primera(atributo)}: ${valor}`);
+    contenido_consola(`${cap_primera(atributo)}: ${valor}`, true);
 }
 
 /**
