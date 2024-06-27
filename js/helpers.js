@@ -1,4 +1,12 @@
 /**
+ * Genera un numero aleatorio entre 1 y 20.
+ * @returns {number} El numero aleatorio.
+ */
+export function dado() {
+    return Math.ceil(Math.random() * 20 + 0);
+}
+
+/**
  * Contiene el costo de experiencia de cada atributo.
  * @type {Object}
  * @const
