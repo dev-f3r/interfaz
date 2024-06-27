@@ -373,7 +373,7 @@ export class Modal extends ElementoHTML {
             mostrar: true,
             ruta_icono: "img/cerrar.png",
             evento_click: () => {
-                this.mostrar_ocultar();
+                // this.mostrar_ocultar();
                 Modal.evento_btn_cerrar();
             },
         });
@@ -738,3 +738,5 @@ export class Formulario extends ElementoHTML {
         this._input.type = nuevo;
     }
 }
+
+// TODO: Modal mochila
