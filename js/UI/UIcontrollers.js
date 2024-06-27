@@ -463,8 +463,8 @@ export function condicionar_accion({
     }
 
     ELEMENTOS.accion_btn.evento_click = () => {
-        limpiar_UI()
-        evento()
+        limpiar_UI();
+        evento();
     };
 }
 
@@ -476,6 +476,7 @@ function cambiar_btn_accion(txt) {
     ELEMENTOS.accion_btn.elemento.children[0].textContent = txt.toUpperCase();
 }
 
+// TODO: Completar acción con arma y habilidad.
 /**
  * Realiza una accion combinada con un arma y una habilidad.
  * @param {Personaje} pers - El personaje actual.
@@ -486,6 +487,7 @@ export function accion_full(pers, s_arma, s_habilidad) {
     console.log(s_arma, s_habilidad);
 }
 
+// TODO: Completar accion con arma.
 /**
  * Realiza una accion con un arma.
  * @param {Personaje} pers - El personaje actual.
@@ -500,12 +502,22 @@ export function accion_arma(pers, s_arma) {
  * @param {Personaje} pers - El personaje actual.
  * @param {string} atributo - El atributo seleccionado.
  */
+/**
+ * Realiza una acción con un atributo.
+ * @param {Personaje} pers - El personaje actual.
+ * @param {string} atributo - El atributo seleccionado.
+ */
 export function accion_atributo(pers, atributo) {
-    // console.log(`accion atributo ${atributo}`);
+    // Obtiene el valor del dado.
     const val_dado = dado();
+
+    // Inicializa el texto que se mostrará en la consola.
     let text = "";
+
+    // Crea un objeto con los parámetros necesarios para evaluar el dado.
     const params = { val_dado, val_obj: pers.atributos[atributo] };
 
+    // Evalúa el resultado del dado según el atributo seleccionado.
     switch (atributo) {
         case "ataque":
             text = evaluar_dado({
@@ -540,9 +552,8 @@ export function accion_atributo(pers, atributo) {
             break;
     }
 
-    // console.log(text);
+    // Muestra el texto en la consola.
     contenido_consola(text);
-    // TODO: Mostrar mensaje
 }
 
 /**
