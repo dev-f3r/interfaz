@@ -10,7 +10,7 @@ import {
 } from "./inicializador.js";
 import ElementoHTML, { Formulario } from "./UImodels.js";
 
-import { cap_primera, quitar_acentos } from "./../helpers.js";
+import { cap_primera, dado, quitar_acentos } from "./../helpers.js";
 
 import Personaje from "../personajes/personajesModelos.js";
 import { coleccion_personajes } from "../colecciones/coleccionPersonajes.js";
@@ -24,7 +24,7 @@ import {
     obtener_personaje,
     personajes,
 } from "../juego.js";
-import { formulario, lista_modales } from "./UIhelpers.js";
+// import { accion_arma, accion_atributo, accion_full } from "./../personajes/personajesUtils.js";
 
 /**
  * Contiene el elemento que se esta mostrando.
@@ -215,7 +215,7 @@ export function mostrar_personaje(personaje, cambiar_consola = false) {
 export function contenido_consola(texto, limpiar = false) {
     // Convierte a string y capitaliza la primera letra.
     consolaBtn.innerHTML = cap_primera(String(texto));
-    if(limpiar) limpiar_UI();
+    if (limpiar) limpiar_UI();
 }
 
 /**
@@ -406,4 +406,165 @@ export function crear_nuevo_pj(personaje, opcion) {
     modificar_exp(200, true); // Reemplaza el exp por 200.
     mostrar_personaje(personaje, false); // Muestra los cambios.
     cambiar_modo("jugar", true); // Cambia a modo "jugar".
+}
+
+/**
+ * Condiciona el boton de acción.
+ * @param {Object} pars - El objeto con los parametros de la función.
+ * @param {Personaje} pars.pers - El personaje actual.
+ * @param {Number} pars.s_arma - El slot de el arma seleccionada.
+ * @param {Number} pars.s_habilidad - El slot de el habilidad seleccionada.
+ * @param {string} pars.atributo - El nombre del atributo seleccionado.
+ */
+export function condicionar_accion({
+    pers,
+    objeto,
+    s_arma,
+    s_habilidad,
+    atributo,
+}) {
+    cambiar_btn_accion("atacar");
+
+    let evento = () => {};
+
+    switch (objeto) {
+        case "atributo":
+            switch (atributo) {
+                case "ataque":
+                    cambiar_btn_accion("atacar");
+                    break;
+                case "esquiva":
+                    cambiar_btn_accion("esquivar");
+                    break;
+                case "bloqueo":
+                    cambiar_btn_accion("bloquear");
+                    break;
+                case "velocidad":
+                    cambiar_btn_accion("correr");
+                    break;
+                default:
+                    cambiar_btn_accion("accion");
+                    break;
+            }
+
+            evento = () => accion_atributo(pers, atributo);
+
+            break;
+        case "arma":
+            // Condicionar para armas.
+            evento = () => accion_arma(pers, s_arma);
+            break;
+        case "habilidad":
+            // Condicionar para habilidad.
+            evento = () => accion_full(pers, s_arma, s_habilidad);
+            break;
+        default:
+            break;
+    }
+
+    ELEMENTOS.accion_btn.evento_click = () => {
+        limpiar_UI()
+        evento()
+    };
+}
+
+/**
+ * Cambia el texto del boton acción.
+ * @param {string} txt - El nuevo texto.
+ */
+function cambiar_btn_accion(txt) {
+    ELEMENTOS.accion_btn.elemento.children[0].textContent = txt.toUpperCase();
+}
+
+/**
+ * Realiza una accion combinada con un arma y una habilidad.
+ * @param {Personaje} pers - El personaje actual.
+ * @param {number} s_arma - El slot del arma seleccionada.
+ * @param {number} s_habilidad - El slot del habilidad seleccionada.
+ */
+export function accion_full(pers, s_arma, s_habilidad) {
+    console.log(s_arma, s_habilidad);
+}
+
+/**
+ * Realiza una accion con un arma.
+ * @param {Personaje} pers - El personaje actual.
+ * @param {number} s_arma - El slot del arma seleccionada.
+ */
+export function accion_arma(pers, s_arma) {
+    console.log(s_arma);
+}
+
+/**
+ * Realiza una acción con un atributo.
+ * @param {Personaje} pers - El personaje actual.
+ * @param {string} atributo - El atributo seleccionado.
+ */
+export function accion_atributo(pers, atributo) {
+    // console.log(`accion atributo ${atributo}`);
+    const val_dado = dado();
+    let text = "";
+    const params = { val_dado, val_obj: pers.atributos[atributo] };
+
+    switch (atributo) {
+        case "ataque":
+            text = evaluar_dado({
+                header: "Ataque limpio",
+                ...params,
+                tail: "Daño base",
+            });
+            break;
+        case "esquiva":
+            text = evaluar_dado({
+                header: "Esquiva",
+                ...params,
+            });
+            break;
+        case "bloqueo":
+            text = evaluar_dado({
+                header: "Bloqueo",
+                ...params,
+            });
+            break;
+        case "velocidad":
+            text = evaluar_dado({
+                header: "Corre",
+                ...params,
+            });
+            break;
+        default:
+            text = evaluar_dado({
+                header: "Tirada limpia",
+                ...params,
+            });
+            break;
+    }
+
+    // console.log(text);
+    contenido_consola(text);
+    // TODO: Mostrar mensaje
+}
+
+/**
+ * Evalúa el resultado de un dado y devuelve un mensaje formateado.
+ *
+ * @param {object} params - Objeto con los parámetros necesarios.
+ * @param {string} params.header - Texto que se muestra antes del resultado del dado.
+ * @param {number} params.val_dado - Valor obtenido en la tirada del dado.
+ * @param {number} params.val_obj - Valor del objeto relacionado con la tirada.
+ * @param {string} [params.tail] - Texto que se muestra después del resultado del dado.
+ *
+ * @returns {string} Mensaje formateado con el resultado de la tirada.
+ */
+function evaluar_dado({ header, val_dado, val_obj, tail }) {
+    // Critico.
+    if (val_dado === 20)
+        return `${header}<br>¡CRITICO!<br>${
+            tail ? tail + Math.floor(val_obj) * 2 : ""
+        }`;
+    // Errada.
+    else if (val_dado === 1)
+        return `${header}<br>¡PIFIA!<br>${tail ? tail + " 0" : ""}`;
+    // Basico.
+    else return `${header}<br>${val_dado + val_obj}`;
 }

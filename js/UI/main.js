@@ -1,4 +1,4 @@
-import ElementoHTML, { Modal } from "./UImodels.js";
+import { Modal } from "./UImodels.js";
 import { ELEMENTOS, MAIN } from "./inicializador.js";
 import { lista_modales, formulario } from "./UIhelpers.js";
 import {
@@ -20,6 +20,8 @@ import {
     mostrar_esbirros,
     mostrar_personaje,
     navegar_esbirros,
+    limpiar_UI,
+    condicionar_accion,
 } from "./UIcontrollers.js";
 import { atributos_simple } from "../helpers.js";
 
@@ -38,6 +40,27 @@ let slot_arma = 1;
  */
 let slot_equipo = 1;
 
+/**
+ * Slot de la habilidad seleccionada
+ * @type {number}
+ * @var
+ */
+let slot_habilidad = 1;
+
+/**
+ * Atributo seleccionado
+ * @type {string}
+ * @var
+ */
+let atributo_seleccionado = "ataque";
+
+/**
+ * Objeto accion seleccionado. (arma, equipo, habilidad, atributo)
+ * @type {string}
+ * @var
+ */
+let objeto_accion = "arma";
+
 // * HELPERS.
 /**
  * Obtiene el slot de la arma seleccionada.
@@ -55,6 +78,30 @@ export function obtener_slot_equipo() {
     return slot_equipo;
 }
 
+/**
+ * Obtiene el slot de la habilidad seleccionada.
+ * @returns {number} Slot de la habilidad seleccionada.
+ */
+export function obtener_slot_habilidad() {
+    return slot_habilidad;
+}
+
+/**
+ * Obtiene el atributo seleccionado.
+ * @returns {string} Atributo seleccionado.
+ */
+export function obtener_atributo_seleccionado() {
+    return atributo_seleccionado;
+}
+
+/**
+ * Obtiene el objeto accion seleccionado.
+ * @returns {string} Objeto accion seleccionado.
+ */
+export function obtener_objeto_accion() {
+    return objeto_accion;
+}
+
 // * AGREGADO DE ELEMENTOS.
 // Agrega los modales al main.
 for (const modal in lista_modales) {
@@ -68,6 +115,7 @@ MAIN.appendChild(formulario.elemento);
 ELEMENTOS.exp_txt.tipo_display = "flex";
 // Agrega el cambio de modo al boton cerrar de cada modal
 Modal.evento_btn_cerrar = () => {
+    limpiar_UI();
     cambiar_modo("jugar");
 };
 // El contenedor de direccionales arriba/abajo por default tiene display="flex".
@@ -257,6 +305,12 @@ for (const atributo in atributos_simple) {
     ELEMENTOS[`${atributo}_btn`].evento_click = () => {
         const pers_actual = obtener_personaje(); // Obtiene el personaje actual.
 
+        condicionar_accion({
+            pers: pers_actual.pers,
+            objeto: "atributo",
+            atributo,
+        });
+
         // Si esta en modo "editar" muestra los direccionales arriba y abajo.
         if (obtener_modo() === "editar") {
             condicionar_direccionales_arriba_abajo(
@@ -307,7 +361,18 @@ for (let i = 1; i <= 3; i++) {
 
     // Evento habilidades
     ELEMENTOS[`habilidad${i}_btn`].evento_click = () => {
+        // Cambia el slot de habilidad seleccionada.
+        slot_habilidad = i;
+
         const pers_actual = obtener_personaje();
+
+        condicionar_accion({
+            pers: pers_actual.pers,
+            objeto: "habilidad",
+            s_arma: obtener_slot_arma(),
+            s_habilidad: i,
+        });
+
         // Si esta en modo "editar" condiciona el formulario para cambio de habilidad.
         if (obtener_modo() === "editar") {
             condicionar_formulario(
@@ -327,11 +392,24 @@ for (let i = 1; i <= 3; i++) {
         }
     };
 }
+
 // TODO: Evento accion
+// ELEMENTOS.accion_btn.evento_click = () => {
+//     const pers_actual = obtener_personaje();
+//     pers_actual.pers.accion();
+// };
+
 // Evento btns armas
 for (let i = 1; i <= 2; i++) {
     ELEMENTOS[`arma${i}_btn`].forEach((boton) => {
         boton.evento_click = () => {
+            const pers_actual = obtener_personaje();
+
+            condicionar_accion({
+                pers: pers_actual.pers,
+                objeto: "arma",
+                s_arma: obtener_slot_arma(),
+            });
             // Si esta en modo "editar" muestra el modal armas marciales.
             if (obtener_modo() === "editar") {
                 cambiar_mostrado([lista_modales.armas_marciales]); // Muestra el modal.
