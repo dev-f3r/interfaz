@@ -24,6 +24,7 @@ import {
     obtener_personaje,
     personajes,
 } from "../juego.js";
+import Arma from "../personajes/armasModelos.js";
 // import { accion_arma, accion_atributo, accion_full } from "./../personajes/personajesUtils.js";
 
 /**
@@ -487,14 +488,26 @@ export function accion_full(pers, s_arma, s_habilidad) {
     console.log(s_arma, s_habilidad);
 }
 
-// TODO: Completar accion con arma.
 /**
  * Realiza una accion con un arma.
  * @param {Personaje} pers - El personaje actual.
  * @param {number} s_arma - El slot del arma seleccionada.
  */
 export function accion_arma(pers, s_arma) {
-    console.log(s_arma);
+    const val_dado = dado();
+    /**
+     * @type {Arma}
+     */
+    const arma = pers[`arma${s_arma}`];
+
+    let text = evaluar_dado({
+        header: `Ataque con ${arma.nombre}`,
+        val_dado,
+        val_obj: arma.danno + pers.atributos.ataque,
+        tail: "Daño base",
+    });
+
+    contenido_consola(text);
 }
 
 /**
@@ -571,11 +584,14 @@ function evaluar_dado({ header, val_dado, val_obj, tail }) {
     // Critico.
     if (val_dado === 20)
         return `${header}<br>¡CRITICO!<br>${
-            tail ? tail + Math.floor(val_obj) * 2 : ""
+            tail ? `${tail} ${Math.floor(val_obj * 2)}` : ""
         }`;
     // Errada.
     else if (val_dado === 1)
         return `${header}<br>¡PIFIA!<br>${tail ? tail + " 0" : ""}`;
     // Basico.
-    else return `${header}<br>${val_dado + val_obj}`;
+    else
+        return `${header}<br>${val_dado + val_obj}<br>${
+            tail ? `${tail} ${Math.floor(val_obj)}` : ""
+        }`;
 }
