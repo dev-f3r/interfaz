@@ -318,7 +318,7 @@ for (const atributo in atributos_simple) {
                 atributo,
                 true
             ); // Condiciona para edición de atributos simple.
-            mostrar_atributo(pers_actual.pers, atributo); // Muestra el valor del atributo simple.
+            mostrar_atributo(pers_actual.pers, atributo, true); // Muestra el valor del atributo simple.
             cambiar_mostrado([ELEMENTOS.cnt_arriba_abajo]); // Muestra los direccionales arriba y abajo.
         }
         // Caso contrario, si esta en modo jugar y se trata de los atributos vida y poder (vida_actual, poder_actual).
@@ -336,8 +336,8 @@ for (const atributo in atributos_simple) {
         }
         // De lo contrario oculta los direccionales arriba y abajo.
         else {
-            ELEMENTOS.cnt_arriba_abajo.mostrar_ocultar(false); // Oculta los direccionales arriba y abajo.
-            mostrar_atributo(pers_actual.pers, atributo); // Muestra el valor del atributo simple.
+            // ELEMENTOS.cnt_arriba_abajo.mostrar_ocultar(false); // Oculta los direccionales arriba y abajo.
+            mostrar_atributo(pers_actual.pers, atributo, true); // Muestra el valor del atributo simple.
         }
     };
 }

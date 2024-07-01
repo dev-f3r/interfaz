@@ -108,9 +108,9 @@ export function condicionar_direccionales_arriba_abajo(
 
     // Funcion general para condicionar los direccionales.
     const general = () => {
-        mostrar_personaje(personaje);
+        mostrar_personaje(personaje, false);
         modo
-            ? mostrar_atributo(personaje, atributo)
+            ? mostrar_atributo(personaje, atributo, false)
             : mostrar_atributo_actual(personaje, atributo);
     };
 
@@ -127,8 +127,8 @@ export function condicionar_direccionales_arriba_abajo(
 
         general();
 
-        // Si la operación resulto fallida, significa que no hubo exp suficiente.
-        if (!salida) contenido_consola("Experiencia insuficiente.");
+        // Si la operación resulto fallida y es modo "full", significa que no hubo exp suficiente.
+        if (!salida && modo) contenido_consola("Experiencia insuficiente.");
     };
     // Evento direccional abajo
     const evento_abajo = () => {
@@ -342,10 +342,11 @@ export function cambiar_habilidad(nombre) {
  * Muestra el valor de un atributo.
  * @param {Personaje} personaje - El personaje actual.
  * @param {string} atributo - El nombre del atributo a mostrar.
+ * @param {boolean} limpiar - Indica si se debe limpiar la consola.
  */
-export function mostrar_atributo(personaje, atributo) {
+export function mostrar_atributo(personaje, atributo, limpiar = false) {
     const valor = personaje.ttal_atributo(atributo);
-    contenido_consola(`${cap_primera(atributo)}: ${valor}`, true);
+    contenido_consola(`${cap_primera(atributo)}: ${valor}`, limpiar);
 }
 
 /**
