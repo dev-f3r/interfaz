@@ -215,16 +215,17 @@ export default class Personaje extends EntidadBase {
      * Incrementa o decrementa el valor de la vida o poder actual.
      * @param {string} atributo - El nombre del atributo.
      * @param {boolean} accion - `true` para incrementar, `false` para decrementar.
+     * @param {number} monto - El monto total a decrementar/incrementar.
      */
-    modificar_atributo_actual = (atributo, accion) => {
+    modificar_atributo_actual = (atributo, accion, monto = 1) => {
         const val_atri = this.atributos[`${atributo}_actual`];
 
         // Incremento.
         if (accion && val_atri < this.ttal_atributo(atributo))
-            this.atributos[`${atributo}_actual`]++;
+            this.atributos[`${atributo}_actual`] += monto;
         // Decremento
         else if (!accion && val_atri > 0)
-            this.atributos[`${atributo}_actual`]--;
+            this.atributos[`${atributo}_actual`] -= monto;
     };
 
     /**

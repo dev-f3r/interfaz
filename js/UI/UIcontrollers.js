@@ -508,9 +508,12 @@ export function accion_full(pers, s_arma, s_habilidad) {
 
         // Si el arma es mecanomagica se reduce el poder.
         if (arma.tipo === "mecanomagica") {
-            pers.modificar_atributo_actual("poder", false);
-            mostrar_personaje(pers, false);
+            pers.modificar_atributo_actual("poder", false, arma.coste);
         }
+
+        // Decrementa el poder en base al coste de la habilidad
+        pers.modificar_atributo_actual("poder", false, habilidad.coste)
+        mostrar_personaje(pers, false);
     }
 }
 
@@ -537,7 +540,7 @@ export function accion_arma(pers, s_arma) {
 
     // Si el arma es mecanomagica se reduce el poder.
     if (arma.tipo === "mecanomagica") {
-        pers.modificar_atributo_actual("poder", false);
+        pers.modificar_atributo_actual("poder", false, arma.coste);
         mostrar_personaje(pers, false);
     }
 }
@@ -591,6 +594,8 @@ export function accion_atributo(pers, atributo) {
             });
             break;
     }
+
+    
 
     // Muestra el texto en la consola.
     contenido_consola(text);
