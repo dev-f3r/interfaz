@@ -27,4 +27,15 @@ export default class Habilidad extends EntidadBase {
     actualizar = (nueva) => {
         Object.assign(this, nueva);
     };
+
+    get coste() {
+        return this._coste;
+    }
+    /**
+     * Cambia el coste de la habilidad.
+     * @param {number} valor - El nuevo valor del coste.
+     */
+    set coste(valor) {
+        this._coste = valor;
+    }
 }

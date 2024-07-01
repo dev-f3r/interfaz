@@ -6,6 +6,18 @@ import { EntidadBase } from "../helpers.js";
  */
 export default class Arma extends EntidadBase {
     /**
+     * @type {number}
+     */
+    _danno;
+    /**
+     * @type {string}
+     */
+    _tipo;
+    /**
+     * @type {number}
+     */
+    _coste;
+    /**
      * Constructor de la clase Arma.
      * @constructor
      * @param {Object} props - El objeto con las propiedades del arma.
@@ -19,9 +31,13 @@ export default class Arma extends EntidadBase {
         icono = "img/nada.png",
         danno = 0,
         descripcion = "sin descripción.",
+        tipo = "",
+        coste = 0,
     }) {
         super({ nombre, icono, descripcion });
-        this.danno = danno;
+        this._danno = danno;
+        this._tipo = tipo;
+        this._coste = coste;
     }
 
     // ! Reescribo el metodo
@@ -33,5 +49,32 @@ export default class Arma extends EntidadBase {
         Object.assign(this, nueva);
     };
 
-    ataquar = () => console.log("Ataque con arma");
+    get tipo() {
+        return this._tipo;
+    }
+    get danno() {
+        return this._danno;
+    }
+    get coste() {
+        return this._coste;
+    }
+
+    /**
+     * @param {string} tipo - El tipo del arma.
+     */
+    set tipo(tipo) {
+        this._tipo = tipo;
+    }
+    /**
+     * @param {number} danno - El multiplicador de daño del arma.
+     */
+    set danno(danno) {
+        this._danno = danno;
+    }
+    /**
+     * @param {number} coste - El coste del arma.
+     */
+    set coste(coste) {
+        this._coste = coste;
+    }
 }

@@ -25,6 +25,7 @@ import {
     personajes,
 } from "../juego.js";
 import Arma from "../personajes/armasModelos.js";
+import Habilidad from "../personajes/habilidadesModelo.js";
 // import { accion_arma, accion_atributo, accion_full } from "./../personajes/personajesUtils.js";
 
 /**
@@ -485,7 +486,33 @@ function cambiar_btn_accion(txt) {
  * @param {number} s_habilidad - El slot del habilidad seleccionada.
  */
 export function accion_full(pers, s_arma, s_habilidad) {
-    console.log(s_arma, s_habilidad);
+    const val_dado = dado();
+    /**
+     * @type {Arma}
+     */
+    const arma = pers[`arma${s_arma}`];
+    /**
+     * @type {Habilidad}
+     */
+    const habilidad = pers[`habilidad${s_habilidad}`];
+    if (pers.atributos.poder_actual < habilidad.coste) {
+        contenido_consola("Poder insuficiente.");
+    } else {
+        let text = evaluar_dado({
+            header: `Lanzas ${habilidad.nombre} con ${arma.nombre}`,
+            val_dado,
+            val_obj: arma.danno * habilidad.coste * pers.atributos.ataque,
+            tail: "Daño base",
+        });
+
+        contenido_consola(text);
+
+        // Si el arma es mecanomagica se reduce el poder.
+        if (arma.tipo === "mecanomagica") {
+            pers.modificar_atributo_actual("poder", false);
+            mostrar_personaje(pers, false);
+        }
+    }
 }
 
 /**
@@ -508,13 +535,14 @@ export function accion_arma(pers, s_arma) {
     });
 
     contenido_consola(text);
+
+    // Si el arma es mecanomagica se reduce el poder.
+    if (arma.tipo === "mecanomagica") {
+        pers.modificar_atributo_actual("poder", false);
+        mostrar_personaje(pers, false);
+    }
 }
 
-/**
- * Realiza una acción con un atributo.
- * @param {Personaje} pers - El personaje actual.
- * @param {string} atributo - El atributo seleccionado.
- */
 /**
  * Realiza una acción con un atributo.
  * @param {Personaje} pers - El personaje actual.
