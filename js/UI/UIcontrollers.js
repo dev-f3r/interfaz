@@ -10,7 +10,12 @@ import {
 } from "./inicializador.js";
 import ElementoHTML, { Formulario } from "./UImodels.js";
 
-import { cap_primera, dado, quitar_acentos } from "./../helpers.js";
+import {
+    atributos_simple,
+    cap_primera,
+    dado,
+    quitar_acentos,
+} from "./../helpers.js";
 
 import Personaje from "../personajes/personajesModelos.js";
 import { coleccion_personajes } from "../colecciones/coleccionPersonajes.js";
@@ -512,7 +517,7 @@ export function accion_full(pers, s_arma, s_habilidad) {
         }
 
         // Decrementa el poder en base al coste de la habilidad
-        pers.modificar_atributo_actual("poder", false, habilidad.coste)
+        pers.modificar_atributo_actual("poder", false, habilidad.coste);
         mostrar_personaje(pers, false);
     }
 }
@@ -595,8 +600,6 @@ export function accion_atributo(pers, atributo) {
             break;
     }
 
-    
-
     // Muestra el texto en la consola.
     contenido_consola(text);
 }
@@ -626,4 +629,82 @@ function evaluar_dado({ header, val_dado, val_obj, tail }) {
         return `${header}<br>${val_dado + val_obj}<br>${
             tail ? `${tail} ${Math.floor(val_obj)}` : ""
         }`;
+}
+
+/**
+ * Señala un elemento
+ * @param {HTMLElement} elemento - El elemento a señalar.
+ */
+function señalar(elemento) {
+    elemento.style.textDecoration = "underline";
+}
+
+/**
+ * Quita la seña de un elemento.
+ * @param {HTMLElement} elemento - El elemento a eliminar el señal.
+ */
+function eliminar_seña(elemento) {
+    elemento.style.textDecoration = "none";
+}
+
+/**
+ * Señala el atributo seleccionado.
+ * @param {string} nombre - El nombre del atributo.
+ * @param {boolean} eliminar - Opción para ocultar todas las señas.
+ */
+export function señalar_atributo(nombre, eliminar = false) {
+    for (const atributo in atributos_simple) {
+        /**
+         * @type {ElementoHTML}
+         */
+        const elemento =
+            ELEMENTOS[`${atributo}_btn`].elemento.children[1].children[0];
+
+        if (eliminar) eliminar_seña(elemento);
+        else {
+            if (atributo === nombre) señalar(elemento);
+            else eliminar_seña(elemento);
+        }
+    }
+}
+
+/**
+ * Señala la arma seleccionada.
+ * @param {number} slot - El slot de la arma.
+ * @param {boolean} eliminar - Opción para ocultar todas las señas.
+}
+ */
+export function señalar_arma(slot, eliminar = false) {
+    for (let i = 1; i <= 2; i++) {
+        /**
+         * @type {ElementoHTML}
+         */
+        const elemento = ELEMENTOS[`arma${i}_btn`][1].elemento.children[0];
+
+        if (eliminar) eliminar_seña(elemento);
+        else {
+            if (i === slot) señalar(elemento);
+            else eliminar_seña(elemento);
+        }
+    }
+}
+
+/**
+ * Señala la habilidad seleccionada.
+ * @param {number} slot - El slot de la habilidad.
+ * @param {boolean} eliminar - Opción para ocultar todas las señas.
+ */
+export function señalar_habilidad(slot, eliminar = false) {
+    for (let i = 1; i <= 3; i++) {
+        /**
+         * @type {ElementoHTML}
+         */
+        const elemento = ELEMENTOS[`habilidad${i}_btn`].elemento.children[0];
+
+        if (eliminar) eliminar_seña(elemento);
+        else {
+            if (i === slot) señalar(elemento);
+            else eliminar_seña(elemento);
+        }
+    }
 }

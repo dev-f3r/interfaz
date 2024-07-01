@@ -22,6 +22,9 @@ import {
     navegar_esbirros,
     limpiar_UI,
     condicionar_accion,
+    señalar_arma,
+    señalar_atributo,
+    señalar_habilidad,
 } from "./UIcontrollers.js";
 import { atributos_simple } from "../helpers.js";
 
@@ -47,20 +50,6 @@ let slot_equipo = 1;
  */
 let slot_habilidad = 1;
 
-/**
- * Atributo seleccionado
- * @type {string}
- * @var
- */
-let atributo_seleccionado = "ataque";
-
-/**
- * Objeto accion seleccionado. (arma, equipo, habilidad, atributo)
- * @type {string}
- * @var
- */
-let objeto_accion = "arma";
-
 // * HELPERS.
 /**
  * Obtiene el slot de la arma seleccionada.
@@ -84,22 +73,6 @@ export function obtener_slot_equipo() {
  */
 export function obtener_slot_habilidad() {
     return slot_habilidad;
-}
-
-/**
- * Obtiene el atributo seleccionado.
- * @returns {string} Atributo seleccionado.
- */
-export function obtener_atributo_seleccionado() {
-    return atributo_seleccionado;
-}
-
-/**
- * Obtiene el objeto accion seleccionado.
- * @returns {string} Objeto accion seleccionado.
- */
-export function obtener_objeto_accion() {
-    return objeto_accion;
 }
 
 // * AGREGADO DE ELEMENTOS.
@@ -303,6 +276,12 @@ ELEMENTOS.derecha_btn.evento_click = () =>
 // Evento atributos.
 for (const atributo in atributos_simple) {
     ELEMENTOS[`${atributo}_btn`].evento_click = () => {
+        // TODO: Señalar atributo.
+        señalar_atributo(atributo, false);
+        // TODO: Eliminar seña de arma y habilidad.
+        señalar_arma(1, true);
+        señalar_habilidad(1, true);
+
         const pers_actual = obtener_personaje(); // Obtiene el personaje actual.
 
         condicionar_accion({
@@ -363,6 +342,10 @@ for (let i = 1; i <= 3; i++) {
     ELEMENTOS[`habilidad${i}_btn`].evento_click = () => {
         // Cambia el slot de habilidad seleccionada.
         slot_habilidad = i;
+        // TODO: Señalar habilidad.
+        señalar_habilidad(i, false);
+        // TODO: Eliminar seña de atributo.
+        señalar_atributo("ataque", true);
 
         const pers_actual = obtener_personaje();
 
@@ -399,6 +382,12 @@ for (let i = 1; i <= 3; i++) {
 for (let i = 1; i <= 2; i++) {
     ELEMENTOS[`arma${i}_btn`].forEach((boton) => {
         boton.evento_click = () => {
+            // TODO: Señalar arma.
+            señalar_arma(i, false);
+            // TODO: Eliminar seña de atributo.
+            señalar_atributo("ataque", true);
+            señalar_habilidad(1, true);
+
             const pers_actual = obtener_personaje();
 
             condicionar_accion({
