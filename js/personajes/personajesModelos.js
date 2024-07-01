@@ -236,11 +236,6 @@ export default class Personaje extends EntidadBase {
         this.atributos.poder_actual = this.ttal_atributo("poder");
     };
 
-    // TODO: Metodo para ataquar
-    ataquar = (objeto, slot = 1) => {
-        console.log(objeto, slot);
-    };
-
     get arma1() {
         return this._arma1;
     }

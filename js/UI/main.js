@@ -393,11 +393,7 @@ for (let i = 1; i <= 3; i++) {
     };
 }
 
-// TODO: Evento accion
-// ELEMENTOS.accion_btn.evento_click = () => {
-//     const pers_actual = obtener_personaje();
-//     pers_actual.pers.accion();
-// };
+// Evento accion.
 
 // Evento btns armas
 for (let i = 1; i <= 2; i++) {

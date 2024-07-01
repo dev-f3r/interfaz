@@ -50,7 +50,6 @@ export function cambiar_mostrado(list_ocultos) {
     }
 }
 
-// TODO: Reemplazar todas las llamadas del metodo `mostrar_ocultar` por esta función.
 /**
  * Oculta los elementos que se estan mostrando.
  */
@@ -478,7 +477,6 @@ function cambiar_btn_accion(txt) {
     ELEMENTOS.accion_btn.elemento.children[0].textContent = txt.toUpperCase();
 }
 
-// TODO: Completar acción con arma y habilidad.
 /**
  * Realiza una accion combinada con un arma y una habilidad.
  * @param {Personaje} pers - El personaje actual.
