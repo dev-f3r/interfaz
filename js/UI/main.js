@@ -342,19 +342,21 @@ for (let i = 1; i <= 3; i++) {
     ELEMENTOS[`habilidad${i}_btn`].evento_click = () => {
         // Cambia el slot de habilidad seleccionada.
         slot_habilidad = i;
-        // TODO: Señalar habilidad.
+
+        // Señala la habilidad.
         señalar_habilidad(i, false);
-        // TODO: Eliminar seña de atributo.
+
+        // Elimina la seña del los atributos.
         señalar_atributo("ataque", true);
 
-        const pers_actual = obtener_personaje();
+        const pers_actual = obtener_personaje(); // Obtiene el personaje actual.
 
         condicionar_accion({
             pers: pers_actual.pers,
             objeto: "habilidad",
             s_arma: obtener_slot_arma(),
             s_habilidad: i,
-        });
+        }); // Condiciona el boton acción.
 
         // Si esta en modo "editar" condiciona el formulario para cambio de habilidad.
         if (obtener_modo() === "editar") {
@@ -382,19 +384,23 @@ for (let i = 1; i <= 3; i++) {
 for (let i = 1; i <= 2; i++) {
     ELEMENTOS[`arma${i}_btn`].forEach((boton) => {
         boton.evento_click = () => {
-            // TODO: Señalar arma.
-            señalar_arma(i, false);
-            // TODO: Eliminar seña de atributo.
+            slot_arma = i; // Guarda el slot del arma seleccionada.
+
+            // Señala el arma
+            señalar_arma(obtener_slot_arma(), false);
+
+            // Elimina la señas de los atributos y habilidades.
             señalar_atributo("ataque", true);
             señalar_habilidad(1, true);
 
-            const pers_actual = obtener_personaje();
+            const pers_actual = obtener_personaje(); // Obtiene el personaje actual.
 
             condicionar_accion({
                 pers: pers_actual.pers,
                 objeto: "arma",
                 s_arma: obtener_slot_arma(),
-            });
+            }); // Condiciona el boton acción.
+
             // Si esta en modo "editar" muestra el modal armas marciales.
             if (obtener_modo() === "editar") {
                 cambiar_mostrado([lista_modales.armas_marciales]); // Muestra el modal.

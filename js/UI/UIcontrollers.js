@@ -220,7 +220,7 @@ export function mostrar_personaje(personaje, cambiar_consola = false) {
  */
 export function contenido_consola(texto, limpiar = false) {
     // Convierte a string y capitaliza la primera letra.
-    consolaBtn.innerHTML = cap_primera(String(texto));
+    consolaBtn.innerHTML = String(texto);
     if (limpiar) limpiar_UI();
 }
 
@@ -503,7 +503,9 @@ export function accion_full(pers, s_arma, s_habilidad) {
         contenido_consola("Poder insuficiente.");
     } else {
         let text = evaluar_dado({
-            header: `Lanzas ${habilidad.nombre} con ${arma.nombre}`,
+            header: `Lanzas ${cap_primera(habilidad.nombre)} con ${cap_primera(
+                arma.nombre
+            )}`,
             val_dado,
             val_obj: arma.danno * habilidad.coste * pers.atributos.ataque,
             tail: "Daño base",
@@ -535,7 +537,7 @@ export function accion_arma(pers, s_arma) {
     const arma = pers[`arma${s_arma}`];
 
     let text = evaluar_dado({
-        header: `Ataque con ${arma.nombre}`,
+        header: `Ataque con ${cap_primera(arma.nombre)}`,
         val_dado,
         val_obj: arma.danno + pers.atributos.ataque,
         tail: "Daño base",
