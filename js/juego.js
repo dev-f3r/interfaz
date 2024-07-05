@@ -1,3 +1,4 @@
+import { cargar_estado_personajes } from "./main.js";
 import { Modelos } from "./personajes/main.js";
 const { Personaje } = Modelos;
 import { ELEMENTOS } from "./UI/inicializador.js";
@@ -7,47 +8,47 @@ import {
     mostrar_personaje,
 } from "./UI/UIcontrollers.js";
 
+function personajes_inciales() {
+    return [
+        new Personaje({
+            nombre: "bienvenido",
+            portada: "img/logo-meeple-combat.png",
+            descripcion: "consola",
+        }),
+        new Personaje({
+            nombre: "esbirro 1",
+        }),
+        new Personaje({
+            nombre: "esbirro 2",
+        }),
+        new Personaje({
+            nombre: "esbirro 3",
+        }),
+        new Personaje({
+            nombre: "esbirro 4",
+        }),
+        new Personaje({
+            nombre: "esbirro 5",
+        }),
+    ];
+}
+
 /**
  * Modo de la interfaz (`jugar` o `editar`).
  * @type {string}
  * @var
  */
 let UI_modo = "jugar";
+
+// TODO: Descomentar para implementar guardado.
+// const datos = cargar_estado_personajes();
+// export const personajes = datos.length > 0 ? datos : personajes_inciales();
 /**
  * Contiene todos las instancias de los personajes
  * @const {Personaje[]}
  */
-export const personajes = [
-    new Personaje({
-        nombre: "bienvenido",
-        portada: "img/logo-meeple-combat.png",
-        descripcion: "consola",
-    }),
-    new Personaje({
-        nombre: "esbirro 1",
-        atributos: {
-            ataque: 10,
-            esquiva: 10,
-            bloqueo: 12,
-            poder: 11,
-            vida: 12,
-            velocidad: 8,
-        },
-        descripcion: "lsadkjfañlskdfj",
-    }),
-    new Personaje({
-        nombre: "esbirro 2",
-    }),
-    new Personaje({
-        nombre: "esbirro 3",
-    }),
-    new Personaje({
-        nombre: "esbirro 4",
-    }),
-    new Personaje({
-        nombre: "esbirro 5",
-    }),
-];
+export const personajes = personajes_inciales();
+
 /**
  * Contiene la experiencia actual
  * @var {number}
