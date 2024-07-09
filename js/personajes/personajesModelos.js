@@ -2,6 +2,7 @@ import { contenido_consola } from "../UI/UIcontrollers.js";
 import {
     EntidadBase,
     cp_atr_full,
+    parsear_nombre_equipo,
     quitar_acentos,
     val_experiencia,
 } from "../helpers.js";
@@ -95,6 +96,11 @@ export default class Personaje extends EntidadBase {
         this.conf_arma(1, props.arma1);
         this.conf_arma(2, props.arma2);
 
+        // * Equipos
+        this.conf_equipamiento(1, props.equipo1);
+        this.conf_equipamiento(2, props.equipo2);
+        this.conf_equipamiento(3, props.equipo3);
+
         this.actualizar_atributos_actuales(); // Actualiza los atributos actuales.
     };
 
@@ -119,9 +125,11 @@ export default class Personaje extends EntidadBase {
      */
     conf_equipamiento = (slot, nombre) => {
         const nueva = colecciones.equipos[nombre]; // Obtiene el objeto nuevo.
-        this[`equipo${slot}`].actualizar(nueva); // Actualiza el slot de equipamiento correspondiente.
+        if (nueva) {
+            this[`equipo${slot}`].actualizar(nueva); // Actualiza el slot de equipamiento correspondiente.
 
-        this.actualizar_atributos_actuales(); // Actualiza los atributos actuales.
+            this.actualizar_atributos_actuales(); // Actualiza los atributos actuales.
+        }
     };
 
     /**
@@ -235,6 +243,28 @@ export default class Personaje extends EntidadBase {
         // Actualiza los atributos de vida y poder ACTUAL.
         this.atributos.vida_actual = this.ttal_atributo("vida");
         this.atributos.poder_actual = this.ttal_atributo("poder");
+    };
+
+    toJSON = () => {
+        return {
+            nombre: this.nombre,
+            portada: this.portada,
+            descripcion: this.descripcion,
+            ataque: this.atributos.ataque,
+            esquiva: this.atributos.esquiva,
+            bloqueo: this.atributos.bloqueo,
+            velocidad: this.atributos.velocidad,
+            vida: this.atributos.vida,
+            poder: this.atributos.poder,
+            arma1: this.arma1.nombre,
+            arma2: this.arma2.nombre,
+            equipo1: parsear_nombre_equipo(this.equipo1.nombre),
+            equipo2: parsear_nombre_equipo(this.equipo2.nombre),
+            equipo3: parsear_nombre_equipo(this.equipo3.nombre),
+            habilidad1: this.habilidad1.nombre,
+            habilidad2: this.habilidad2.nombre,
+            habilidad3: this.habilidad3.nombre,
+        };
     };
 
     get arma1() {

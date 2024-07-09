@@ -1,54 +1,60 @@
 import "./UI/main.js";
-import { personajes } from "./juego.js";
-import Personaje from "./personajes/personajesModelos.js";
+import { mochila, obtener_exp, personajes } from "./juego.js";
 
-// FIXME: Guardar unicamente los nombres de las armas, habilidades e items.
+// TODO: Asegurarce de guardar vida_actual y poder_actual.
 /**
- * Serializa un objeto para su posterior uso.
- * @param {Object} obj - El objeto a serializar.
- * @returns {Object} El objeto serializado.
+ * Guarda el estado actual de la lista de personajes y la experiencia.
  */
-function serializar_objeto(obj) {
-    const salida = {};
-
-    for (const key in obj) {
-        if (key.startsWith("_")) {
-            const key_serializada = key.slice(1);
-
-            if (typeof obj[key] === "object") {
-                if (key_serializada === "atributos") {
-                    salida[key_serializada] = obj[key];
-                } else salida[key_serializada] = serializar_objeto(obj[key]);
-            } else {
-                salida[key_serializada] = obj[key];
-            }
-        }
-    }
-
-    return salida;
-}
-
 function guardar_estado_personajes() {
-    const personajes_serializados = personajes.map((pers) =>
-        serializar_objeto(pers)
-    );
-    const JSON_personajes = JSON.stringify(personajes_serializados);
+    const JSON_personajes = JSON.stringify(personajes);
     localStorage.setItem("lista_personajes", JSON_personajes);
+    localStorage.setItem("exp", obtener_exp());
 }
 
-// FIXME: Usar el metodo para actualizar cada personaje.
+/**
+ * Guarda el estado actual de la mochila.
+ */
+function guardar_estado_mochila() {
+    const JSON_mochila = JSON.stringify(mochila);
+    localStorage.setItem("mochila", JSON_mochila);
+}
+
+/**
+ * Carga el estado actual de la lista de personajes y la experiencia.
+ * @returns {Object} El estado actual de la lista de personajes y la experiencia.
+ */
 export function cargar_estado_personajes() {
     const JSON_personajes = localStorage.getItem("lista_personajes");
 
     const lista_personajes = JSON.parse(JSON_personajes) || null;
 
     if (lista_personajes) {
-        return lista_personajes.map((pers) => new Personaje(pers));
+        return lista_personajes;
     }
 
-    return [];
+    return lista_personajes ? lista_personajes : [];
 }
 
+/**
+ * Carga el estado actual de la mochila.
+ * @returns {number} El estado actual de la mochila.
+ */
+export function cargar_estado_exp() {
+    const exp = localStorage.getItem("exp");
+    return exp ? Number(exp) : 0;
+}
+
+/**
+ * Carga el estado actual de la mochila.
+ * @returns {Object} El estado actual de la mochila.
+ */
+export function cargar_estado_mochila() {
+    const JSON_mochila = localStorage.getItem("mochila");
+    return JSON_mochila ? JSON.parse(JSON_mochila) : {};
+}
+
+// ? Guarda el estado del juego en localStorage cada 1.5 segundos.
 setInterval(() => {
     guardar_estado_personajes();
-}, 1000);
+    guardar_estado_mochila();
+}, 1500);

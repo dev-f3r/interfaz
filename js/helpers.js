@@ -1,4 +1,18 @@
 /**
+ *
+ * @param {string} nombre - El nombre a parsear.
+ */
+export function parsear_nombre_equipo(nombre) {
+    return nombre
+        .split(" ")
+        .map((nombre, index) => {
+            if (index === 0) return nombre.toLowerCase();
+            else return nombre;
+        })
+        .join("");
+}
+
+/**
  * Genera un numero aleatorio entre 1 y 20.
  * @returns {number} El numero aleatorio.
  */

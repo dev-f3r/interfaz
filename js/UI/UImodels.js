@@ -774,17 +774,16 @@ export class Mochila extends ElementoHTML {
     }) {
         super({ elemento: document.querySelector("#modalMochila") });
 
-        
         this._val_item1 = item1;
         this._val_item2 = item2;
         this._val_item3 = item3;
-        
+
         this._val_oro = oro;
         this._val_plata = plata;
         this._val_bronce = bronce;
-        
+
         this.desactivar_evento_click(); // Desactiva el evento del modal Mochila.
-        
+
         // Establece el evento click del boton cerrar.
         this._cerrar_btn.addEventListener("click", () => {
             this.mostrar_ocultar();
@@ -888,5 +887,16 @@ export class Mochila extends ElementoHTML {
         this._bronce_btn.addEventListener("click", () =>
             this.cambiar_monedas("bronce")
         );
+    };
+
+    toJSON = () => {
+        return {
+            item1: this._val_item1,
+            item2: this._val_item2,
+            item3: this._val_item3,
+            oro: this._val_oro,
+            plata: this._val_plata,
+            bronce: this._val_bronce,
+        };
     };
 }

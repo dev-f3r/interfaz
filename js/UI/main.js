@@ -293,9 +293,9 @@ ELEMENTOS.derecha_btn.evento_click = () =>
 // Evento atributos.
 for (const atributo in atributos_simple) {
     ELEMENTOS[`${atributo}_btn`].evento_click = () => {
-        // TODO: Señalar atributo.
+        // Señalar atributo.
         señalar_atributo(atributo, false);
-        // TODO: Eliminar seña de arma y habilidad.
+        // Eliminar seña de arma y habilidad.
         señalar_arma(1, true);
         señalar_habilidad(1, true);
 

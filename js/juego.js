@@ -1,4 +1,8 @@
-import { cargar_estado_personajes } from "./main.js";
+import {
+    cargar_estado_exp,
+    cargar_estado_mochila,
+    cargar_estado_personajes,
+} from "./main.js";
 import { Modelos } from "./personajes/main.js";
 const { Personaje } = Modelos;
 import { ELEMENTOS } from "./UI/inicializador.js";
@@ -9,31 +13,6 @@ import {
 } from "./UI/UIcontrollers.js";
 import { Mochila } from "./UI/UImodels.js";
 
-function personajes_inciales() {
-    return [
-        new Personaje({
-            nombre: "bienvenido",
-            portada: "img/logo-meeple-combat.png",
-            descripcion: "consola",
-        }),
-        new Personaje({
-            nombre: "esbirro 1",
-        }),
-        new Personaje({
-            nombre: "esbirro 2",
-        }),
-        new Personaje({
-            nombre: "esbirro 3",
-        }),
-        new Personaje({
-            nombre: "esbirro 4",
-        }),
-        new Personaje({
-            nombre: "esbirro 5",
-        }),
-    ];
-}
-
 /**
  * Modo de la interfaz (`jugar` o `editar`).
  * @type {string}
@@ -41,26 +20,54 @@ function personajes_inciales() {
  */
 let UI_modo = "jugar";
 
-// TODO: Descomentar para implementar guardado.
-// const datos = cargar_estado_personajes();
-// export const personajes = datos.length > 0 ? datos : personajes_inciales();
 /**
  * Contiene todos las instancias de los personajes
  * @const {Personaje[]}
  */
-export const personajes = personajes_inciales();
+export const personajes = [
+    new Personaje({
+        nombre: "bienvenido",
+        portada: "img/logo-meeple-combat.png",
+        descripcion: "consola",
+    }),
+    new Personaje({
+        nombre: "esbirro 1",
+    }),
+    new Personaje({
+        nombre: "esbirro 2",
+    }),
+    new Personaje({
+        nombre: "esbirro 3",
+    }),
+    new Personaje({
+        nombre: "esbirro 4",
+    }),
+    new Personaje({
+        nombre: "esbirro 5",
+    }),
+];
+
+const datos = cargar_estado_personajes(); // Carga los datos del localStorage.
+
+// Si existen actualiza la lista de personajes.
+if (datos.length > 0) {
+    for (let i = 0; i < personajes.length; i++) {
+        const personaje = personajes[i];
+        personaje.actualizar(datos[i]);
+    }
+}
 
 /**
  * Contiene la mochila del jugador.
  * @const {Mochila}
  */
-export const mochila = new Mochila({});
+export const mochila = new Mochila(cargar_estado_mochila());
 
 /**
  * Contiene la experiencia actual
  * @var {number}
  */
-let exp = 0;
+let exp = cargar_estado_exp();
 /**
  * Obtiene la experiencia actual.
  * @returns {number} Experiencia actual.

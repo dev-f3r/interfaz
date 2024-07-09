@@ -259,6 +259,7 @@ export function condicionar_formulario(form, personaje, modo, slot = 1) {
             // Función para modificar la experiencia.
             nueva_funcion = (valor) => modificar_exp(Number(valor));
             tipo = "number";
+            break;
         case "item":
             form.encabezado = "item";
             // Función para modificar los items de la mochila.
