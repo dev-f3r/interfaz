@@ -24,6 +24,7 @@ import { coleccion_habilidades } from "../colecciones/coleccionHabilidades.js";
 import {
     cambiar_modo,
     indice_personajes,
+    mochila,
     modificar_exp,
     obtener_exp,
     obtener_personaje,
@@ -258,6 +259,11 @@ export function condicionar_formulario(form, personaje, modo, slot = 1) {
             // Función para modificar la experiencia.
             nueva_funcion = (valor) => modificar_exp(Number(valor));
             tipo = "number";
+        case "item":
+            form.encabezado = "item";
+            // Función para modificar los items de la mochila.
+            nueva_funcion = (valor) => mochila.cambiar_item(valor, slot);
+            break;
         default:
             break;
     }
@@ -267,12 +273,11 @@ export function condicionar_formulario(form, personaje, modo, slot = 1) {
     form.funcion_ingreso = (str) => {
         nueva_funcion(str); // Ejecuta la nueva función de ingreso.
 
-        // ocultar_elementos([form]); // Oculta el modal.
-        form.mostrar_ocultar(false);
+        form.mostrar_ocultar(false); // Oculta el modal.
 
         mostrar_personaje(personaje); // Muestra los cambios en el personaje.
 
-        cambiar_modo(); // Cambia a modo "jugar".
+        cambiar_modo("jugar"); // Cambia a modo "jugar".
     };
 }
 

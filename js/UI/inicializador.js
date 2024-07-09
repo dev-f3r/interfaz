@@ -26,11 +26,33 @@ export const expBtn = document.querySelector("#experienciaBtn");
  * @const {HTMLElement}
  */
 export const expTxt = document.querySelector("#experienciaTxt");
+
+// ? Mochila
 /**
  * Contiene el botón que abre la mochila.
  * @const {HTMLButtonElement}
  */
 export const mochilaBtn = document.querySelector("#mochilaBtn");
+/**
+ * Contiene los botones de los items de la mochila.
+ * @const {HTMLButtonElement[]}
+ */
+export const mochilaItemsBtn = [1, 2, 3].map((i) =>
+    document.querySelector(`#item-mochila${i}`)
+);
+/**
+ * Contiene el botón que cierra la mochila.
+ * @const {HTMLButtonElement}
+ */
+export const mochilaBtnCerrar = document.querySelector("#cerrarModalMochila");
+/**
+ * Contiene los botones de las monedas de la mochila.
+ * @const {HTMLButtonElement[]}
+ */
+export const mochilaMonedasBtn = ["oro", "plata", "bronce"].map((name) =>
+    document.querySelector(`#${name}Btn`)
+);
+
 /**
  * Contiene el botón que muestra la lista de esbirros.
  * @const {HTMLButtonElement}

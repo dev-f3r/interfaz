@@ -7,6 +7,7 @@ import {
     limpiar_UI,
     mostrar_personaje,
 } from "./UI/UIcontrollers.js";
+import { Mochila } from "./UI/UImodels.js";
 
 function personajes_inciales() {
     return [
@@ -48,6 +49,12 @@ let UI_modo = "jugar";
  * @const {Personaje[]}
  */
 export const personajes = personajes_inciales();
+
+/**
+ * Contiene la mochila del jugador.
+ * @const {Mochila}
+ */
+export const mochila = new Mochila({});
 
 /**
  * Contiene la experiencia actual

@@ -3,6 +3,7 @@ import { ELEMENTOS, MAIN } from "./inicializador.js";
 import { lista_modales, formulario } from "./UIhelpers.js";
 import {
     cambiar_modo,
+    mochila,
     obtener_exp,
     obtener_modo,
     obtener_personaje,
@@ -84,6 +85,17 @@ for (const modal in lista_modales) {
 MAIN.appendChild(formulario.elemento);
 
 // * CONFIGURACIONES.
+// Establece el tipo de display del modal mochila.
+mochila.tipo_display = "grid";
+// Establece el evento click de los botones de la mochila.
+mochila.funcion_items_btn((i) => {
+    const pers_actual = obtener_personaje();
+    // Condiciona el formulario para ingreso de items mochila.
+    condicionar_formulario(formulario, pers_actual.pers, "item", i);
+    // Muestra el formulario.
+    cambiar_mostrado([formulario]);
+});
+
 // El indicador de experiencia tiene por default display="flex".
 ELEMENTOS.exp_txt.tipo_display = "flex";
 // Agrega el cambio de modo al boton cerrar de cada modal
@@ -197,6 +209,11 @@ lista_modales.equipos.btn_especial.evento_click = () => {
 };
 
 // * EVENTOS.
+// Eventos mochila.
+ELEMENTOS.mochila_btn.evento_click = () => {
+    cambiar_mostrado([mochila]); // Muestra la mochila.
+};
+
 // Evento portada
 ELEMENTOS.portada_btn.evento_click = () => {
     // Despliega el modal avatares si esta en modo "editar"

@@ -1,3 +1,9 @@
+import {
+    mochilaBtnCerrar,
+    mochilaItemsBtn,
+    mochilaMonedasBtn,
+} from "./inicializador.js";
+
 /**
  * Superclase que representa un elemento HTML.
  * @class
@@ -739,4 +745,148 @@ export class Formulario extends ElementoHTML {
     }
 }
 
-// TODO: Modal mochila
+export class Mochila extends ElementoHTML {
+    _val_item1 = "";
+    _val_item2 = "";
+    _val_item3 = "";
+
+    _val_oro = 0;
+    _val_plata = 0;
+    _val_bronce = 0;
+
+    _item1_btn = mochilaItemsBtn[0];
+    _item2_btn = mochilaItemsBtn[1];
+    _item3_btn = mochilaItemsBtn[2];
+
+    _oro_btn = mochilaMonedasBtn[0];
+    _plata_btn = mochilaMonedasBtn[1];
+    _bronce_btn = mochilaMonedasBtn[2];
+
+    _cerrar_btn = mochilaBtnCerrar;
+
+    constructor({
+        item1 = "",
+        item2 = "",
+        item3 = "",
+        oro = 0,
+        plata = 0,
+        bronce = 0,
+    }) {
+        super({ elemento: document.querySelector("#modalMochila") });
+
+        
+        this._val_item1 = item1;
+        this._val_item2 = item2;
+        this._val_item3 = item3;
+        
+        this._val_oro = oro;
+        this._val_plata = plata;
+        this._val_bronce = bronce;
+        
+        this.desactivar_evento_click(); // Desactiva el evento del modal Mochila.
+        
+        // Establece el evento click del boton cerrar.
+        this._cerrar_btn.addEventListener("click", () => {
+            this.mostrar_ocultar();
+        });
+
+        // Actualiza la información de la mochila mostrada.
+        this.actualizar_mochila();
+        // Establece los eventos click de los btns monedas.
+        this.funcion_defecto_monedas_btn();
+    }
+
+    /**
+     * Actualiza la información de la mochila mostrada.
+     */
+    actualizar_mochila = () => {
+        this._actualizar_items();
+        this._actualizar_monedas();
+    };
+
+    /**
+     * Actualiza la información de los items de la mochila mostrada.
+     */
+    _actualizar_items = () => {
+        this._item1_btn.textContent = this._val_item1;
+        this._item2_btn.textContent = this._val_item2;
+        this._item3_btn.textContent = this._val_item3;
+    };
+
+    /**
+     * Actualiza la información de las monedas de la mochila mostrada.
+     */
+    _actualizar_monedas = () => {
+        this._oro_btn.querySelector("#oroTxt").textContent = this._val_oro;
+        this._plata_btn.querySelector("#plataTxt").textContent =
+            this._val_plata;
+        this._bronce_btn.querySelector("#bronceTxt").textContent =
+            this._val_bronce;
+    };
+
+    /**
+     * Cambia el valor de un item de la mochila.
+     * @param {number} slot - El slot del item.
+     * @param {string} nuevo - El nuevo valor del item.
+     */
+    cambiar_item = (nuevo, slot) => {
+        this[`_val_item${slot}`] = nuevo;
+        this._actualizar_items();
+    };
+
+    /**
+     * Cambia el valor de una moneda de la mochila.
+     * @param {string} tipo - El tipo de moneda.
+     */
+    cambiar_monedas = (tipo) => {
+        switch (tipo) {
+            case "oro":
+                if (this._val_oro > 0) this._val_oro--;
+                break;
+            case "plata":
+                if (this._val_plata === 0 && this._val_oro > 0) {
+                    this._val_oro--;
+                    this._val_plata += 99;
+                } else if (this._val_plata > 0) {
+                    this._val_plata--;
+                }
+                break;
+            case "bronce":
+                if (this._val_bronce === 0 && this._val_plata > 0) {
+                    this._val_plata--;
+                    this._val_bronce += 99;
+                } else if (this._val_bronce > 0) {
+                    this._val_bronce--;
+                }
+                break;
+            default:
+                break;
+        }
+
+        this._actualizar_monedas();
+    };
+
+    /**
+     * Establece los eventos click de los btns monedas.
+     */
+    funcion_items_btn = (func) => {
+        for (let i = 1; i <= 3; i++) {
+            this[`_item${i}_btn`].addEventListener("click", () => func(i));
+        }
+    };
+
+    /**
+     * Establece los eventos click de los btns monedas.
+     */
+    funcion_defecto_monedas_btn = () => {
+        this._oro_btn.addEventListener("click", () =>
+            this.cambiar_monedas("oro")
+        );
+        this._plata_btn.addEventListener("click", () =>
+            this.cambiar_monedas("plata")
+        );
+        this._bronce_btn.addEventListener("click", () =>
+            this.cambiar_monedas("bronce")
+        );
+    };
+}
