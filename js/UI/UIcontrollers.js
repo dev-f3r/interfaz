@@ -405,7 +405,13 @@ export function comandos(comando = "") {
     }
     // Comando para cambiar la portada de un personaje por una imagen cualquiera.
     if (comando === ".imagen") input_imagen.click();
-    // TODO: Agregar el resto de comandos.
+
+    // TODO: Comando /full.
+    // TODO: Comando /reaload.
+    // TODO: Comando /reencarnar.
+    // TODO: Comando /loot.
+    // TODO: Comando /licantropo.
+    // TODO: Comando /version.
 }
 
 /**
