@@ -5,6 +5,13 @@ import ElementoHTML from "./UImodels.js";
 export const MAIN = document.querySelector("#main");
 ElementoHTML.padre = MAIN;
 
+/**
+ * Input para cambiar la portada de un personaje, por una imagen cualquiera.
+ * @type {HTMLInputElement}
+ * @constant
+ */
+export const input_imagen = document.querySelector("#cambioImagenBtn");
+
 // * Top
 /**
  * Contiene el botón que manipula el modo de juego.

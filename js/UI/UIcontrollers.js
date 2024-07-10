@@ -7,6 +7,7 @@ import {
     arma2Btn,
     habilidades_btn,
     ELEMENTOS,
+    input_imagen,
 } from "./inicializador.js";
 import ElementoHTML, { Formulario } from "./UImodels.js";
 
@@ -402,6 +403,9 @@ export function comandos(comando = "") {
             : "esbirros";
         cambiar_personaje(pers_actual.pers, comando, tipo);
     }
+    // Comando para cambiar la portada de un personaje por una imagen cualquiera.
+    if (comando === ".imagen") input_imagen.click();
+    // TODO: Agregar el resto de comandos.
 }
 
 /**

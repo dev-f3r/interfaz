@@ -1,5 +1,5 @@
 import { Modal } from "./UImodels.js";
-import { ELEMENTOS, MAIN } from "./inicializador.js";
+import { ELEMENTOS, MAIN, input_imagen } from "./inicializador.js";
 import { lista_modales, formulario } from "./UIhelpers.js";
 import {
     cambiar_modo,
@@ -76,6 +76,34 @@ export function obtener_slot_habilidad() {
     return slot_habilidad;
 }
 
+/**
+ * Maneja el cambio de imagen personalizado para un personaje.
+ * @param {Event} event - El evento que dispara el cambio de imagen (por ejemplo, un evento de cambio en un input de archivo).
+ * @param {Object} personaje - El objeto del personaje que se actualizará con la nueva imagen.
+ * @param {string} personaje.portada - La propiedad del objeto del personaje que contiene la URL de la imagen de portada.
+ */
+function cambio_imagen_personalizado(event, personaje) {
+    // Obtiene el input de archivo desde el evento
+    let input = event.target;
+
+    // Verifica si hay archivos seleccionados y si el primero de ellos existe
+    if (input.files && input.files[0]) {
+        // Crea una nueva instancia de FileReader
+        let reader = new FileReader();
+
+        // Define la función que se ejecutará cuando la lectura del archivo se complete
+        reader.onload = function (e) {
+            // Actualiza la propiedad 'portada' del objeto 'personaje' con el resultado de la lectura (URL de datos)
+            personaje.portada = e.target.result;
+            // Llama a la función 'mostrar_personaje' para actualizar la visualización del personaje con la nueva imagen
+            mostrar_personaje(personaje);
+        };
+
+        // Lee el archivo seleccionado como una URL de datos
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 // * AGREGADO DE ELEMENTOS.
 // Agrega los modales al main.
 for (const modal in lista_modales) {
@@ -85,6 +113,11 @@ for (const modal in lista_modales) {
 MAIN.appendChild(formulario.elemento);
 
 // * CONFIGURACIONES.
+// Configuración para el input de imagen.
+input_imagen.onchange = (event) => {
+    const pers = obtener_personaje();
+    cambio_imagen_personalizado(event, pers.pers);
+};
 // Establece el tipo de display del modal mochila.
 mochila.tipo_display = "grid";
 // Establece el evento click de los botones de la mochila.
