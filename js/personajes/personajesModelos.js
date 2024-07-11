@@ -267,6 +267,31 @@ export default class Personaje extends EntidadBase {
         };
     };
 
+    /**
+     * Reestaura todas las propiedades del personaje a exepción del nombre, descripción y portada.
+     * @param {string} nombre - El nombre del personaje.
+     * @param {string} descripcion - La descripción del personaje.
+     * @param {string} portada - La ruta de la portada del personaje "img/nada.png".
+     */
+    reestaurar = (nombre, descripcion = "sin descripción.", portada = "img/nada.png") => {
+        this._nombre = nombre;
+        this._descripcion = descripcion;
+        this._portada = portada;
+
+        this._atributos = cp_atr_full();
+
+        this._arma1 = new Arma({ nombre: "arma 1" });
+        this._arma2 = new Arma({ nombre: "arma 2" });
+
+        this._equipo1 = new Equipo({ nombre: "equipo 1" });
+        this._equipo2 = new Equipo({ nombre: "equipo 2" });
+        this._equipo3 = new Equipo({ nombre: "equipo 3" });
+
+        this._habilidad1 = new Habilidad({ nombre: "habilidad 1" });
+        this._habilidad2 = new Habilidad({ nombre: "habilidad 2" });
+        this._habilidad3 = new Habilidad({ nombre: "habilidad 3" });
+    };
+
     get arma1() {
         return this._arma1;
     }

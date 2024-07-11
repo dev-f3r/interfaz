@@ -32,18 +32,23 @@ export const personajes = [
     }),
     new Personaje({
         nombre: "esbirro 1",
+        portada: "img/e1.png",
     }),
     new Personaje({
         nombre: "esbirro 2",
+        portada: "img/e2.png",
     }),
     new Personaje({
         nombre: "esbirro 3",
+        portada: "img/e3.png",
     }),
     new Personaje({
         nombre: "esbirro 4",
+        portada: "img/e4.png",
     }),
     new Personaje({
         nombre: "esbirro 5",
+        portada: "img/e5.png",
     }),
 ];
 

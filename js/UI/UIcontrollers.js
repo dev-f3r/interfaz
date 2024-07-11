@@ -33,6 +33,7 @@ import {
 } from "../juego.js";
 import Arma from "../personajes/armasModelos.js";
 import Habilidad from "../personajes/habilidadesModelo.js";
+import { coleccion_equipos } from "../colecciones/coleccionEquipamiento.js";
 // import { accion_arma, accion_atributo, accion_full } from "./../personajes/personajesUtils.js";
 
 /**
@@ -390,7 +391,15 @@ export function limpiar_consola(cambio_modo = false) {
  * @param {string} comando - El comando a procesar.
  */
 export function comandos(comando = "") {
-    const pers_actual = obtener_personaje(); // Obtiene el personaje actual.
+    const personaje_actual = obtener_personaje();
+    /**
+     * @type {Personaje}
+     */
+    const pers_actual = personaje_actual.pers;
+    /**
+     * @type {number}
+     */
+    const indice_personaje_actual = personaje_actual.i;
 
     // Si el comando es el nombre de un personaje de la colección.
     // Realiza un cambio de personaje.
@@ -401,17 +410,72 @@ export function comandos(comando = "") {
         const tipo = coleccion_personajes.avatares[comando]
             ? "avatares"
             : "esbirros";
-        cambiar_personaje(pers_actual.pers, comando, tipo);
+        cambiar_personaje(pers_actual, comando, tipo);
     }
     // Comando para cambiar la portada de un personaje por una imagen cualquiera.
     if (comando === ".imagen") input_imagen.click();
+    // Rellena la vida y poder actual del personaje
+    if (comando === "/full") {
+        pers_actual.actualizar_atributos_actuales();
+        mostrar_personaje(pers_actual);
+    }
+    // Reestaura todos los personajes.
+    if (comando === "/reload") {
+        personajes.forEach((personaje, index) => {
+            if (index === 0)
+                personaje.reestaurar(
+                    "bienvenido",
+                    "consola",
+                    "img/logo-meeple-combat.png"
+                );
+            else
+                personaje.reestaurar(
+                    `esbirro ${index}`,
+                    "sin descripción.",
+                    `img/e${index}.png`
+                );
+        });
+    }
+    // Reencarna el personaje en otro de forma aleatoria.
+    if (comando === "/reencarnar") {
+        const lista_avatares = Object.keys(coleccion_personajes.avatares);
+        const lista_esbirros = Object.keys(coleccion_personajes.esbirros);
 
-    // TODO: Comando /full.
-    // TODO: Comando /reaload.
-    // TODO: Comando /reencarnar.
-    // TODO: Comando /loot.
-    // TODO: Comando /licantropo.
-    // TODO: Comando /version.
+        let indice_reencarnacion =
+            indice_personaje_actual === 0
+                ? Math.floor(Math.random() * lista_avatares.length)
+                : Math.floor(Math.random() * lista_esbirros.length);
+
+        let personaje_nuevo =
+            indice_personaje_actual === 0
+                ? lista_avatares[indice_reencarnacion]
+                : lista_esbirros[indice_reencarnacion];
+
+        cambiar_personaje(
+            pers_actual,
+            personaje_nuevo,
+            indice_personaje_actual === 0 ? "avatares" : "esbirros"
+        );
+    }
+    // Lotea de forma aleatoria un item de equipamiento.
+    if (comando === "/loot") {
+        const lista_equipos = Object.keys(coleccion_equipos);
+        const item =
+            lista_equipos[Math.floor(Math.random * lista_equipos.length)];
+
+        contenido_consola(`Loot = ${coleccion_equipos[item].nombre}`);
+    }
+    // Cambia las armas del personaje.
+    if (comando === "/licantropo") {
+        pers_actual.conf_arma(1, "mordisco");
+        pers_actual.conf_arma(2, "garras");
+
+        mostrar_personaje(pers_actual);
+    }
+    // Muestra la version del juego.
+    if (comando === "/version") {
+        contenido_consola("VERSION 2.5.0 A");
+    }
 }
 
 /**
